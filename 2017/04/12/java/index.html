@@ -16,7 +16,7 @@
 <meta property="og:image" content="https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/04/12/java/java_1.png">
 <meta property="og:image" content="https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/04/12/java/java_2.png">
 <meta property="og:image" content="https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/04/12/java/java_3.png">
-<meta property="og:updated_time" content="2017-04-12T09:40:26.000Z">
+<meta property="og:updated_time" content="2017-04-12T14:43:49.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="maven으로 remote서버 배포하기">
 <meta name="twitter:description" content="maven을 활용한 remote 서버 배포maven을 활용하여 로컬 개발환경 eclipse 또는 STS 환경에서 에서 remote로 원격배포가 가능하다.이런 경우는 대게 보안적으로 크게 신경쓰지않는 프로젝트나, 어떠한 이유에 의해서 jenkins와 같은 third party 배포 프레임웍을 사용하지않거나, 또는 팀단위가 아닌 개인이 간단하게 개발된것을 수시">
@@ -138,12 +138,12 @@
 
   <div class="content" itemprop="articleBody">
     <h2 id="maven을-활용한-remote-서버-배포"><a href="#maven을-활용한-remote-서버-배포" class="headerlink" title="maven을 활용한 remote 서버 배포"></a>maven을 활용한 remote 서버 배포</h2><p>maven을 활용하여 로컬 개발환경 eclipse 또는 STS 환경에서 에서 remote로 원격배포가 가능하다.<br>이런 경우는 대게 보안적으로 크게 신경쓰지않는 프로젝트나, 어떠한 이유에 의해서 jenkins와 같은 third party 배포 프레임웍을 사용하지않거나, 또는 팀단위가 아닌 개인이 간단하게 개발된것을 수시로 배포해야하는 상황이라면 적합하다고 생각한다.</p>
-<h2 id="maven-설치"><a href="#maven-설치" class="headerlink" title="maven 설치"></a>maven 설치</h2><p>먼저 배포하기에앞서, 시스템에 maven이 설치되어있어야한다.<br>maven을 설치해보자 <a href="http://maven.apache.org/download.cgi" target="_blank" rel="external">apache</a> 에서 쉽게 받을수있다.<br>3.5.0 버전이 최신버전임을 확인할수있다.( 저번주까지 3.3.9 버전이었는데 .. )<br>다운을 받았다면 이제 시스템에 환경변수를 등록하자.<br>필자는 OSX 를 사용하기에, 계정레벨 환경변수에 등록<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ vi ~/.bash_profile</div></pre></td></tr></table></figure></p>
+<h2 id="maven-설치"><a href="#maven-설치" class="headerlink" title="maven 설치"></a>maven 설치</h2><p>먼저 배포하기에앞서, 시스템에 maven이 설치되어있어야한다.<br>maven을 설치해보자 <a href="http://maven.apache.org/download.cgi" target="_blank" rel="external">apache</a> 에서 쉽게 받을수있다.<br>3.5.0 버전이 최신버전임을 확인할수있다.( 저번주까지 3.3.9 버전이었는데 .. )<br>다운을 받았다면 이제 시스템에 환경변수를 등록하자.<br>필자는 OSX 를 사용하기에, 계정레벨 환경변수에 등록했다<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ vi ~/.bash_profile</div></pre></td></tr></table></figure></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">export M3_HOME=/Users/jaehunpark/Documents/jaehunpark/utility/apache-maven-3.5.0</div><div class="line">export M3=$M3_HOME/bin</div><div class="line">export PATH=$PATH:$M3</div></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ source ~/.bash_profile</div></pre></td></tr></table></figure>
 <p>환경변수를 적용하였다면 maven 버전을 확인해보자<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ mvn -v</div></pre></td></tr></table></figure></p>
 <p>maven 버전이 확인이된다면 정상적으로 설치가 된것이다.<br><br><br></p>
-<h2 id="remote-서버-인증정보-설정"><a href="#remote-서버-인증정보-설정" class="headerlink" title="remote 서버 인증정보 설정"></a>remote 서버 인증정보 설정</h2><p>로컬 환경에서 원격 서버로 자유롭게 배포하기위해선, 원격서베에서 배포자의 인증정보가 존재해야한다.<br>tomcat의 디렉토리에서<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ vi conf/tomcat-users.xml</div></pre></td></tr></table></figure></p>
+<h2 id="remote-서버-인증정보-설정"><a href="#remote-서버-인증정보-설정" class="headerlink" title="remote 서버 인증정보 설정"></a>remote 서버 인증정보 설정</h2><p>로컬 환경에서 원격 서버로 자유롭게 배포하기위해선, 원격서버에서 배포자의 인증정보가 존재해야한다.<br>tomcat의 디렉토리에서<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ vi conf/tomcat-users.xml</div></pre></td></tr></table></figure></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&lt;role rolename=&quot;manager-script&quot;/&gt;</div><div class="line">&lt;user username=&quot;아이디&quot; password=&quot;비밀번호&quot; roles=&quot;manager-script&quot;/&gt;</div></pre></td></tr></table></figure>
 <p>를 입력하면 인증정보설정이 끝난것이다. 간단하지않은가 ?<br>이밖에도 여러 옵션이있지만,</p>
 <ul>
