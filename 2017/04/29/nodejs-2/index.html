@@ -13,7 +13,7 @@
 <meta property="og:url" content="https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/04/29/nodejs-2/index.html">
 <meta property="og:site_name" content="jaehunpark">
 <meta property="og:description" content="Promise와 ReactiveX필자는 nodejs 서버를 개발할때 주로 Promise 패턴을 사용한다.비동기 패턴중 상당히 유명한 async.js 도 널리사용하는듯하나, bluebird Promise 에서 async.js에서 지원하는 모든 함수들을 커버가가능하고, 가장 마음에드는 부분은 chain 형식으로 문법을 제공하여 Promise 패턴이 async">
-<meta property="og:updated_time" content="2017-04-30T03:44:49.000Z">
+<meta property="og:updated_time" content="2017-04-30T04:00:27.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Promise ReactiveX">
 <meta name="twitter:description" content="Promise와 ReactiveX필자는 nodejs 서버를 개발할때 주로 Promise 패턴을 사용한다.비동기 패턴중 상당히 유명한 async.js 도 널리사용하는듯하나, bluebird Promise 에서 async.js에서 지원하는 모든 함수들을 커버가가능하고, 가장 마음에드는 부분은 chain 형식으로 문법을 제공하여 Promise 패턴이 async">
@@ -136,8 +136,8 @@
     <h2 id="Promise와-ReactiveX"><a href="#Promise와-ReactiveX" class="headerlink" title="Promise와 ReactiveX"></a>Promise와 ReactiveX</h2><p>필자는 nodejs 서버를 개발할때 주로 Promise 패턴을 사용한다.<br>비동기 패턴중 상당히 유명한 async.js 도 널리사용하는듯하나, bluebird Promise 에서 async.js에서 지원하는 모든 함수들을 커버가가능하고, 가장 마음에드는 부분은 chain 형식으로 문법을 제공하여 Promise 패턴이 async 보다 코드 가독성이 좋다고 판단되서다.<br><a href="http://bluebirdjs.com/docs/api-reference.html" target="_blank" rel="external">bluebird official api</a><br>다른방식의 비동기 패턴을 써보고싶은마음에 우연히 발견한 ReacticeX 에대해서 소개해보고자 한다.<br><br><br></p>
 <h2 id="ReactiveX"><a href="#ReactiveX" class="headerlink" title="ReactiveX"></a>ReactiveX</h2><p>우선 ReactiveX 를 줄여서 rx 또는 observer 패턴이라고 표현을 많이들한다.<br>rx 는 Microsoft에서 개발되어 angular 2.0 에서 기본으로 탑재 되기도하였고 현재 많은 개발언어에서 third party library 로 반응형 프로그래밍(observable)을 사용할수있도록 자리를 잡은것 같다.<br>필자가 생각하는 ReactiveX 반응형 프로그래밍을 배우면 좋은점은 다음과같다.</p>
 <ul>
-<li>안드로이드 진영에서 MVP(Model, View, Presenter) 패턴내부적으로 ReactiveX(RxJava)로 개발할수있다.</li>
-<li>IOS 진영에서는 VIPER 패턴 내부적으로 ReactiveX(RxSwift)로 개발할수있다.</li>
+<li>안드로이드 진영에서 ReactiveX(RxJava)로 개발할수있다.</li>
+<li>IOS 진영에서 ReactiveX(RxSwift)로 개발할수있다.</li>
 <li>javascript 에서 rx.js 를 지원하므로 back-end(nodejs) 나front-end 에서 ReactiveX로 개발할수있다.</li>
 </ul>
 <p>결론은 ReactiveX 를통한 반응형 프로그래밍을 습득하게되면, 모든 플랫폼에 패턴을 통일시킬수 있다. nodejs 로 개발한 서버개발자가 ios 코드를 보게되더라도 패턴의 통일화로 어느정도 로직은 알아볼수있단 뜻이다. (물론 개발언어는 직접습득해야겠죠)<br>이것이 맞다 아니다를 판단하는게 아니라, 한가지 플랫폼에 종속받지않고 다양한 플랫폼을 넘나들면서 개발하는 개발자들은 ReactiveX를 배우면 좋겠다고 생각하여 의견을 적어본다.<br>본론으로 돌아가 필자는 nodejs 서버에 기존의 Promise로 적용된부분을 ReactiveX 로 수정하여 사용한 느낌을 적어보도록하겠다.<br><br><br></p>
