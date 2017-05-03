@@ -10,15 +10,15 @@
 <meta name="keywords" content="nginx">
 <meta property="og:type" content="article">
 <meta property="og:title" content="nginx ssl 적용하기">
-<meta property="og:url" content="https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/05/03/nginx-1/index.html">
+<meta property="og:url" content="https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/05/04/nginx-1/index.html">
 <meta property="og:site_name" content="jaehunpark">
 <meta property="og:description" content="nginx ssl이전 포스트 에서 nginx 를 사용하여 back-end server를 load balancing하는 법을 알아보았다.이번 포스트에서는 nginx 에서 https 443 port 를사용하기위해 ssl을 적용해보자. ssl 생성필자는 발급기관에서 발급한 인증서를 사용하지 않고 openssl로 개인이 생성한 인증서를 기반으로 nginx에 ssl">
-<meta property="og:image" content="https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/05/03/nginx-1/nginx-1_2.png">
-<meta property="og:updated_time" content="2017-05-03T15:35:30.000Z">
+<meta property="og:image" content="https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/05/04/nginx-1/nginx-1_2.png">
+<meta property="og:updated_time" content="2017-05-03T15:37:19.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="nginx ssl 적용하기">
 <meta name="twitter:description" content="nginx ssl이전 포스트 에서 nginx 를 사용하여 back-end server를 load balancing하는 법을 알아보았다.이번 포스트에서는 nginx 에서 https 443 port 를사용하기위해 ssl을 적용해보자. ssl 생성필자는 발급기관에서 발급한 인증서를 사용하지 않고 openssl로 개인이 생성한 인증서를 기반으로 nginx에 ssl">
-<meta name="twitter:image" content="https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/05/03/nginx-1/nginx-1_2.png">
+<meta name="twitter:image" content="https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/05/04/nginx-1/nginx-1_2.png">
     
     
         
@@ -82,16 +82,16 @@
     <br/>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/05/03/nginx-1/"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/05/03/nginx-1/&text=nginx ssl 적용하기"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/05/03/nginx-1/&title=nginx ssl 적용하기"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/05/03/nginx-1/&is_video=false&description=nginx ssl 적용하기"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=nginx ssl 적용하기&body=Check out this article: https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/05/03/nginx-1/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/05/03/nginx-1/&title=nginx ssl 적용하기"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/05/03/nginx-1/&title=nginx ssl 적용하기"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/05/03/nginx-1/&title=nginx ssl 적용하기"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/05/03/nginx-1/&title=nginx ssl 적용하기"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/05/03/nginx-1/&name=nginx ssl 적용하기&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/05/04/nginx-1/"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/05/04/nginx-1/&text=nginx ssl 적용하기"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/05/04/nginx-1/&title=nginx ssl 적용하기"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/05/04/nginx-1/&is_video=false&description=nginx ssl 적용하기"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=nginx ssl 적용하기&body=Check out this article: https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/05/04/nginx-1/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/05/04/nginx-1/&title=nginx ssl 적용하기"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/05/04/nginx-1/&title=nginx ssl 적용하기"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/05/04/nginx-1/&title=nginx ssl 적용하기"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/05/04/nginx-1/&title=nginx ssl 적용하기"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/05/04/nginx-1/&name=nginx ssl 적용하기&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -119,7 +119,7 @@
       </span>
       
     <div class="postdate">
-        <time datetime="2017-05-03T11:36:27.000Z" itemprop="datePublished">2017-05-03</time>
+        <time datetime="2017-05-04T11:36:27.000Z" itemprop="datePublished">2017-05-04</time>
     </div>
 
 
@@ -187,16 +187,16 @@
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/05/03/nginx-1/"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/05/03/nginx-1/&text=nginx ssl 적용하기"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/05/03/nginx-1/&title=nginx ssl 적용하기"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/05/03/nginx-1/&is_video=false&description=nginx ssl 적용하기"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=nginx ssl 적용하기&body=Check out this article: https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/05/03/nginx-1/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/05/03/nginx-1/&title=nginx ssl 적용하기"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/05/03/nginx-1/&title=nginx ssl 적용하기"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/05/03/nginx-1/&title=nginx ssl 적용하기"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/05/03/nginx-1/&title=nginx ssl 적용하기"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/05/03/nginx-1/&name=nginx ssl 적용하기&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/05/04/nginx-1/"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/05/04/nginx-1/&text=nginx ssl 적용하기"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/05/04/nginx-1/&title=nginx ssl 적용하기"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/05/04/nginx-1/&is_video=false&description=nginx ssl 적용하기"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=nginx ssl 적용하기&body=Check out this article: https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/05/04/nginx-1/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/05/04/nginx-1/&title=nginx ssl 적용하기"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/05/04/nginx-1/&title=nginx ssl 적용하기"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/05/04/nginx-1/&title=nginx ssl 적용하기"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/05/04/nginx-1/&title=nginx ssl 적용하기"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/05/04/nginx-1/&name=nginx ssl 적용하기&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
