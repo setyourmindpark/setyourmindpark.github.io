@@ -6,17 +6,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="서론필자는 아직도 java가 좀더 친숙한면이있다 . java의 꽃이라불리는 상속, 상속을 이용한 메서드 오버로딩(overloading), 그리고 메서드 오버라이딩(overriding) 을 javascript에서 어떻게 사용하는가에 대한 글을 적어보려한다 .필자도 javascript에 입문한지 얼마되지않았지만. 정리하며 익숙해지려 노력중이다 .javascri">
+    <meta name="description" content="서론필자는 아직도 java가 좀더 친숙한면이있다 . java의 꽃이라불리는 상속, 상속을 이용한 메서드 오버라이딩(overriding), 그리고 메서드 오버로딩(overloading) 을 javascript에서 어떻게 사용하는가에 대한 글을 적어보려한다 .필자도 javascript에 입문한지 얼마되지않았지만. 정리하며 익숙해지려 노력중이다 .javascri">
 <meta name="keywords" content="nodejs">
 <meta property="og:type" content="article">
 <meta property="og:title" content="compare java and javascript">
 <meta property="og:url" content="https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/05/14/nodejs-4/index.html">
 <meta property="og:site_name" content="jaehunpark">
-<meta property="og:description" content="서론필자는 아직도 java가 좀더 친숙한면이있다 . java의 꽃이라불리는 상속, 상속을 이용한 메서드 오버로딩(overloading), 그리고 메서드 오버라이딩(overriding) 을 javascript에서 어떻게 사용하는가에 대한 글을 적어보려한다 .필자도 javascript에 입문한지 얼마되지않았지만. 정리하며 익숙해지려 노력중이다 .javascri">
-<meta property="og:updated_time" content="2017-05-14T10:57:02.000Z">
+<meta property="og:description" content="서론필자는 아직도 java가 좀더 친숙한면이있다 . java의 꽃이라불리는 상속, 상속을 이용한 메서드 오버라이딩(overriding), 그리고 메서드 오버로딩(overloading) 을 javascript에서 어떻게 사용하는가에 대한 글을 적어보려한다 .필자도 javascript에 입문한지 얼마되지않았지만. 정리하며 익숙해지려 노력중이다 .javascri">
+<meta property="og:updated_time" content="2017-05-15T09:31:05.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="compare java and javascript">
-<meta name="twitter:description" content="서론필자는 아직도 java가 좀더 친숙한면이있다 . java의 꽃이라불리는 상속, 상속을 이용한 메서드 오버로딩(overloading), 그리고 메서드 오버라이딩(overriding) 을 javascript에서 어떻게 사용하는가에 대한 글을 적어보려한다 .필자도 javascript에 입문한지 얼마되지않았지만. 정리하며 익숙해지려 노력중이다 .javascri">
+<meta name="twitter:description" content="서론필자는 아직도 java가 좀더 친숙한면이있다 . java의 꽃이라불리는 상속, 상속을 이용한 메서드 오버라이딩(overriding), 그리고 메서드 오버로딩(overloading) 을 javascript에서 어떻게 사용하는가에 대한 글을 적어보려한다 .필자도 javascript에 입문한지 얼마되지않았지만. 정리하며 익숙해지려 노력중이다 .javascri">
     
     
         
@@ -133,7 +133,7 @@
   
 
   <div class="content" itemprop="articleBody">
-    <h2 id="서론"><a href="#서론" class="headerlink" title="서론"></a>서론</h2><p>필자는 아직도 java가 좀더 친숙한면이있다 . java의 꽃이라불리는 상속, 상속을 이용한 메서드 오버로딩(overloading), 그리고 메서드 오버라이딩(overriding) 을 javascript에서 어떻게 사용하는가에 대한 글을 적어보려한다 .<br>필자도 javascript에 입문한지 얼마되지않았지만. 정리하며 익숙해지려 노력중이다 .<br>javascript 만의 장점도 있지만, 자바의 객체지향( Object Oriented Programming  ) 이하 OOP는 검증된 디자인 패턴이므로 javascript 에서도 적용해본다 .<br>필자도 여러 블로거님들의 글을 참고하였으며. 하단의 [ 참고 ] 탭에서 필자가 참고한 사이트를 적어놓았으니 참고하면 좋을듯 하다 .<br><br><br></p>
+    <h2 id="서론"><a href="#서론" class="headerlink" title="서론"></a>서론</h2><p>필자는 아직도 java가 좀더 친숙한면이있다 . java의 꽃이라불리는 상속, 상속을 이용한 메서드 오버라이딩(overriding), 그리고 메서드 오버로딩(overloading) 을 javascript에서 어떻게 사용하는가에 대한 글을 적어보려한다 .<br>필자도 javascript에 입문한지 얼마되지않았지만. 정리하며 익숙해지려 노력중이다 .<br>javascript 만의 장점도 있지만, 자바의 객체지향( Object Oriented Programming  ) 이하 OOP는 검증된 디자인 패턴이므로 javascript 에서도 적용해본다 .<br>필자도 여러 블로거님들의 글을 참고하였으며. 하단의 [ 참고 ] 탭에서 필자가 참고한 사이트를 적어놓았으니 참고하면 좋을듯 하다 .<br><br><br></p>
 <h2 id="java-와-javascript"><a href="#java-와-javascript" class="headerlink" title="java 와 javascript"></a>java 와 javascript</h2><p>먼저 필자는 간단한 예제를 준비했다 .</p>
 <h3 id="java"><a href="#java" class="headerlink" title="java"></a>java</h3><h4 id="MyParent-java"><a href="#MyParent-java" class="headerlink" title="MyParent.java"></a>MyParent.java</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//부모클래스</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyParent</span> </span>&#123;</div><div class="line">	<span class="keyword">private</span> String myName = <span class="string">"chahyunpark"</span>;</div><div class="line">	<span class="keyword">private</span> String mySex = <span class="string">"남"</span>;</div><div class="line">	<span class="keyword">private</span> <span class="keyword">int</span> myAge = <span class="number">57</span>;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">myInfo</span><span class="params">()</span></span>&#123;</div><div class="line">		System.out.println(<span class="string">"myFather name : "</span> + <span class="keyword">this</span>.myName);</div><div class="line">		System.out.println(<span class="string">"myFather sex : "</span> + <span class="keyword">this</span>.mySex);</div><div class="line">		System.out.println(<span class="string">"myFather age : "</span> + <span class="keyword">this</span>.myAge);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p><br></p>
