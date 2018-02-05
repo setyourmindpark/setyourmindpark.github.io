@@ -1,162 +1,124 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html>
 <head>
-    <!-- so meta -->
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="HandheldFriendly" content="True">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="jenkins로 배포하기maven으로 remote서버 배포하기 를통해 로컬 개발머신에서 remote서버로 배포하는 법을 알아보았다.jenkins 가 준비되었다면, jenkins를 통하여 remote서버로 어떻게 배포하는지 알아보자. 플러그인설치필자는 빌드결과를 메일로 받고, remote 서버로 배포할것이기에 필요한 2개의 플러그인을 설치해보자.먼저 플러그인">
-<meta name="keywords" content="jenkins">
-<meta property="og:type" content="article">
-<meta property="og:title" content="jenkins로 배포하기 - java">
-<meta property="og:url" content="https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/04/14/jenkins-1/index.html">
-<meta property="og:site_name" content="jaehunpark">
-<meta property="og:description" content="jenkins로 배포하기maven으로 remote서버 배포하기 를통해 로컬 개발머신에서 remote서버로 배포하는 법을 알아보았다.jenkins 가 준비되었다면, jenkins를 통하여 remote서버로 어떻게 배포하는지 알아보자. 플러그인설치필자는 빌드결과를 메일로 받고, remote 서버로 배포할것이기에 필요한 2개의 플러그인을 설치해보자.먼저 플러그인">
-<meta property="og:image" content="https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/04/14/jenkins-1/jenkins-1_1.png">
-<meta property="og:image" content="https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/04/14/jenkins-1/jenkins-1_2.png">
-<meta property="og:image" content="https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/04/14/jenkins-1/jenkins-1_3.png">
-<meta property="og:image" content="https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/04/14/jenkins-1/jenkins-1_4.png">
-<meta property="og:image" content="https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/04/14/jenkins-1/jenkins-1_5.png">
-<meta property="og:image" content="https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/04/14/jenkins-1/jenkins-1_6.png">
-<meta property="og:image" content="https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/04/14/jenkins-1/jenkins-1_7.png">
-<meta property="og:image" content="https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/04/14/jenkins-1/jenkins-1_8.png">
-<meta property="og:image" content="https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/04/14/jenkins-1/jenkins-1_9.png">
-<meta property="og:image" content="https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/04/14/jenkins-1/jenkins-1_10.png">
-<meta property="og:image" content="https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/04/14/jenkins-1/jenkins-1_11.png">
-<meta property="og:image" content="https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/04/14/jenkins-1/jenkins-1_12.png">
-<meta property="og:image" content="https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/04/14/jenkins-1/jenkins-1_13.png">
-<meta property="og:image" content="https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/04/14/jenkins-1/jenkins-1_14.png">
-<meta property="og:image" content="https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/04/14/jenkins-1/jenkins-1_15.png">
-<meta property="og:image" content="https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/04/14/jenkins-1/jenkins-1_21.png">
-<meta property="og:image" content="https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/04/14/jenkins-1/jenkins-1_17.png">
-<meta property="og:image" content="https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/04/14/jenkins-1/jenkins-1_18.png">
-<meta property="og:image" content="https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/04/14/jenkins-1/jenkins-1_19.png">
-<meta property="og:image" content="https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/04/14/jenkins-1/jenkins-1_20.png">
-<meta property="og:updated_time" content="2017-04-23T14:01:14.000Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="jenkins로 배포하기 - java">
-<meta name="twitter:description" content="jenkins로 배포하기maven으로 remote서버 배포하기 를통해 로컬 개발머신에서 remote서버로 배포하는 법을 알아보았다.jenkins 가 준비되었다면, jenkins를 통하여 remote서버로 어떻게 배포하는지 알아보자. 플러그인설치필자는 빌드결과를 메일로 받고, remote 서버로 배포할것이기에 필요한 2개의 플러그인을 설치해보자.먼저 플러그인">
-<meta name="twitter:image" content="https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/04/14/jenkins-1/jenkins-1_1.png">
-    
-    
-        
-          
-              <link rel="shortcut icon" href="/images/favicon.ico">
-          
-        
-        
-          
-            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
-          
-        
-        
-          
-            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
-          
-        
-    
-    <!-- title -->
-    <title>jenkins로 배포하기 - java</title>
-    <!-- styles -->
-    <link rel="stylesheet" href="/css/style.css">
-    <!-- rss -->
-    
-    
-</head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>jenkins로 배포하기 - java | jaehunpark</title>
+  <meta name="author" content="jaehunpark">
+  
+  <meta name="description" content="jenkins로 배포하기maven으로 remote서버 배포하기 를통해 로컬 개발머신에서 remote서버로 배포하는 법을 알아보았다.jenkins 가 준비되었다면, jenkins를 통하여 remote서버로 어떻게 배포하는지 알아보자.
+플러그인설치필자는 빌드결과를 메일로 ">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-<body>
-    
-      <div id="header-post">
-  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
-  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
-  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
-  <span id="menu">
-    <span id="nav">
-      <ul>
-         
-          <li><a href="/">Home</a></li>
-         
-          <li><a href="https://github.com/setyourmindpark">About</a></li>
-         
-          <li><a href="/archives/">Writing</a></li>
-        
-      </ul>
-    </span>
-    <br/>
-    <span id="actions">
-      <ul>
-        
-        <li><a class="icon" href="/2017/04/16/docker-3/"><i class="fa fa-chevron-left" aria-hidden="true" onmouseover='$("#i-prev").toggle();' onmouseout='$("#i-prev").toggle();'></i></a></li>
-        
-        
-        <li><a class="icon" href="/2017/04/12/java/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover='$("#i-next").toggle();' onmouseout='$("#i-next").toggle();'></i></a></li>
-        
-        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover='$("#i-top").toggle();' onmouseout='$("#i-top").toggle();'></i></a></li>
-        <li><a class="icon" href="#"><i class="fa fa-share-alt" aria-hidden="true" onmouseover='$("#i-share").toggle();' onmouseout='$("#i-share").toggle();' onclick='$("#share").toggle();return false;'></i></a></li>
-      </ul>
-      <span id="i-prev" class="info" style="display:none;">Previous post</span>
-      <span id="i-next" class="info" style="display:none;">Next post</span>
-      <span id="i-top" class="info" style="display:none;">Back to top</span>
-      <span id="i-share" class="info" style="display:none;">Share post</span>
-    </span>
-    <br/>
-    <div id="share" style="display: none">
-      <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/04/14/jenkins-1/"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/04/14/jenkins-1/&text=jenkins로 배포하기 - java"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/04/14/jenkins-1/&title=jenkins로 배포하기 - java"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/04/14/jenkins-1/&is_video=false&description=jenkins로 배포하기 - java"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=jenkins로 배포하기 - java&body=Check out this article: https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/04/14/jenkins-1/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/04/14/jenkins-1/&title=jenkins로 배포하기 - java"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/04/14/jenkins-1/&title=jenkins로 배포하기 - java"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/04/14/jenkins-1/&title=jenkins로 배포하기 - java"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/04/14/jenkins-1/&title=jenkins로 배포하기 - java"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/04/14/jenkins-1/&name=jenkins로 배포하기 - java&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
-</ul>
+  <meta property="og:title" content="jenkins로 배포하기 - java"/>
+  <meta property="og:site_name" content="jaehunpark"/>
 
-    </div>
-    <div id="toc">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#jenkins로-배포하기"><span class="toc-number">1.</span> <span class="toc-text">jenkins로 배포하기</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#플러그인설치"><span class="toc-number">2.</span> <span class="toc-text">플러그인설치</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#git과-jenkins-연동"><span class="toc-number">3.</span> <span class="toc-text">git과 jenkins 연동</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#프로젝트-설정"><span class="toc-number">4.</span> <span class="toc-text">프로젝트 설정</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#견해"><span class="toc-number">5.</span> <span class="toc-text">견해</span></a></li></ol>
-    </div>
-  </span>
-</div>
-
-    
-    <div class="content index width mx-auto px2 my4">
-        
-        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
-  <header>
-    
-    <h1 class="posttitle" itemprop="name headline">
-        jenkins로 배포하기 - java
-    </h1>
-
-
-
-    <div class="meta">
-      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
-        <span itemprop="name">jaehunpark</span>
-      </span>
-      
-    <div class="postdate">
-        <time datetime="2017-04-14T11:24:30.000Z" itemprop="datePublished">2017-04-14</time>
-    </div>
-
-
-      
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/jenkins/">jenkins</a>
-    </div>
-
-
-    </div>
-  </header>
+  
+    <meta property="og:image" content=""/>
   
 
-  <div class="content" itemprop="articleBody">
-    <h2 id="jenkins로-배포하기"><a href="#jenkins로-배포하기" class="headerlink" title="jenkins로 배포하기"></a>jenkins로 배포하기</h2><p><a href="https://setyourmindpark.github.io/2017/04/12/java/" target="_blank" rel="noopener">maven으로 remote서버 배포하기</a> 를통해 로컬 개발머신에서 remote서버로 배포하는 법을 알아보았다.<br><a href="https://setyourmindpark.github.io/2017/04/09/jenkins/" target="_blank" rel="noopener">jenkins</a> 가 준비되었다면, jenkins를 통하여 remote서버로 어떻게 배포하는지 알아보자.<br><br><br></p>
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-97011652-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?cb5448498d7169c668b07c2b255d62c1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">jaehunpark</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class=""></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class=""></i>Categories
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> jenkins로 배포하기 - java</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h2 id="jenkins로-배포하기"><a href="#jenkins로-배포하기" class="headerlink" title="jenkins로 배포하기"></a>jenkins로 배포하기</h2><p><a href="https://setyourmindpark.github.io/2017/04/12/java/" target="_blank" rel="noopener">maven으로 remote서버 배포하기</a> 를통해 로컬 개발머신에서 remote서버로 배포하는 법을 알아보았다.<br><a href="https://setyourmindpark.github.io/2017/04/09/jenkins/" target="_blank" rel="noopener">jenkins</a> 가 준비되었다면, jenkins를 통하여 remote서버로 어떻게 배포하는지 알아보자.<br><br><br></p>
 <h2 id="플러그인설치"><a href="#플러그인설치" class="headerlink" title="플러그인설치"></a>플러그인설치</h2><p>필자는 빌드결과를 메일로 받고, remote 서버로 배포할것이기에 필요한 2개의 플러그인을 설치해보자.<br>먼저 플러그인을 설치하기전에, 메일발송을위한 smtp 서버와 계정이필요하다.<br>google 계정이있다면 아주손쉽게 해당계정을 smtp 서버에서 메일을 보내는 발신자계정으로 사용할수있다.<br><img src="jenkins-1_1.png" alt="jenkins-1_1"><br><a href="https://support.google.com/mail/answer/7126229?hl=ko&amp;visit_id=1-636183522503167845-3274504127&amp;rd=1#ts=1665018%2C1665144" target="_blank" rel="noopener">smtp 설정</a><br><img src="jenkins-1_2.png" alt="jenkins-1_2"><br><a href="https://myaccount.google.com/lesssecureapps?pli=1" target="_blank" rel="noopener">보안수준설정 해제</a><br><br><br>메일을 보내기위한 smtp 설정을 마쳤다면, 이제 jenkins에 플러그인을 설치해보자.<br>jenkins관리 -&gt; 플러그인관리<br><img src="jenkins-1_3.png" alt="jenkins-1_3"><br>[ Email Ext Recipients Column Plugin ]<br><br><br><img src="jenkins-1_4.png" alt="jenkins-1_4"><br>[ Deploy to container Plugin ]<br><br><br>플러그인을 모두 설치하였다면 jenkins에 메일발송 smtp 설정을 하자.<br>jenkins관리 -&gt; 시스템설정 -&gt; 메일로알려줌<br><img src="jenkins-1_5.png" alt="jenkins-1_5"><br><img src="jenkins-1_6.png" alt="jenkins-1_6"><br>설정정보를 작성후 [ Test configuration ]<br>테스트메일이 정상적으로 발송된것을 확인할수있다.<br><br><br></p>
 <h2 id="git과-jenkins-연동"><a href="#git과-jenkins-연동" class="headerlink" title="git과 jenkins 연동"></a>git과 jenkins 연동</h2><p>jenkins가 git project를 clone 하기위해선 사전에 git과 인증을 마쳐야한다.<br>즉 jenkins가 필요시에는 언제든지 git project를 clone 할수있는 상태를 마쳐야한다.<br>jenkins와 github과의 인증정보를 설정한다.<br>jenkins는 docker container를 이용하여 서비스하고 있으므로, host os든, container os든 둘중하나의 공간에서 rsa 인증방식을 사용할것이기에 private key를 지녀야한다.<br>필자는 docker의 container 레벨에서 rsa key를 생성을 하였다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ssh-keygen -t rsa</div></pre></td></tr></table></figure></p>
 <p>생성뒤엔 github에 등록할 rsa public key를 확인한다<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ cat ~/.ssh/id_rsa.pub</div></pre></td></tr></table></figure></p>
@@ -172,122 +134,172 @@ rsa 알고리즘 암호화 통신일경우, private key는 public key로부터 �
 <h2 id="견해"><a href="#견해" class="headerlink" title="견해"></a>견해</h2><p>현재 포스트에서는 기본 설치된 플러그인들과 추가로 필요한 플러그인을 설치하여 자동화를 수행하였다. 이밖에도 jenkins에서 지원하는 플러그인이 아주 다양하게있으니, 필요한 플러그인을 추가로 설치하여 추구하는 방향으로 설정하면 jenkins의 가치를 알게될것이다.<br>jenkins와같은 CI(Continuous Integration) 은 jenkins 를 비롯해 아주 다양하게 존재한다.<br>travis CI도 nodejs 쪽에선 상당한 인기를 끄는것으로 알고있으며, 요즘들어 jenkins CI 보다는 다른 플랫폼의 CI를 더 많이 사용하는 느낌이기도하다. 필자도 travis를 한번 사용해봐야겠다는 생각이든다 (말로만 … )<br>아무튼, CI가 어떤것이고 어떤 기능을 수행할수있는지 알게되었다면, 다른CI 들도 좀더 쉽게 접근할수있을것이라 생각된다.</p>
 <!-- http://daitso.kds.co.kr/27632/
 jenkins -> 새로운 item -> Freestyle project -->
+	  
+	</div>
 
-  </div>
-</article>
+	<div>
+  	<center>
+	<div class="pagination">
 
-    <div class="blog-post-comments">
-        <div id="disqus_thread">
-            <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-        </div>
-    </div>
-
-
-
-    </div>
     
-      <div id="footer-post-container">
-  <div id="footer-post">
+    
+    <a href="/2017/04/16/docker-3/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> 上一页</a>
+    
 
-    <div id="nav-footer" style="display: none">
-      <ul>
-         
-          <li><a href="/">Home</a></li>
-         
-          <li><a href="https://github.com/setyourmindpark">About</a></li>
-         
-          <li><a href="/archives/">Writing</a></li>
-        
-      </ul>
-    </div>
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2017/04/12/java/" type="button" class="btn btn-default ">下一页<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
 
-    <div id="toc-footer" style="display: none">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#jenkins로-배포하기"><span class="toc-number">1.</span> <span class="toc-text">jenkins로 배포하기</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#플러그인설치"><span class="toc-number">2.</span> <span class="toc-text">플러그인설치</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#git과-jenkins-연동"><span class="toc-number">3.</span> <span class="toc-text">git과 jenkins 연동</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#프로젝트-설정"><span class="toc-number">4.</span> <span class="toc-text">프로젝트 설정</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#견해"><span class="toc-number">5.</span> <span class="toc-text">견해</span></a></li></ol>
-    </div>
-
-    <div id="share-footer" style="display: none">
-      <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/04/14/jenkins-1/"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/04/14/jenkins-1/&text=jenkins로 배포하기 - java"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/04/14/jenkins-1/&title=jenkins로 배포하기 - java"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/04/14/jenkins-1/&is_video=false&description=jenkins로 배포하기 - java"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=jenkins로 배포하기 - java&body=Check out this article: https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/04/14/jenkins-1/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/04/14/jenkins-1/&title=jenkins로 배포하기 - java"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/04/14/jenkins-1/&title=jenkins로 배포하기 - java"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/04/14/jenkins-1/&title=jenkins로 배포하기 - java"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/04/14/jenkins-1/&title=jenkins로 배포하기 - java"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/04/14/jenkins-1/&name=jenkins로 배포하기 - java&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
-</ul>
-
-    </div>
-
-    <div id="actions-footer">
-      <ul>
-        <li id="toc"><a class="icon" href="#" onclick='$("#toc-footer").toggle();return false;'><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
-        <li id="share"><a class="icon" href="#" onclick='$("#share-footer").toggle();return false;'><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
-        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
-        <li id="menu"><a class="icon" href="#" onclick='$("#nav-footer").toggle();return false;'><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
-      </ul>
-    </div>
-
-  </div>
+    
 </div>
 
+    </center>
+	</div>
+	
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">留言</h2>
+
     
-    <footer id="footer">
-  <div class="footer-left">
-    Copyright &copy; 2018 jaehunpark
+    <div id="disqus_thread" class="ds-thread">
+        <script type="text/javascript">
+            /**
+             * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+             * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+             */
+                /*
+                 var disqus_config = function () {
+                 this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                 this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                 };
+                 */
+            (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+
+                s.src = '//https-setyourmindpark-github-io.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by
+                Disqus.</a></noscript>
+    </div>
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2017-04-14 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/jenkins/">jenkins<span>5</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+		
+
+</div><!-- row -->
+
+<script type="text/javascript">
+var disqus_shortname = 'https-setyourmindpark-github-io';
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+	</div>
   </div>
-  <div class="footer-right">
-    <nav>
-      <ul>
-         
-          <li><a href="/">Home</a></li>
-         
-          <li><a href="https://github.com/setyourmindpark">About</a></li>
-         
-          <li><a href="/archives/">Writing</a></li>
-        
-      </ul>
-    </nav>
-  </div>
-</footer>
+  <div class="container-narrow">
+  <footer> Copyright
+<p>
+  &copy; 2018 jaehunpark
+  
+</p>
+<!-- <p>
+  &copy; 2018 jaehunpark
+  
+      with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
+     <br> Theme by <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind.386</a>.    
+</p> -->
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
 
 </body>
-</html>
-<!-- styles -->
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
-<link rel="stylesheet" href="/lib/meslo-LG/styles.css">
-<link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
-
-
-<!-- jquery -->
-<script src="/lib/jquery/jquery.min.js"></script>
-<script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
-<script src="/js/main.js"></script>
-<!-- Google Analytics -->
-
-    <script type="text/javascript">
-        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-        ga('create', 'UA-97011652-1', 'auto');
-        ga('send', 'pageview');
-    </script>
-
-<!-- Disqus Comments -->
-
-    <script type="text/javascript">
-        var disqus_shortname = 'https-setyourmindpark-github-io';
-
-        (function(){
-            var dsq = document.createElement('script');
-            dsq.type = 'text/javascript';
-            dsq.async = true;
-            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-        }());
-    </script>
-
-
+   </html>

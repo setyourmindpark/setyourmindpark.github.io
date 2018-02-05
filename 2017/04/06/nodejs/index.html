@@ -1,139 +1,124 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html>
 <head>
-    <!-- so meta -->
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="HandheldFriendly" content="True">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="nvmnode 를 기반으로 개발하는 개발자라면 node 를 시스템이 설치할것이다.nvm이란 flexible 하게 node 버전을 관리할수있으므로, 기왕 node 를 설치하고자한다면, nvm을 활용하여 node 버전을 쉽게 관리할수있다. 설치nvm 관련 정보는 이곳  을 참조하면 nvm에대한 다양한 명령어와 정보를 확인할수있다.1$ curl -o- https">
-<meta name="keywords" content="nodejs">
-<meta property="og:type" content="article">
-<meta property="og:title" content="nvm">
-<meta property="og:url" content="https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/04/06/nodejs/index.html">
-<meta property="og:site_name" content="jaehunpark">
-<meta property="og:description" content="nvmnode 를 기반으로 개발하는 개발자라면 node 를 시스템이 설치할것이다.nvm이란 flexible 하게 node 버전을 관리할수있으므로, 기왕 node 를 설치하고자한다면, nvm을 활용하여 node 버전을 쉽게 관리할수있다. 설치nvm 관련 정보는 이곳  을 참조하면 nvm에대한 다양한 명령어와 정보를 확인할수있다.1$ curl -o- https">
-<meta property="og:updated_time" content="2017-04-30T03:45:32.000Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="nvm">
-<meta name="twitter:description" content="nvmnode 를 기반으로 개발하는 개발자라면 node 를 시스템이 설치할것이다.nvm이란 flexible 하게 node 버전을 관리할수있으므로, 기왕 node 를 설치하고자한다면, nvm을 활용하여 node 버전을 쉽게 관리할수있다. 설치nvm 관련 정보는 이곳  을 참조하면 nvm에대한 다양한 명령어와 정보를 확인할수있다.1$ curl -o- https">
-    
-    
-        
-          
-              <link rel="shortcut icon" href="/images/favicon.ico">
-          
-        
-        
-          
-            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
-          
-        
-        
-          
-            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
-          
-        
-    
-    <!-- title -->
-    <title>nvm</title>
-    <!-- styles -->
-    <link rel="stylesheet" href="/css/style.css">
-    <!-- rss -->
-    
-    
-</head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>nvm | jaehunpark</title>
+  <meta name="author" content="jaehunpark">
+  
+  <meta name="description" content="nvmnode 를 기반으로 개발하는 개발자라면 node 를 시스템이 설치할것이다.nvm이란 flexible 하게 node 버전을 관리할수있으므로, 기왕 node 를 설치하고자한다면, nvm을 활용하여 node 버전을 쉽게 관리할수있다.
+설치nvm 관련 정보는 이곳  을">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-<body>
-    
-      <div id="header-post">
-  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
-  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
-  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
-  <span id="menu">
-    <span id="nav">
-      <ul>
-         
-          <li><a href="/">Home</a></li>
-         
-          <li><a href="https://github.com/setyourmindpark">About</a></li>
-         
-          <li><a href="/archives/">Writing</a></li>
-        
-      </ul>
-    </span>
-    <br/>
-    <span id="actions">
-      <ul>
-        
-        <li><a class="icon" href="/2017/04/06/docker/"><i class="fa fa-chevron-left" aria-hidden="true" onmouseover='$("#i-prev").toggle();' onmouseout='$("#i-prev").toggle();'></i></a></li>
-        
-        
-        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover='$("#i-top").toggle();' onmouseout='$("#i-top").toggle();'></i></a></li>
-        <li><a class="icon" href="#"><i class="fa fa-share-alt" aria-hidden="true" onmouseover='$("#i-share").toggle();' onmouseout='$("#i-share").toggle();' onclick='$("#share").toggle();return false;'></i></a></li>
-      </ul>
-      <span id="i-prev" class="info" style="display:none;">Previous post</span>
-      <span id="i-next" class="info" style="display:none;">Next post</span>
-      <span id="i-top" class="info" style="display:none;">Back to top</span>
-      <span id="i-share" class="info" style="display:none;">Share post</span>
-    </span>
-    <br/>
-    <div id="share" style="display: none">
-      <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/04/06/nodejs/"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/04/06/nodejs/&text=nvm"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/04/06/nodejs/&title=nvm"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/04/06/nodejs/&is_video=false&description=nvm"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=nvm&body=Check out this article: https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/04/06/nodejs/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/04/06/nodejs/&title=nvm"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/04/06/nodejs/&title=nvm"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/04/06/nodejs/&title=nvm"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/04/06/nodejs/&title=nvm"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/04/06/nodejs/&name=nvm&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
-</ul>
+  <meta property="og:title" content="nvm"/>
+  <meta property="og:site_name" content="jaehunpark"/>
 
-    </div>
-    <div id="toc">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#nvm"><span class="toc-number">1.</span> <span class="toc-text">nvm</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#설치"><span class="toc-number">2.</span> <span class="toc-text">설치</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#node-설치"><span class="toc-number">3.</span> <span class="toc-text">node 설치</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#의견"><span class="toc-number">4.</span> <span class="toc-text">의견</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#참고"><span class="toc-number">5.</span> <span class="toc-text">참고</span></a></li></ol>
-    </div>
-  </span>
-</div>
-
-    
-    <div class="content index width mx-auto px2 my4">
-        
-        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
-  <header>
-    
-    <h1 class="posttitle" itemprop="name headline">
-        nvm
-    </h1>
-
-
-
-    <div class="meta">
-      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
-        <span itemprop="name">jaehunpark</span>
-      </span>
-      
-    <div class="postdate">
-        <time datetime="2017-04-06T10:56:50.000Z" itemprop="datePublished">2017-04-06</time>
-    </div>
-
-
-      
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/nodejs/">nodejs</a>
-    </div>
-
-
-    </div>
-  </header>
+  
+    <meta property="og:image" content=""/>
   
 
-  <div class="content" itemprop="articleBody">
-    <h2 id="nvm"><a href="#nvm" class="headerlink" title="nvm"></a>nvm</h2><p>node 를 기반으로 개발하는 개발자라면 node 를 시스템이 설치할것이다.<br>nvm이란 flexible 하게 node 버전을 관리할수있으므로, 기왕 node 를 설치하고자한다면, nvm을 활용하여 node 버전을 쉽게 관리할수있다.<br><br><br></p>
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-97011652-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?cb5448498d7169c668b07c2b255d62c1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">jaehunpark</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class=""></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class=""></i>Categories
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> nvm</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h2 id="nvm"><a href="#nvm" class="headerlink" title="nvm"></a>nvm</h2><p>node 를 기반으로 개발하는 개발자라면 node 를 시스템이 설치할것이다.<br>nvm이란 flexible 하게 node 버전을 관리할수있으므로, 기왕 node 를 설치하고자한다면, nvm을 활용하여 node 버전을 쉽게 관리할수있다.<br><br><br></p>
 <h2 id="설치"><a href="#설치" class="headerlink" title="설치"></a>설치</h2><p>nvm 관련 정보는 <a href="https://github.com/creationix/nvm/blob/master/README.markdown">이곳 </a> 을 참조하면 nvm에대한 다양한 명령어와 정보를 확인할수있다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.1/install.sh | bash</div></pre></td></tr></table></figure></p>
 <p>nvm 명령어를 사용하기위해 환경변수 등록 (~/.bashrc, ~/.profile, or ~/.zshrc)한다<br>필자는 계정레벨에서만 nvm을 사용할것이므로 ~/.bash_profile 에 환경변수를 등록한다<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">export NVM_DIR=&quot;$HOME/.nvm&quot;</div><div class="line">[ -s &quot;$NVM_DIR/nvm.sh&quot; ] &amp;&amp; . &quot;$NVM_DIR/nvm.sh&quot; # This loads nvm</div></pre></td></tr></table></figure></p>
 <p>이제 nvm이 잘 설치되었는지 버전을 확인해보자<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ nvm --version</div></pre></td></tr></table></figure></p>
@@ -149,122 +134,171 @@
 <p>시스템에 특정 node 버전을 default로 사용하도록한다<br><br><br></p>
 <h2 id="의견"><a href="#의견" class="headerlink" title="의견"></a>의견</h2><p>node 7.XX에서는 차후 es7애 탑제될 async, await 문법이 사용가능한것으로 안다.<br>실제로 stackoverflow등에서 이미 es7 문법에대한 커뮤니티가 활발한것을 확인할수있다.<br>node의 버전이 새롭게 나올때마다 새로운 node의 버전을 설치하는것 보다는, node의 버전을 골라서 시스템에서 사용할수있는점이 nvm의 가장큰 매력이라고 생각된다<br><br><br></p>
 <h2 id="참고"><a href="#참고" class="headerlink" title="참고"></a>참고</h2><p>필자는 nvm을 통해 node를 설치하였을시, 자동으로 최신버전인 v7.8.0 이 설치되었다.<br>‘와 벌써 node 버전이 이만큼이나 높아졌네 ? ‘ 라고생각한후, hexo 를 설치하는데… 설치도중 에러가 ….<br>결국 node 공식 사이트에서 제공하는 stable 버전 을 확인한후, (현재시점은 v6.10.1 ) nvm으로 해당버전을 재설치후 hexo를 다시 설치하니 정상적으로 설치가되는 이슈가있었다..<br>이밖에도 hexo 뿐만아니라, node를 기반으로 사용하는 다른 third party 라이브러리에서 node의 최신버전이 지원되지않을수도있으니.. 참고하도록하자</p>
+	  
+	</div>
 
-  </div>
-</article>
+	<div>
+  	<center>
+	<div class="pagination">
 
-    <div class="blog-post-comments">
-        <div id="disqus_thread">
-            <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-        </div>
-    </div>
-
-
-
-    </div>
     
-      <div id="footer-post-container">
-  <div id="footer-post">
+    
+    <a href="/2017/04/06/docker/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> 上一页</a>
+    
 
-    <div id="nav-footer" style="display: none">
-      <ul>
-         
-          <li><a href="/">Home</a></li>
-         
-          <li><a href="https://github.com/setyourmindpark">About</a></li>
-         
-          <li><a href="/archives/">Writing</a></li>
-        
-      </ul>
-    </div>
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a type="button" class="btn btn-default disabled">下一页<i class="fa fa-arrow-circle-o-right"></i></a>
+    
 
-    <div id="toc-footer" style="display: none">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#nvm"><span class="toc-number">1.</span> <span class="toc-text">nvm</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#설치"><span class="toc-number">2.</span> <span class="toc-text">설치</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#node-설치"><span class="toc-number">3.</span> <span class="toc-text">node 설치</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#의견"><span class="toc-number">4.</span> <span class="toc-text">의견</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#참고"><span class="toc-number">5.</span> <span class="toc-text">참고</span></a></li></ol>
-    </div>
-
-    <div id="share-footer" style="display: none">
-      <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/04/06/nodejs/"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/04/06/nodejs/&text=nvm"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/04/06/nodejs/&title=nvm"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/04/06/nodejs/&is_video=false&description=nvm"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=nvm&body=Check out this article: https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/04/06/nodejs/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/04/06/nodejs/&title=nvm"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/04/06/nodejs/&title=nvm"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/04/06/nodejs/&title=nvm"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/04/06/nodejs/&title=nvm"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://github.com/setyourmindpark/setyourmindpark.github.io.git/2017/04/06/nodejs/&name=nvm&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
-</ul>
-
-    </div>
-
-    <div id="actions-footer">
-      <ul>
-        <li id="toc"><a class="icon" href="#" onclick='$("#toc-footer").toggle();return false;'><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
-        <li id="share"><a class="icon" href="#" onclick='$("#share-footer").toggle();return false;'><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
-        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
-        <li id="menu"><a class="icon" href="#" onclick='$("#nav-footer").toggle();return false;'><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
-      </ul>
-    </div>
-
-  </div>
+    
 </div>
 
+    </center>
+	</div>
+	
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">留言</h2>
+
     
-    <footer id="footer">
-  <div class="footer-left">
-    Copyright &copy; 2018 jaehunpark
+    <div id="disqus_thread" class="ds-thread">
+        <script type="text/javascript">
+            /**
+             * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+             * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+             */
+                /*
+                 var disqus_config = function () {
+                 this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                 this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                 };
+                 */
+            (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+
+                s.src = '//https-setyourmindpark-github-io.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by
+                Disqus.</a></noscript>
+    </div>
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2017-04-06 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/nodejs/">nodejs<span>6</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+		
+
+</div><!-- row -->
+
+<script type="text/javascript">
+var disqus_shortname = 'https-setyourmindpark-github-io';
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+	</div>
   </div>
-  <div class="footer-right">
-    <nav>
-      <ul>
-         
-          <li><a href="/">Home</a></li>
-         
-          <li><a href="https://github.com/setyourmindpark">About</a></li>
-         
-          <li><a href="/archives/">Writing</a></li>
-        
-      </ul>
-    </nav>
-  </div>
-</footer>
+  <div class="container-narrow">
+  <footer> Copyright
+<p>
+  &copy; 2018 jaehunpark
+  
+</p>
+<!-- <p>
+  &copy; 2018 jaehunpark
+  
+      with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
+     <br> Theme by <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind.386</a>.    
+</p> -->
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
 
 </body>
-</html>
-<!-- styles -->
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
-<link rel="stylesheet" href="/lib/meslo-LG/styles.css">
-<link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
-
-
-<!-- jquery -->
-<script src="/lib/jquery/jquery.min.js"></script>
-<script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
-<script src="/js/main.js"></script>
-<!-- Google Analytics -->
-
-    <script type="text/javascript">
-        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-        ga('create', 'UA-97011652-1', 'auto');
-        ga('send', 'pageview');
-    </script>
-
-<!-- Disqus Comments -->
-
-    <script type="text/javascript">
-        var disqus_shortname = 'https-setyourmindpark-github-io';
-
-        (function(){
-            var dsq = document.createElement('script');
-            dsq.type = 'text/javascript';
-            dsq.async = true;
-            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-        }());
-    </script>
-
-
+   </html>
