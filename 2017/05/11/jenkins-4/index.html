@@ -1,187 +1,123 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html>
 <head>
   <meta charset="utf-8">
-
-  <!-- PACE Progress Bar START -->
-  
-    <script src="/js/pace.min.js"></script>
-    <link rel="stylesheet" href="https://github.com/HubSpot/pace/raw/master/themes/orange/pace-theme-flash.css">
-  
-  
-
-  <!-- PACE Progress Bar START -->
-
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
   
   <title>ssh scp proxy | </title>
+  <meta name="author" content="jaehunpark">
+  
+  <meta name="description" content="ssh scp필자는 jenkins를 주로 사용하며 빌드는 nodejs 기반의 서버를 배포시에는 ssh 와 scp 를 주로사용한다 .ssh와 scp를 사용하는데에 있어 최종 서버에 접근하기까지 중간에 bridge( jump host )와 같은 host가 존재할때가 있다 ">
+  
+  
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  
-  
-  
-  
-  <meta name="description" content="ssh scp필자는 jenkins를 주로 사용하며 빌드는 nodejs 기반의 서버를 배포시에는 ssh 와 scp 를 주로사용한다 .ssh와 scp를 사용하는데에 있어 최종 서버에 접근하기까지 중간에 bridge( jump host )와 같은 host가 존재할때가 있다 .물론 접근하고자하는 서버의 ip를 모두 public 으로 개방하면 쉽게 접근이가능하나 관">
-<meta property="og:type" content="article">
-<meta property="og:title" content="ssh scp proxy">
-<meta property="og:url" content="https://setyourmindpark.github.io/2017/05/11/jenkins-4/index.html">
-<meta property="og:site_name">
-<meta property="og:description" content="ssh scp필자는 jenkins를 주로 사용하며 빌드는 nodejs 기반의 서버를 배포시에는 ssh 와 scp 를 주로사용한다 .ssh와 scp를 사용하는데에 있어 최종 서버에 접근하기까지 중간에 bridge( jump host )와 같은 host가 존재할때가 있다 .물론 접근하고자하는 서버의 ip를 모두 public 으로 개방하면 쉽게 접근이가능하나 관">
-<meta property="og:updated_time" content="2018-02-05T10:59:15.000Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ssh scp proxy">
-<meta name="twitter:description" content="ssh scp필자는 jenkins를 주로 사용하며 빌드는 nodejs 기반의 서버를 배포시에는 ssh 와 scp 를 주로사용한다 .ssh와 scp를 사용하는데에 있어 최종 서버에 접근하기까지 중간에 bridge( jump host )와 같은 host가 존재할때가 있다 .물론 접근하고자하는 서버의 ip를 모두 public 으로 개방하면 쉽게 접근이가능하나 관">
-  
-    <link rel="alternate" href="/atom.xml" title="" type="application/atom+xml">
-  
-  <link rel="icon" href="/css/images/favicon.ico">
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
-  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
-  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
-  <style type="text/css">
-    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
-    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
-    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
-    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
-    
-  <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.googleapis.com/css?family=Yanone+Kaffeesatz%3A200%2C300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all">
-  <link rel="stylesheet" href="/css/style.css">
 
-  <script src="/js/jquery-3.1.1.min.js"></script>
+  <meta property="og:title" content="ssh scp proxy"/>
+  <meta property="og:site_name" content=""/>
 
-  <!-- Bootstrap core CSS -->
-  <link rel="stylesheet" href="/css/bootstrap.css" >
-  <link rel="stylesheet" href="/css/hiero.css" >
-  <link rel="stylesheet" href="/css/glyphs.css" >
+  
+    <meta property="og:image" content=""/>
   
 
-  <!-- Custom CSS -->
-  <link rel="stylesheet" href="/css/my.css">
-  <!-- Google Adsense -->
-  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-  <script>
-      (adsbygoogle = window.adsbygoogle || []).push({
-          google_ad_client: "",
-          enable_page_level_ads: true
-      });
-  </script>
-</head>
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
 <script>
-var themeMenus = {};
-
-  themeMenus["/"] = "Home"; 
-
-  themeMenus["/archives"] = "Archives"; 
-
-  themeMenus["/categories"] = "Categories"; 
-
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-97011652-1', 'auto');
+  ga('send', 'pageview');
 </script>
 
 
-  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?cb5448498d7169c668b07c2b255d62c1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
 
 
-  <header id="allheader" class="site-header" role="banner">
-  <div class="clearfix container">
-      <div class="site-branding">
+</head>
 
-          <h1 class="site-title">
-            
-              <a href="/" title="" rel="home">  </a>
-            
-          </h1>
-
-          
-            
-          <nav id="main-navigation" class="main-navigation" role="navigation">
-            <a class="nav-open">Menu</a>
-            <a class="nav-close">Close</a>
-            <div class="clearfix sf-menu">
-
-              <ul id="main-nav" class="nmenu sf-js-enabled">
-                    
-                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/">Home</a> </li>
-                    
-                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/archives">Archives</a> </li>
-                    
-                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/categories">Categories</a> </li>
-                    
-              </ul>
-            </div>
-          </nav>
-
-
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/"></a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class=""></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class=""></i>Categories
+			</a>
+		  </li>
+		  
+		</ul>
       </div>
-  </div>
-</header>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
 
 
-  <div id="originBgDiv" style="background: #fff; width: 100%;">
-
-      <div style="max-height:600px; overflow: hidden;  display: flex; display: -webkit-flex; align-items: center;">
-        <img id="originBg" width="100%" alt="" src="">
-      </div>
-
-  </div>
-
-  <script>
-  function setAboutIMG(){
-      var imgUrls = "css/images/pose.jpg,https://source.unsplash.com/collection/954550/1920x1080".split(",");
-      var random = Math.floor((Math.random() * imgUrls.length ));
-      if (imgUrls[random].startsWith('http') || imgUrls[random].indexOf('://') >= 0) {
-        document.getElementById("originBg").src=imgUrls[random];
-      } else {
-        document.getElementById("originBg").src='/' + imgUrls[random];
-      }
-  }
-  bgDiv=document.getElementById("originBgDiv");
-  if(location.pathname.match('about')){
-    setAboutIMG();
-    bgDiv.style.display='block';
-  }else{
-    bgDiv.style.display='none';
-  }
-  </script>
+	
+		<div class="page-header">
+			<h1> ssh scp proxy</h1>
+		</div>
+	
 
 
 
-  <div id="container">
-    <div id="wrap">
-            
-      <div id="content" class="outer">
-        
-          <section id="main" style="float:none;"><article id="post-jenkins-4" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" class="article-title" itemprop="name">
-      ssh scp proxy
-    </h1>
-  
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
 
-      </header>
-    
-    <div class="article-meta">
-      
-	Posted on <a href="/2017/05/11/jenkins-4/" class="article-date">
-		<!-- <time datetime="2017-05-11T04:04:37.000Z" itemprop="datePublished">May 11, 2017</time> -->
-		<time datetime="2017-05-11T04:04:37.000Z" itemprop="datePublished">2017/05/11</time>	
-	</a>
+	<!-- content -->
+	<div class="mypage">		
+	  		
 
-      
-	<span id="busuanzi_container_page_pv">
-		<!-- 本文总阅读量<span id="busuanzi_value_page_pv"></span>次 -->		
-	</span>
-
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="ssh-scp"><a href="#ssh-scp" class="headerlink" title="ssh scp"></a>ssh scp</h2><p>필자는 jenkins를 주로 사용하며 빌드는 nodejs 기반의 서버를 배포시에는 ssh 와 scp 를 주로사용한다 .<br>ssh와 scp를 사용하는데에 있어 최종 서버에 접근하기까지 중간에 bridge( jump host )와 같은 host가 존재할때가 있다 .<br>물론 접근하고자하는 서버의 ip를 모두 public 으로 개방하면 쉽게 접근이가능하나 관리가 어려워질뿐만아니라 보안적으로도 좋지않기때문에 public host가 proxy host가 되어 내부 서버로 접근해야한다.<br>필자는 jenkins로 빌드할때 이런 상황이 있었으며 정리를하며 기록으로 남기기위해 글을써보려 한다 .<br><br><br></p>
+	  <h2 id="ssh-scp"><a href="#ssh-scp" class="headerlink" title="ssh scp"></a>ssh scp</h2><p>필자는 jenkins를 주로 사용하며 빌드는 nodejs 기반의 서버를 배포시에는 ssh 와 scp 를 주로사용한다 .<br>ssh와 scp를 사용하는데에 있어 최종 서버에 접근하기까지 중간에 bridge( jump host )와 같은 host가 존재할때가 있다 .<br>물론 접근하고자하는 서버의 ip를 모두 public 으로 개방하면 쉽게 접근이가능하나 관리가 어려워질뿐만아니라 보안적으로도 좋지않기때문에 public host가 proxy host가 되어 내부 서버로 접근해야한다.<br>필자는 jenkins로 빌드할때 이런 상황이 있었으며 정리를하며 기록으로 남기기위해 글을써보려 한다 .<br><br><br></p>
 <h2 id="사전준비"><a href="#사전준비" class="headerlink" title="사전준비"></a>사전준비</h2><p>필자는 기본적으로 jenkins 를 사용하여 원격지에 배포하므로 원격서버 접속시 jenkins 에게 비밀번호를 요구하지 않도록 rsa 암호화통신을 위한 사전 설정한다 .</p>
 <h3 id="jenkins"><a href="#jenkins" class="headerlink" title="jenkins"></a>jenkins</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ cat ~/.ssh/id_rsa.pub</div></pre></td></tr></table></figure>
 <p><br></p>
@@ -221,197 +157,172 @@ var themeMenus = {};
 <!-- ssh -o ProxyCommand="ssh -W %h:%p jaehunpark@121.140.166.90" root@10.10.200.3
 scp -r -o ProxyCommand="ssh -W %h:%p jaehunpark@121.140.166.90" id_rsa root@10.10.200.3:/
 scp -r -o ProxyCommand="ssh jaehunpark@121.140.166.90 nc 10.10.200.3 22" id_rsa root@10.10.200.3:/ -->
+	  
+	</div>
 
-      
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a href="/2017/05/13/nodejs-3/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> Prev</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2017/05/04/nginx-1/" type="button" class="btn btn-default ">Next<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">Comments</h2>
+
+    
+    <div id="disqus_thread" class="ds-thread">
+        <script type="text/javascript">
+            /**
+             * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+             * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+             */
+                /*
+                 var disqus_config = function () {
+                 this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                 this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                 };
+                 */
+            (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+
+                s.src = '//https-setyourmindpark-github-io.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by
+                Disqus.</a></noscript>
     </div>
-    <footer class="entry-meta entry-footer">
-      
-	<span class="ico-folder"></span>
-    <a class="article-category-link" href="/categories/jenkins/">jenkins</a>
-
-      
-      
-            
-      
-        
-	<section id="comments" class="comment">
-	  <div id="disqus_thread">
-	  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-	  </div>
-	</section>
-
-	<script type="text/javascript">
-	var disqus_shortname = 'https-setyourmindpark-github-io';
-	(function(){
-	  var dsq = document.createElement('script');
-	  dsq.type = 'text/javascript';
-	  dsq.async = true;
-	  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-	  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-	}());
-	(function(){
-	  var dsq = document.createElement('script');
-	  dsq.type = 'text/javascript';
-	  dsq.async = true;
-	  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
-	  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-	}());
-	</script>
-
-
-      
-    </footer>
-  </div>
-  
     
-<nav id="article-nav">
-  
-    <a href="/2017/05/13/nodejs-3/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          async await
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2017/05/04/nginx-1/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">nginx ssl 적용하기</div>
-    </a>
-  
-</nav>
-
-  
-</article>
-
-<!-- Table of Contents -->
-
-  <aside id="sidebar">
-    <div id="toc" class="toc-article">
-    <strong class="toc-title">Contents</strong>
-    
-      <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#ssh-scp"><span class="nav-number">1.</span> <span class="nav-text">ssh scp</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#사전준비"><span class="nav-number">2.</span> <span class="nav-text">사전준비</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#jenkins"><span class="nav-number">2.1.</span> <span class="nav-text">jenkins</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#proxy-host"><span class="nav-number">2.2.</span> <span class="nav-text">proxy host</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#destination-host"><span class="nav-number">2.3.</span> <span class="nav-text">destination host</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ssh-scp-일반적인-사용"><span class="nav-number">3.</span> <span class="nav-text">ssh scp 일반적인 사용</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ssh"><span class="nav-number">4.</span> <span class="nav-text">ssh</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#manual-proxy"><span class="nav-number">4.1.</span> <span class="nav-text">manual proxy</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#기본적인방법"><span class="nav-number">4.1.1.</span> <span class="nav-text">기본적인방법</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#proxycommand-사용"><span class="nav-number">4.1.2.</span> <span class="nav-text">proxycommand 사용</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#proxy-after-configuration"><span class="nav-number">4.2.</span> <span class="nav-text">proxy after configuration</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#scp"><span class="nav-number">5.</span> <span class="nav-text">scp</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#manual-proxy-1"><span class="nav-number">5.1.</span> <span class="nav-text">manual proxy</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#첫번째방법"><span class="nav-number">5.1.1.</span> <span class="nav-text">첫번째방법</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#두번째방법"><span class="nav-number">5.1.2.</span> <span class="nav-text">두번째방법</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#proxy-after-configuration-1"><span class="nav-number">5.2.</span> <span class="nav-text">proxy after configuration</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#configuration"><span class="nav-number">6.</span> <span class="nav-text">configuration</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#참고"><span class="nav-number">7.</span> <span class="nav-text">참고</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#jenkins-1"><span class="nav-number">7.1.</span> <span class="nav-text">jenkins</span></a></li></ol></li></ol>
-    
-    </div>
-  </aside>
 </section>
-        
-      </div>
-      <footer id="footer" class="site-footer">
-  
-
-  <div class="clearfix container">
-      <div class="site-info">
-	      &copy; 2018 jaehunpark All Rights Reserved.
-          
-            <span id="busuanzi_container_site_uv">
-              本站访客数<span id="busuanzi_value_site_uv"></span>人次  
-              本站总访问量<span id="busuanzi_value_site_pv"></span>次
-            </span>
-          
-      </div>
-      <div class="site-credit">
-        Theme by <a href="https://github.com/iTimeTraveler/hexo-theme-hiero" target="_blank">hiero</a>
-      </div>
-  </div>
-</footer>
 
 
-<!-- min height -->
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
 
-<script>
-    var contentdiv = document.getElementById("content");
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2017-05-11 
+	</div>
+	
 
-    contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
-</script>
-
-<!-- Custome JS -->
-<script src="/js/my.js"></script>
-    </div>
-    <!-- <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-    <a href="/categories" class="mobile-nav-link">Categories</a>
-  
-</nav> -->
+	<!-- categories -->
     
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/jenkins/">jenkins<span>5</span></a></li>
+  </li>
 
-<!-- mathjax config similar to math.stackexchange -->
+    </ul>
+	</div>
+	
 
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-      processEscapes: true
-    }
-  });
-</script>
+	<!-- tags -->
+		
 
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-      tex2jax: {
-        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-      }
-    });
-</script>
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
 
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for(i=0; i < all.length; i += 1) {
-            all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-    });
-</script>
+	</div>
+		
 
-<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
+</div><!-- row -->
 
-
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
-
-
-<script src="/js/scripts.js"></script>
-<script src="/js/bootstrap.js"></script>
-<script src="/js/main.js"></script>
-
-
-<!-- Google Analytics -->
 <script type="text/javascript">
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-ga('create', 'UA-97011652-1', 'auto');
-ga('send', 'pageview');
-
+var disqus_shortname = 'https-setyourmindpark-github-io';
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
 </script>
-<!-- End Google Analytics -->
 
 
 
-
-
-
-
-	<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
-	</script>
-
-
-
-
-
-
+	</div>
   </div>
+  <div class="container-narrow">
+  <footer> Copyright
+<p>
+  &copy; 2018 jaehunpark
+  
+</p>
+<!-- <p>
+  &copy; 2018 jaehunpark
+  
+      with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
+     <br> Theme by <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind.386</a>.    
+</p> -->
+ </footer>
+</div> <!-- container-narrow -->
+  
 
-  <a id="rocket" href="#top" class=""></a>
-  <script type="text/javascript" src="/js/totop.js" async=""></script>
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
 </body>
-</html>
+   </html>

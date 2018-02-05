@@ -1,190 +1,123 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html>
 <head>
   <meta charset="utf-8">
-
-  <!-- PACE Progress Bar START -->
-  
-    <script src="/js/pace.min.js"></script>
-    <link rel="stylesheet" href="https://github.com/HubSpot/pace/raw/master/themes/orange/pace-theme-flash.css">
-  
-  
-
-  <!-- PACE Progress Bar START -->
-
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
   
   <title>nginx load balancing | </title>
+  <meta name="author" content="jaehunpark">
+  
+  <meta name="description" content="nginx와 apache필자는 최근 back-end 앞단에 load balancing 을사용하여 worker의 가중치 설정, backup 서버설정, connection 이 적은 worker로 연결 등 다양한 옵션으로 load balancing을 수행하는 nginx에 대">
+  
+  
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  
-  
-  
-  
-  <meta name="description" content="nginx와 apache필자는 최근 back-end 앞단에 load balancing 을사용하여 worker의 가중치 설정, backup 서버설정, connection 이 적은 worker로 연결 등 다양한 옵션으로 load balancing을 수행하는 nginx에 대해서 글을적어보려고한다.한가지 짚고 넘어가야될 부분은 load balancing을 위해 흔">
-<meta property="og:type" content="article">
-<meta property="og:title" content="nginx load balancing">
-<meta property="og:url" content="https://setyourmindpark.github.io/2017/05/03/nginx/index.html">
-<meta property="og:site_name">
-<meta property="og:description" content="nginx와 apache필자는 최근 back-end 앞단에 load balancing 을사용하여 worker의 가중치 설정, backup 서버설정, connection 이 적은 worker로 연결 등 다양한 옵션으로 load balancing을 수행하는 nginx에 대해서 글을적어보려고한다.한가지 짚고 넘어가야될 부분은 load balancing을 위해 흔">
-<meta property="og:image" content="https://setyourmindpark.github.io/2017/05/03/nginx/nginx_1.png">
-<meta property="og:image" content="https://setyourmindpark.github.io/2017/05/03/nginx/nginx_2.png">
-<meta property="og:updated_time" content="2018-02-05T10:59:37.000Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="nginx load balancing">
-<meta name="twitter:description" content="nginx와 apache필자는 최근 back-end 앞단에 load balancing 을사용하여 worker의 가중치 설정, backup 서버설정, connection 이 적은 worker로 연결 등 다양한 옵션으로 load balancing을 수행하는 nginx에 대해서 글을적어보려고한다.한가지 짚고 넘어가야될 부분은 load balancing을 위해 흔">
-<meta name="twitter:image" content="https://setyourmindpark.github.io/2017/05/03/nginx/nginx_1.png">
-  
-    <link rel="alternate" href="/atom.xml" title="" type="application/atom+xml">
-  
-  <link rel="icon" href="/css/images/favicon.ico">
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
-  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
-  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
-  <style type="text/css">
-    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
-    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
-    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
-    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
-    
-  <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.googleapis.com/css?family=Yanone+Kaffeesatz%3A200%2C300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all">
-  <link rel="stylesheet" href="/css/style.css">
 
-  <script src="/js/jquery-3.1.1.min.js"></script>
+  <meta property="og:title" content="nginx load balancing"/>
+  <meta property="og:site_name" content=""/>
 
-  <!-- Bootstrap core CSS -->
-  <link rel="stylesheet" href="/css/bootstrap.css" >
-  <link rel="stylesheet" href="/css/hiero.css" >
-  <link rel="stylesheet" href="/css/glyphs.css" >
+  
+    <meta property="og:image" content=""/>
   
 
-  <!-- Custom CSS -->
-  <link rel="stylesheet" href="/css/my.css">
-  <!-- Google Adsense -->
-  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-  <script>
-      (adsbygoogle = window.adsbygoogle || []).push({
-          google_ad_client: "",
-          enable_page_level_ads: true
-      });
-  </script>
-</head>
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
 <script>
-var themeMenus = {};
-
-  themeMenus["/"] = "Home"; 
-
-  themeMenus["/archives"] = "Archives"; 
-
-  themeMenus["/categories"] = "Categories"; 
-
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-97011652-1', 'auto');
+  ga('send', 'pageview');
 </script>
 
 
-  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?cb5448498d7169c668b07c2b255d62c1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
 
 
-  <header id="allheader" class="site-header" role="banner">
-  <div class="clearfix container">
-      <div class="site-branding">
+</head>
 
-          <h1 class="site-title">
-            
-              <a href="/" title="" rel="home">  </a>
-            
-          </h1>
-
-          
-            
-          <nav id="main-navigation" class="main-navigation" role="navigation">
-            <a class="nav-open">Menu</a>
-            <a class="nav-close">Close</a>
-            <div class="clearfix sf-menu">
-
-              <ul id="main-nav" class="nmenu sf-js-enabled">
-                    
-                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/">Home</a> </li>
-                    
-                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/archives">Archives</a> </li>
-                    
-                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/categories">Categories</a> </li>
-                    
-              </ul>
-            </div>
-          </nav>
-
-
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/"></a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class=""></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class=""></i>Categories
+			</a>
+		  </li>
+		  
+		</ul>
       </div>
-  </div>
-</header>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
 
 
-  <div id="originBgDiv" style="background: #fff; width: 100%;">
-
-      <div style="max-height:600px; overflow: hidden;  display: flex; display: -webkit-flex; align-items: center;">
-        <img id="originBg" width="100%" alt="" src="">
-      </div>
-
-  </div>
-
-  <script>
-  function setAboutIMG(){
-      var imgUrls = "css/images/pose.jpg,https://source.unsplash.com/collection/954550/1920x1080".split(",");
-      var random = Math.floor((Math.random() * imgUrls.length ));
-      if (imgUrls[random].startsWith('http') || imgUrls[random].indexOf('://') >= 0) {
-        document.getElementById("originBg").src=imgUrls[random];
-      } else {
-        document.getElementById("originBg").src='/' + imgUrls[random];
-      }
-  }
-  bgDiv=document.getElementById("originBgDiv");
-  if(location.pathname.match('about')){
-    setAboutIMG();
-    bgDiv.style.display='block';
-  }else{
-    bgDiv.style.display='none';
-  }
-  </script>
+	
+		<div class="page-header">
+			<h1> nginx load balancing</h1>
+		</div>
+	
 
 
 
-  <div id="container">
-    <div id="wrap">
-            
-      <div id="content" class="outer">
-        
-          <section id="main" style="float:none;"><article id="post-nginx" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" class="article-title" itemprop="name">
-      nginx load balancing
-    </h1>
-  
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
 
-      </header>
-    
-    <div class="article-meta">
-      
-	Posted on <a href="/2017/05/03/nginx/" class="article-date">
-		<!-- <time datetime="2017-05-03T07:55:41.000Z" itemprop="datePublished">May 3, 2017</time> -->
-		<time datetime="2017-05-03T07:55:41.000Z" itemprop="datePublished">2017/05/03</time>	
-	</a>
+	<!-- content -->
+	<div class="mypage">		
+	  		
 
-      
-	<span id="busuanzi_container_page_pv">
-		<!-- 本文总阅读量<span id="busuanzi_value_page_pv"></span>次 -->		
-	</span>
-
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="nginx와-apache"><a href="#nginx와-apache" class="headerlink" title="nginx와 apache"></a>nginx와 apache</h2><p>필자는 최근 back-end 앞단에 load balancing 을사용하여 worker의 가중치 설정, backup 서버설정, connection 이 적은 worker로 연결 등 다양한 옵션으로 load balancing을 수행하는 nginx에 대해서 글을적어보려고한다.<br>한가지 짚고 넘어가야될 부분은 load balancing을 위해 흔히 사용하는 apache와 nginx는 태생적으로 load balancing을 수행 하기위해 개발된 모듈이 아니라는 점이다.<br>apache와 nginx 모두 본연의 목적은 dynamic web project(jsp,php 등)가 아닌 순수 정적파일(static file)을 load하는 웹서버(web server) 로 사용하기위해 개발되었다.<br>본론으로 돌아가 nginx 를사용하여 nodejs 기반의 서버들을 어떻게 load balancing 하는지 살펴보자.<br><br><br></p>
+	  <h2 id="nginx와-apache"><a href="#nginx와-apache" class="headerlink" title="nginx와 apache"></a>nginx와 apache</h2><p>필자는 최근 back-end 앞단에 load balancing 을사용하여 worker의 가중치 설정, backup 서버설정, connection 이 적은 worker로 연결 등 다양한 옵션으로 load balancing을 수행하는 nginx에 대해서 글을적어보려고한다.<br>한가지 짚고 넘어가야될 부분은 load balancing을 위해 흔히 사용하는 apache와 nginx는 태생적으로 load balancing을 수행 하기위해 개발된 모듈이 아니라는 점이다.<br>apache와 nginx 모두 본연의 목적은 dynamic web project(jsp,php 등)가 아닌 순수 정적파일(static file)을 load하는 웹서버(web server) 로 사용하기위해 개발되었다.<br>본론으로 돌아가 nginx 를사용하여 nodejs 기반의 서버들을 어떻게 load balancing 하는지 살펴보자.<br><br><br></p>
 <h2 id="nginx-설치"><a href="#nginx-설치" class="headerlink" title="nginx 설치"></a>nginx 설치</h2><p>필자는 역시 docker를 사용하여 nginx container를 구성하였으므로, nginx 이미지부터 만들어보자.<br><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">FROM</span> setyourmindpark/debian-utf8</div><div class="line"><span class="keyword">MAINTAINER</span> jaehunpark <span class="string">"setyourmindpark@gmail.com"</span></div><div class="line"></div><div class="line"><span class="keyword">RUN</span> apt-get update &amp;&amp; \</div><div class="line">    apt-get install -y curl &amp;&amp; \</div><div class="line">    apt-get install -y vim</div><div class="line"></div><div class="line"><span class="keyword">RUN</span> echo 'deb http://nginx.org/packages/debian/ jessie nginx' &gt;&gt; /etc/apt/sources.list &amp;&amp; \</div><div class="line">    echo 'deb-src http://nginx.org/packages/debian/ jessie nginx' &gt;&gt; /etc/apt/sources.list &amp;&amp; \</div><div class="line">    curl http://nginx.org/keys/nginx_signing.key | apt-key add - &amp;&amp; \</div><div class="line">    apt-get update &amp;&amp; \</div><div class="line">    apt-get install -y nginx</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">VOLUME</span> /etc/nginx</div><div class="line"><span class="keyword">EXPOSE</span> <span class="number">80</span></div><div class="line"><span class="keyword">EXPOSE</span> <span class="number">443</span></div><div class="line"></div><div class="line"><span class="keyword">CMD</span> ["nginx", "-g", "daemon off;"]</div></pre></td></tr></table></figure></p>
 <p>필자가 만든 nginx 이미지파일은 <a href="https://hub.docker.com/r/setyourmindpark/debian-nginx/" target="_blank" rel="noopener">docker hub</a> 에 올려놓았다.( 사용법을 기술해놓았으니 필요하신분은 pull 하셔서 사용하시면됩니다. )<br><br></p>
 <p>이미지를 만들었으니, 이제 nginx container를 생성하자.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ docker run -d --name nginx -p 80:80 -p 443:443 -v &lt;host path&gt;:/etc/nginx setyourmindpark/debian-nginx:apple</div></pre></td></tr></table></figure></p>
@@ -217,197 +150,172 @@ load balancing을 하게되면 client들은 nginx host로 접근하므로 back-e
 필자가 회사업무를 담당하면서 apache 진영의 httpd 를 java 기반 서버에서는 주로사용하는 듯하며(필자가 참여했던 SI 기반업무의 프로젝트들은 모두 apache를 사용하였다) 무작정 nginx 를 써보며 a
 어떤 이유에서 nginx 보다는 apache를 더많이 쓰는지 써보며 무엇이 다른지 정확하게 느껴보고싶었다. -->
 <h2 id="참고사이트"><a href="#참고사이트" class="headerlink" title="참고사이트"></a>참고사이트</h2><p><a href="https://opentutorials.org/module/384/3462" target="_blank" rel="noopener">nginx 소개</a><br><a href="https://www.linode.com/docs/web-servers/nginx/install-nginx-web-server-on-debian-8" target="_blank" rel="noopener">debian-8 nginx</a><br><a href="https://www.lesstif.com/pages/viewpage.action?pageId=35357063" target="_blank" rel="noopener">load balancing 설정</a><br><a href="http://blog.naver.com/PostView.nhn?blogId=tmondev&amp;logNo=220737182315" target="_blank" rel="noopener">apache vs nginx</a></p>
+	  
+	</div>
 
-      
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a href="/2017/05/04/nginx-1/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> Prev</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2017/04/29/nodejs-2/" type="button" class="btn btn-default ">Next<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">Comments</h2>
+
+    
+    <div id="disqus_thread" class="ds-thread">
+        <script type="text/javascript">
+            /**
+             * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+             * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+             */
+                /*
+                 var disqus_config = function () {
+                 this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                 this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                 };
+                 */
+            (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+
+                s.src = '//https-setyourmindpark-github-io.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by
+                Disqus.</a></noscript>
     </div>
-    <footer class="entry-meta entry-footer">
-      
-	<span class="ico-folder"></span>
-    <a class="article-category-link" href="/categories/nginx/">nginx</a>
-
-      
-      
-            
-      
-        
-	<section id="comments" class="comment">
-	  <div id="disqus_thread">
-	  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-	  </div>
-	</section>
-
-	<script type="text/javascript">
-	var disqus_shortname = 'https-setyourmindpark-github-io';
-	(function(){
-	  var dsq = document.createElement('script');
-	  dsq.type = 'text/javascript';
-	  dsq.async = true;
-	  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-	  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-	}());
-	(function(){
-	  var dsq = document.createElement('script');
-	  dsq.type = 'text/javascript';
-	  dsq.async = true;
-	  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
-	  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-	}());
-	</script>
-
-
-      
-    </footer>
-  </div>
-  
     
-<nav id="article-nav">
-  
-    <a href="/2017/05/04/nginx-1/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          nginx ssl 적용하기
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2017/04/29/nodejs-2/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Promise ReactiveX</div>
-    </a>
-  
-</nav>
-
-  
-</article>
-
-<!-- Table of Contents -->
-
-  <aside id="sidebar">
-    <div id="toc" class="toc-article">
-    <strong class="toc-title">Contents</strong>
-    
-      <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#nginx와-apache"><span class="nav-number">1.</span> <span class="nav-text">nginx와 apache</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#nginx-설치"><span class="nav-number">2.</span> <span class="nav-text">nginx 설치</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#어떻게-사용하는가"><span class="nav-number">3.</span> <span class="nav-text">어떻게 사용하는가</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#견해"><span class="nav-number">4.</span> <span class="nav-text">견해</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#참고사이트"><span class="nav-number">5.</span> <span class="nav-text">참고사이트</span></a></li></ol>
-    
-    </div>
-  </aside>
 </section>
-        
-      </div>
-      <footer id="footer" class="site-footer">
-  
-
-  <div class="clearfix container">
-      <div class="site-info">
-	      &copy; 2018 jaehunpark All Rights Reserved.
-          
-            <span id="busuanzi_container_site_uv">
-              本站访客数<span id="busuanzi_value_site_uv"></span>人次  
-              本站总访问量<span id="busuanzi_value_site_pv"></span>次
-            </span>
-          
-      </div>
-      <div class="site-credit">
-        Theme by <a href="https://github.com/iTimeTraveler/hexo-theme-hiero" target="_blank">hiero</a>
-      </div>
-  </div>
-</footer>
 
 
-<!-- min height -->
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
 
-<script>
-    var contentdiv = document.getElementById("content");
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2017-05-03 
+	</div>
+	
 
-    contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
-</script>
-
-<!-- Custome JS -->
-<script src="/js/my.js"></script>
-    </div>
-    <!-- <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-    <a href="/categories" class="mobile-nav-link">Categories</a>
-  
-</nav> -->
+	<!-- categories -->
     
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/nginx/">nginx<span>2</span></a></li>
+  </li>
 
-<!-- mathjax config similar to math.stackexchange -->
+    </ul>
+	</div>
+	
 
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-      processEscapes: true
-    }
-  });
-</script>
+	<!-- tags -->
+		
 
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-      tex2jax: {
-        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-      }
-    });
-</script>
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
 
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for(i=0; i < all.length; i += 1) {
-            all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-    });
-</script>
+	</div>
+		
 
-<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
+</div><!-- row -->
 
-
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
-
-
-<script src="/js/scripts.js"></script>
-<script src="/js/bootstrap.js"></script>
-<script src="/js/main.js"></script>
-
-
-<!-- Google Analytics -->
 <script type="text/javascript">
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-ga('create', 'UA-97011652-1', 'auto');
-ga('send', 'pageview');
-
+var disqus_shortname = 'https-setyourmindpark-github-io';
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
 </script>
-<!-- End Google Analytics -->
 
 
 
-
-
-
-
-	<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
-	</script>
-
-
-
-
-
-
+	</div>
   </div>
+  <div class="container-narrow">
+  <footer> Copyright
+<p>
+  &copy; 2018 jaehunpark
+  
+</p>
+<!-- <p>
+  &copy; 2018 jaehunpark
+  
+      with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
+     <br> Theme by <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind.386</a>.    
+</p> -->
+ </footer>
+</div> <!-- container-narrow -->
+  
 
-  <a id="rocket" href="#top" class=""></a>
-  <script type="text/javascript" src="/js/totop.js" async=""></script>
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
 </body>
-</html>
+   </html>

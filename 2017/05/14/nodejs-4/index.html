@@ -1,187 +1,123 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html>
 <head>
   <meta charset="utf-8">
-
-  <!-- PACE Progress Bar START -->
-  
-    <script src="/js/pace.min.js"></script>
-    <link rel="stylesheet" href="https://github.com/HubSpot/pace/raw/master/themes/orange/pace-theme-flash.css">
-  
-  
-
-  <!-- PACE Progress Bar START -->
-
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
   
   <title>compare java and javascript | </title>
+  <meta name="author" content="jaehunpark">
+  
+  <meta name="description" content="서론필자는 아직도 java가 좀더 친숙한면이있다 . java의 꽃이라불리는 상속, 상속을 이용한 메서드 오버라이딩(overriding), 그리고 메서드 오버로딩(overloading) 을 javascript에서 어떻게 사용하는가에 대한 글을 적어보려한다 .필자도 jav">
+  
+  
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  
-  
-  
-  
-  <meta name="description" content="서론필자는 아직도 java가 좀더 친숙한면이있다 . java의 꽃이라불리는 상속, 상속을 이용한 메서드 오버라이딩(overriding), 그리고 메서드 오버로딩(overloading) 을 javascript에서 어떻게 사용하는가에 대한 글을 적어보려한다 .필자도 javascript에 입문한지 얼마되지않았지만. 정리하며 익숙해지려 노력중이다 .javascri">
-<meta property="og:type" content="article">
-<meta property="og:title" content="compare java and javascript">
-<meta property="og:url" content="https://setyourmindpark.github.io/2017/05/14/nodejs-4/index.html">
-<meta property="og:site_name">
-<meta property="og:description" content="서론필자는 아직도 java가 좀더 친숙한면이있다 . java의 꽃이라불리는 상속, 상속을 이용한 메서드 오버라이딩(overriding), 그리고 메서드 오버로딩(overloading) 을 javascript에서 어떻게 사용하는가에 대한 글을 적어보려한다 .필자도 javascript에 입문한지 얼마되지않았지만. 정리하며 익숙해지려 노력중이다 .javascri">
-<meta property="og:updated_time" content="2018-02-05T11:00:07.000Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="compare java and javascript">
-<meta name="twitter:description" content="서론필자는 아직도 java가 좀더 친숙한면이있다 . java의 꽃이라불리는 상속, 상속을 이용한 메서드 오버라이딩(overriding), 그리고 메서드 오버로딩(overloading) 을 javascript에서 어떻게 사용하는가에 대한 글을 적어보려한다 .필자도 javascript에 입문한지 얼마되지않았지만. 정리하며 익숙해지려 노력중이다 .javascri">
-  
-    <link rel="alternate" href="/atom.xml" title="" type="application/atom+xml">
-  
-  <link rel="icon" href="/css/images/favicon.ico">
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
-  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
-  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
-  <style type="text/css">
-    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
-    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
-    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
-    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
-    
-  <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.googleapis.com/css?family=Yanone+Kaffeesatz%3A200%2C300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all">
-  <link rel="stylesheet" href="/css/style.css">
 
-  <script src="/js/jquery-3.1.1.min.js"></script>
+  <meta property="og:title" content="compare java and javascript"/>
+  <meta property="og:site_name" content=""/>
 
-  <!-- Bootstrap core CSS -->
-  <link rel="stylesheet" href="/css/bootstrap.css" >
-  <link rel="stylesheet" href="/css/hiero.css" >
-  <link rel="stylesheet" href="/css/glyphs.css" >
+  
+    <meta property="og:image" content=""/>
   
 
-  <!-- Custom CSS -->
-  <link rel="stylesheet" href="/css/my.css">
-  <!-- Google Adsense -->
-  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-  <script>
-      (adsbygoogle = window.adsbygoogle || []).push({
-          google_ad_client: "",
-          enable_page_level_ads: true
-      });
-  </script>
-</head>
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
 <script>
-var themeMenus = {};
-
-  themeMenus["/"] = "Home"; 
-
-  themeMenus["/archives"] = "Archives"; 
-
-  themeMenus["/categories"] = "Categories"; 
-
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-97011652-1', 'auto');
+  ga('send', 'pageview');
 </script>
 
 
-  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?cb5448498d7169c668b07c2b255d62c1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
 
 
-  <header id="allheader" class="site-header" role="banner">
-  <div class="clearfix container">
-      <div class="site-branding">
+</head>
 
-          <h1 class="site-title">
-            
-              <a href="/" title="" rel="home">  </a>
-            
-          </h1>
-
-          
-            
-          <nav id="main-navigation" class="main-navigation" role="navigation">
-            <a class="nav-open">Menu</a>
-            <a class="nav-close">Close</a>
-            <div class="clearfix sf-menu">
-
-              <ul id="main-nav" class="nmenu sf-js-enabled">
-                    
-                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/">Home</a> </li>
-                    
-                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/archives">Archives</a> </li>
-                    
-                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/categories">Categories</a> </li>
-                    
-              </ul>
-            </div>
-          </nav>
-
-
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/"></a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class=""></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class=""></i>Categories
+			</a>
+		  </li>
+		  
+		</ul>
       </div>
-  </div>
-</header>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
 
 
-  <div id="originBgDiv" style="background: #fff; width: 100%;">
-
-      <div style="max-height:600px; overflow: hidden;  display: flex; display: -webkit-flex; align-items: center;">
-        <img id="originBg" width="100%" alt="" src="">
-      </div>
-
-  </div>
-
-  <script>
-  function setAboutIMG(){
-      var imgUrls = "css/images/pose.jpg,https://source.unsplash.com/collection/954550/1920x1080".split(",");
-      var random = Math.floor((Math.random() * imgUrls.length ));
-      if (imgUrls[random].startsWith('http') || imgUrls[random].indexOf('://') >= 0) {
-        document.getElementById("originBg").src=imgUrls[random];
-      } else {
-        document.getElementById("originBg").src='/' + imgUrls[random];
-      }
-  }
-  bgDiv=document.getElementById("originBgDiv");
-  if(location.pathname.match('about')){
-    setAboutIMG();
-    bgDiv.style.display='block';
-  }else{
-    bgDiv.style.display='none';
-  }
-  </script>
+	
+		<div class="page-header">
+			<h1> compare java and javascript</h1>
+		</div>
+	
 
 
 
-  <div id="container">
-    <div id="wrap">
-            
-      <div id="content" class="outer">
-        
-          <section id="main" style="float:none;"><article id="post-nodejs-4" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" class="article-title" itemprop="name">
-      compare java and javascript
-    </h1>
-  
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
 
-      </header>
-    
-    <div class="article-meta">
-      
-	Posted on <a href="/2017/05/14/nodejs-4/" class="article-date">
-		<!-- <time datetime="2017-05-14T09:28:26.000Z" itemprop="datePublished">May 14, 2017</time> -->
-		<time datetime="2017-05-14T09:28:26.000Z" itemprop="datePublished">2017/05/14</time>	
-	</a>
+	<!-- content -->
+	<div class="mypage">		
+	  		
 
-      
-	<span id="busuanzi_container_page_pv">
-		<!-- 本文总阅读量<span id="busuanzi_value_page_pv"></span>次 -->		
-	</span>
-
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="서론"><a href="#서론" class="headerlink" title="서론"></a>서론</h2><p>필자는 아직도 java가 좀더 친숙한면이있다 . java의 꽃이라불리는 상속, 상속을 이용한 메서드 오버라이딩(overriding), 그리고 메서드 오버로딩(overloading) 을 javascript에서 어떻게 사용하는가에 대한 글을 적어보려한다 .<br>필자도 javascript에 입문한지 얼마되지않았지만. 정리하며 익숙해지려 노력중이다 .<br>javascript 만의 장점도 있지만, 자바의 객체지향( Object Oriented Programming  ) 이하 OOP는 검증된 디자인 패턴이므로 javascript 에서도 적용해본다 .<br>필자도 여러 블로거님들의 글을 참고하였으며. 하단의 [ 참고 ] 탭에서 필자가 참고한 사이트를 적어놓았으니 참고하면 좋을듯 하다 .<br><br><br></p>
+	  <h2 id="서론"><a href="#서론" class="headerlink" title="서론"></a>서론</h2><p>필자는 아직도 java가 좀더 친숙한면이있다 . java의 꽃이라불리는 상속, 상속을 이용한 메서드 오버라이딩(overriding), 그리고 메서드 오버로딩(overloading) 을 javascript에서 어떻게 사용하는가에 대한 글을 적어보려한다 .<br>필자도 javascript에 입문한지 얼마되지않았지만. 정리하며 익숙해지려 노력중이다 .<br>javascript 만의 장점도 있지만, 자바의 객체지향( Object Oriented Programming  ) 이하 OOP는 검증된 디자인 패턴이므로 javascript 에서도 적용해본다 .<br>필자도 여러 블로거님들의 글을 참고하였으며. 하단의 [ 참고 ] 탭에서 필자가 참고한 사이트를 적어놓았으니 참고하면 좋을듯 하다 .<br><br><br></p>
 <h2 id="java-와-javascript"><a href="#java-와-javascript" class="headerlink" title="java 와 javascript"></a>java 와 javascript</h2><p>먼저 필자는 간단한 예제를 준비했다 .</p>
 <h3 id="java"><a href="#java" class="headerlink" title="java"></a>java</h3><h4 id="MyParent-java"><a href="#MyParent-java" class="headerlink" title="MyParent.java"></a>MyParent.java</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//부모클래스</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyParent</span> </span>&#123;</div><div class="line">	<span class="keyword">private</span> String myName = <span class="string">"chahyunpark"</span>;</div><div class="line">	<span class="keyword">private</span> String mySex = <span class="string">"남"</span>;</div><div class="line">	<span class="keyword">private</span> <span class="keyword">int</span> myAge = <span class="number">57</span>;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">myInfo</span><span class="params">()</span></span>&#123;</div><div class="line">		System.out.println(<span class="string">"myFather name : "</span> + <span class="keyword">this</span>.myName);</div><div class="line">		System.out.println(<span class="string">"myFather sex : "</span> + <span class="keyword">this</span>.mySex);</div><div class="line">		System.out.println(<span class="string">"myFather age : "</span> + <span class="keyword">this</span>.myAge);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p><br></p>
@@ -200,197 +136,172 @@ var themeMenus = {};
 <h2 id="설명"><a href="#설명" class="headerlink" title="설명"></a>설명</h2><p>java는 super라는 keyword가 존재하여 super.myInfo() 를통해 부모 클래스의 메서드를 호출할수있다.<br>하지만 javascript는 부모 클래스의 메서드를 호출할수있는 키워드가 없으므로 , call() 또는 apply() 를 호출하여 부모 클래스에 정의된 함수를 호출한다 .<br>또하나 . javascript 같은경우는 상속을 MyChild.prototype = new MyParent(); 와 같이 정의하기에 정의하는순간부터 context ( this ) 는 부모 클래스와 공유된다 .<br>이러한 이유로 MyParent.js 와 MyParent.java 를 보면 변수명이 다를것이다 .<br>javascript는 상속받은 부모의 변수가 자식의 변수와 겹치면 자식의 this 우선적으로 적용한다. ( 겹치면안된다 . )<br>자바의 private 메서드는 javascript에서 클로저( closure ) 로 구현이가능하며, overloading은 메서드 인자갯수에 따라 구현이가능하다 .<br>간단한 예제로 글을 작성하였지만, 예제가 모든걸 설명해주고 있으니 자주까먹는 필자도 이 예제를 간간히 보며 곱씹어야겠다는 생각이든다 .<br>이 글을 작성하며 javascript가 조금은 더 친숙해진듯 하다 .<br><br><br></p>
 <h2 id="참고"><a href="#참고" class="headerlink" title="참고"></a>참고</h2><p><a href="http://webclub.tistory.com/404" target="_blank" rel="noopener">http://webclub.tistory.com/404</a><br><a href="http://www.florakid.com/florakid_lib/sub/javascript/apply_call_method.html" target="_blank" rel="noopener">http://www.florakid.com/florakid_lib/sub/javascript/apply_call_method.html</a><br><a href="https://developer.mozilla.org/ko/docs/Web/JavaScript/Guide/Closures" target="_blank" rel="noopener">https://developer.mozilla.org/ko/docs/Web/JavaScript/Guide/Closures</a><br><a href="https://developer.mozilla.org/ko/docs/Web/JavaScript/Introduction_to_Object-Oriented_JavaScript" target="_blank" rel="noopener">https://developer.mozilla.org/ko/docs/Web/JavaScript/Introduction_to_Object-Oriented_JavaScript</a><br><!-- //먼저 이 예제는 자바스크립트에 "per-object methods" 가 존재하지 않는다는 것을 보여준다. JavaScript는 메서드에 대한 레퍼런스가 모두 똑같은 (프로토타입에 처음 정의한) 함수를 참조하고 있기 때문이다.
 //자바스크립트는 어떤 객체의 메서드로서 함수가 호출될 때 현재 "객체의 컨텍스트"를 특별한 "this" 변수에 "연결한다". 이는 아래와 같이 function 객체의 call 메서드를 호출하는 것과 동일하다. --></p>
+	  
+	</div>
 
-      
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a href="/2018/02/04/nodejs-5/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> Prev</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2017/05/13/nodejs-3/" type="button" class="btn btn-default ">Next<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">Comments</h2>
+
+    
+    <div id="disqus_thread" class="ds-thread">
+        <script type="text/javascript">
+            /**
+             * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+             * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+             */
+                /*
+                 var disqus_config = function () {
+                 this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                 this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                 };
+                 */
+            (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+
+                s.src = '//https-setyourmindpark-github-io.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by
+                Disqus.</a></noscript>
     </div>
-    <footer class="entry-meta entry-footer">
-      
-	<span class="ico-folder"></span>
-    <a class="article-category-link" href="/categories/nodejs/">nodejs</a>
-
-      
-      
-            
-      
-        
-	<section id="comments" class="comment">
-	  <div id="disqus_thread">
-	  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-	  </div>
-	</section>
-
-	<script type="text/javascript">
-	var disqus_shortname = 'https-setyourmindpark-github-io';
-	(function(){
-	  var dsq = document.createElement('script');
-	  dsq.type = 'text/javascript';
-	  dsq.async = true;
-	  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-	  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-	}());
-	(function(){
-	  var dsq = document.createElement('script');
-	  dsq.type = 'text/javascript';
-	  dsq.async = true;
-	  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
-	  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-	}());
-	</script>
-
-
-      
-    </footer>
-  </div>
-  
     
-<nav id="article-nav">
-  
-    <a href="/2018/02/04/nodejs-5/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          javascript callback mechanism
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2017/05/13/nodejs-3/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">async await</div>
-    </a>
-  
-</nav>
-
-  
-</article>
-
-<!-- Table of Contents -->
-
-  <aside id="sidebar">
-    <div id="toc" class="toc-article">
-    <strong class="toc-title">Contents</strong>
-    
-      <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#서론"><span class="nav-number">1.</span> <span class="nav-text">서론</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#java-와-javascript"><span class="nav-number">2.</span> <span class="nav-text">java 와 javascript</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#java"><span class="nav-number">2.1.</span> <span class="nav-text">java</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#MyParent-java"><span class="nav-number">2.1.1.</span> <span class="nav-text">MyParent.java</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MyChild-java"><span class="nav-number">2.1.2.</span> <span class="nav-text">MyChild.java</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Run-java"><span class="nav-number">2.1.3.</span> <span class="nav-text">Run.java</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#javascript"><span class="nav-number">2.2.</span> <span class="nav-text">javascript</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#MyParent-js"><span class="nav-number">2.2.1.</span> <span class="nav-text">MyParent.js</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MyChild-js"><span class="nav-number">2.2.2.</span> <span class="nav-text">MyChild.js</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Run-js"><span class="nav-number">2.2.3.</span> <span class="nav-text">Run.js</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#설명"><span class="nav-number">3.</span> <span class="nav-text">설명</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#참고"><span class="nav-number">4.</span> <span class="nav-text">참고</span></a></li></ol>
-    
-    </div>
-  </aside>
 </section>
-        
-      </div>
-      <footer id="footer" class="site-footer">
-  
-
-  <div class="clearfix container">
-      <div class="site-info">
-	      &copy; 2018 jaehunpark All Rights Reserved.
-          
-            <span id="busuanzi_container_site_uv">
-              本站访客数<span id="busuanzi_value_site_uv"></span>人次  
-              本站总访问量<span id="busuanzi_value_site_pv"></span>次
-            </span>
-          
-      </div>
-      <div class="site-credit">
-        Theme by <a href="https://github.com/iTimeTraveler/hexo-theme-hiero" target="_blank">hiero</a>
-      </div>
-  </div>
-</footer>
 
 
-<!-- min height -->
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
 
-<script>
-    var contentdiv = document.getElementById("content");
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2017-05-14 
+	</div>
+	
 
-    contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
-</script>
-
-<!-- Custome JS -->
-<script src="/js/my.js"></script>
-    </div>
-    <!-- <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-    <a href="/categories" class="mobile-nav-link">Categories</a>
-  
-</nav> -->
+	<!-- categories -->
     
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/nodejs/">nodejs<span>6</span></a></li>
+  </li>
 
-<!-- mathjax config similar to math.stackexchange -->
+    </ul>
+	</div>
+	
 
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-      processEscapes: true
-    }
-  });
-</script>
+	<!-- tags -->
+		
 
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-      tex2jax: {
-        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-      }
-    });
-</script>
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
 
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for(i=0; i < all.length; i += 1) {
-            all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-    });
-</script>
+	</div>
+		
 
-<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
+</div><!-- row -->
 
-
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
-
-
-<script src="/js/scripts.js"></script>
-<script src="/js/bootstrap.js"></script>
-<script src="/js/main.js"></script>
-
-
-<!-- Google Analytics -->
 <script type="text/javascript">
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-ga('create', 'UA-97011652-1', 'auto');
-ga('send', 'pageview');
-
+var disqus_shortname = 'https-setyourmindpark-github-io';
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
 </script>
-<!-- End Google Analytics -->
 
 
 
-
-
-
-
-	<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
-	</script>
-
-
-
-
-
-
+	</div>
   </div>
+  <div class="container-narrow">
+  <footer> Copyright
+<p>
+  &copy; 2018 jaehunpark
+  
+</p>
+<!-- <p>
+  &copy; 2018 jaehunpark
+  
+      with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
+     <br> Theme by <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind.386</a>.    
+</p> -->
+ </footer>
+</div> <!-- container-narrow -->
+  
 
-  <a id="rocket" href="#top" class=""></a>
-  <script type="text/javascript" src="/js/totop.js" async=""></script>
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
 </body>
-</html>
+   </html>
