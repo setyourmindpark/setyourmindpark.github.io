@@ -1,124 +1,188 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
-  <meta http-equiv="pragma" content="no-cache">
-  <meta http-equiv="cache-control" content="no-cache">
-  <meta http-equiv="expires" content="0">
+
+  <!-- PACE Progress Bar START -->
   
-  <title>async await | jaehunpark</title>
-  <meta name="author" content="jaehunpark">
-  
-  <meta name="description" content="async awaites7 공식발표가 되진않았지만 es7에 async와 await 가 잠정적으로 탑재되는 분위기인것 같다 . es6 의 promise가 탑재된듯이 .필자는 nodejs 개발시 Promise ( bluebird module )를 아주 적극적으로 사용하고있">
+    <script src="/js/pace.min.js"></script>
+    <link rel="stylesheet" href="https://github.com/HubSpot/pace/raw/master/themes/orange/pace-theme-flash.css">
   
   
+
+  <!-- PACE Progress Bar START -->
+
+  
+  <title>async await | </title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
-  <meta property="og:title" content="async await"/>
-  <meta property="og:site_name" content="jaehunpark"/>
-
-  
-    <meta property="og:image" content=""/>
-  
-
   
   
-    <link href="/favicon.png" rel="icon">
   
   
-  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
-  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
-  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
-  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
-  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
-  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
-  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
-
-  <script src="/js/jquery-2.0.3.min.js"></script>
-
-  <!-- analytics -->
+  <meta name="description" content="async awaites7 공식발표가 되진않았지만 es7에 async와 await 가 잠정적으로 탑재되는 분위기인것 같다 . es6 의 promise가 탑재된듯이 .필자는 nodejs 개발시 Promise ( bluebird module )를 아주 적극적으로 사용하고있다 . 변화를 느끼고자 이전포스트 Promise ReactiveX에서 ReactiveX를">
+<meta property="og:type" content="article">
+<meta property="og:title" content="async await">
+<meta property="og:url" content="https://setyourmindpark.github.io/2017/05/13/nodejs-3/index.html">
+<meta property="og:site_name">
+<meta property="og:description" content="async awaites7 공식발표가 되진않았지만 es7에 async와 await 가 잠정적으로 탑재되는 분위기인것 같다 . es6 의 promise가 탑재된듯이 .필자는 nodejs 개발시 Promise ( bluebird module )를 아주 적극적으로 사용하고있다 . 변화를 느끼고자 이전포스트 Promise ReactiveX에서 ReactiveX를">
+<meta property="og:updated_time" content="2018-02-05T10:59:55.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="async await">
+<meta name="twitter:description" content="async awaites7 공식발표가 되진않았지만 es7에 async와 await 가 잠정적으로 탑재되는 분위기인것 같다 . es6 의 promise가 탑재된듯이 .필자는 nodejs 개발시 Promise ( bluebird module )를 아주 적극적으로 사용하고있다 . 변화를 느끼고자 이전포스트 Promise ReactiveX에서 ReactiveX를">
   
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-  ga('create', 'UA-97011652-1', 'auto');
-  ga('send', 'pageview');
-</script>
+    <link rel="alternate" href="/atom.xml" title="" type="application/atom+xml">
+  
+  <link rel="icon" href="/css/images/favicon.ico">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
+    
+  <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.googleapis.com/css?family=Yanone+Kaffeesatz%3A200%2C300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all">
+  <link rel="stylesheet" href="/css/style.css">
 
+  <script src="/js/jquery-3.1.1.min.js"></script>
 
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css" >
+  <link rel="stylesheet" href="/css/hiero.css" >
+  <link rel="stylesheet" href="/css/glyphs.css" >
+  
 
-<script>
-var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = "//hm.baidu.com/hm.js?cb5448498d7169c668b07c2b255d62c1";
-  var s = document.getElementsByTagName("script")[0]; 
-  s.parentNode.insertBefore(hm, s);
-})();
-</script>
-
-
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="/css/my.css">
+  <!-- Google Adsense -->
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <script>
+      (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "",
+          enable_page_level_ads: true
+      });
+  </script>
 </head>
 
- <body>  
-  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-    <div class="container">
-      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-		<span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-	  <a class="navbar-brand" href="/">jaehunpark</a>
-      <div class="collapse navbar-collapse nav-menu">
-		<ul class="nav navbar-nav">
-		  
-		  <li>
-			<a href="/archives" title="All the articles.">
-			  <i class=""></i>Archives
-			</a>
-		  </li>
-		  
-		  <li>
-			<a href="/categories" title="All the categories.">
-			  <i class=""></i>Categories
-			</a>
-		  </li>
-		  
-		</ul>
+<script>
+var themeMenus = {};
+
+  themeMenus["/"] = "Home"; 
+
+  themeMenus["/archives"] = "Archives"; 
+
+  themeMenus["/categories"] = "Categories"; 
+
+</script>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  <header id="allheader" class="site-header" role="banner">
+  <div class="clearfix container">
+      <div class="site-branding">
+
+          <h1 class="site-title">
+            
+              <a href="/" title="" rel="home">  </a>
+            
+          </h1>
+
+          
+            
+          <nav id="main-navigation" class="main-navigation" role="navigation">
+            <a class="nav-open">Menu</a>
+            <a class="nav-close">Close</a>
+            <div class="clearfix sf-menu">
+
+              <ul id="main-nav" class="nmenu sf-js-enabled">
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/">Home</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/archives">Archives</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/categories">Categories</a> </li>
+                    
+              </ul>
+            </div>
+          </nav>
+
+
       </div>
-    </div> <!-- container -->
-</nav>
-<div class="clearfix"></div>
-
-  <div class="container">
-  	<div class="content">
-    	 
+  </div>
+</header>
 
 
-	
-		<div class="page-header">
-			<h1> async await</h1>
-		</div>
-	
+  <div id="originBgDiv" style="background: #fff; width: 100%;">
+
+      <div style="max-height:600px; overflow: hidden;  display: flex; display: -webkit-flex; align-items: center;">
+        <img id="originBg" width="100%" alt="" src="">
+      </div>
+
+  </div>
+
+  <script>
+  function setAboutIMG(){
+      var imgUrls = "css/images/pose.jpg,https://source.unsplash.com/collection/954550/1920x1080".split(",");
+      var random = Math.floor((Math.random() * imgUrls.length ));
+      if (imgUrls[random].startsWith('http') || imgUrls[random].indexOf('://') >= 0) {
+        document.getElementById("originBg").src=imgUrls[random];
+      } else {
+        document.getElementById("originBg").src='/' + imgUrls[random];
+      }
+  }
+  bgDiv=document.getElementById("originBgDiv");
+  if(location.pathname.match('about')){
+    setAboutIMG();
+    bgDiv.style.display='block';
+  }else{
+    bgDiv.style.display='none';
+  }
+  </script>
 
 
 
-<div class="row post">
-	<!-- cols -->
-	
-	<div id="top_meta"></div>
-	<div class="col-md-9">
-	
+  <div id="container">
+    <div id="wrap">
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-nodejs-3" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      async await
+    </h1>
+  
 
-	<!-- content -->
-	<div class="mypage">		
-	  		
+      </header>
+    
+    <div class="article-meta">
+      
+	Posted on <a href="/2017/05/13/nodejs-3/" class="article-date">
+		<!-- <time datetime="2017-05-13T12:22:22.000Z" itemprop="datePublished">May 13, 2017</time> -->
+		<time datetime="2017-05-13T12:22:22.000Z" itemprop="datePublished">2017/05/13</time>	
+	</a>
 
-	  <h2 id="async-await"><a href="#async-await" class="headerlink" title="async await"></a>async await</h2><p>es7 공식발표가 되진않았지만 es7에 async와 await 가 잠정적으로 탑재되는 분위기인것 같다 . es6 의 promise가 탑재된듯이 .<br>필자는 nodejs 개발시 Promise ( bluebird module )를 아주 적극적으로 사용하고있다 . 변화를 느끼고자 이전포스트 <a href="https://setyourmindpark.github.io/2017/04/29/nodejs-2/" target="_blank" rel="noopener">Promise ReactiveX</a><br>에서 ReactiveX를 사용해보았지만 코드 가독성이 Promise 보다는 떨어지기에 적극적으로 도입하긴보다는 Promise와 적절히 섞어 쓰는것이 좋겠다 라는 결론을 지었다.<br>이번에는 async await 에대한 글을 적어보려한다. 결론부터 말하자면 굉장히 아주 매우 마음에드는 녀석이다 .<br><br><br></p>
-<h2 id="more-than-higher-node-7-6"><a href="#more-than-higher-node-7-6" class="headerlink" title="more than higher node 7.6"></a>more than higher node 7.6</h2><p>async await keyword 는 기본적으로 node 7 이상에서 동작한다 ( v7.6 )<br>필자는 ‘ async await 을 사용해봐야지 ‘ 라고 생각하기전까지는 v6.10.3 를 줄곧사용하였다 .<br>nvm이 정말 유용한 녀석이라고 생각한순간이 바로 이순간이었다. nvm에대해서는 <a href="https://setyourmindpark.github.io/2017/04/06/nodejs/" target="_blank" rel="noopener">nvm</a> 참고하자 .<br>추가적으로 필자는 지금 이 글을 쓰기위한 node 기반 hexo 를 사용할때는 v6.10.3 로 switch 한다. ( node v.7.10.0 에서 hexo 설치시 버그가 있는듯하다 . )</p>
+      
+	<span id="busuanzi_container_page_pv">
+		<!-- 本文总阅读量<span id="busuanzi_value_page_pv"></span>次 -->		
+	</span>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="async-await"><a href="#async-await" class="headerlink" title="async await"></a>async await</h2><p>es7 공식발표가 되진않았지만 es7에 async와 await 가 잠정적으로 탑재되는 분위기인것 같다 . es6 의 promise가 탑재된듯이 .<br>필자는 nodejs 개발시 Promise ( bluebird module )를 아주 적극적으로 사용하고있다 . 변화를 느끼고자 이전포스트 <a href="https://setyourmindpark.github.io/2017/04/29/nodejs-2/">Promise ReactiveX</a><br>에서 ReactiveX를 사용해보았지만 코드 가독성이 Promise 보다는 떨어지기에 적극적으로 도입하긴보다는 Promise와 적절히 섞어 쓰는것이 좋겠다 라는 결론을 지었다.<br>이번에는 async await 에대한 글을 적어보려한다. 결론부터 말하자면 굉장히 아주 매우 마음에드는 녀석이다 .<br><br><br></p>
+<h2 id="more-than-higher-node-7-6"><a href="#more-than-higher-node-7-6" class="headerlink" title="more than higher node 7.6"></a>more than higher node 7.6</h2><p>async await keyword 는 기본적으로 node 7 이상에서 동작한다 ( v7.6 )<br>필자는 ‘ async await 을 사용해봐야지 ‘ 라고 생각하기전까지는 v6.10.3 를 줄곧사용하였다 .<br>nvm이 정말 유용한 녀석이라고 생각한순간이 바로 이순간이었다. nvm에대해서는 <a href="https://setyourmindpark.github.io/2017/04/06/nodejs/">nvm</a> 참고하자 .<br>추가적으로 필자는 지금 이 글을 쓰기위한 node 기반 hexo 를 사용할때는 v6.10.3 로 switch 한다. ( node v.7.10.0 에서 hexo 설치시 버그가 있는듯하다 . )</p>
 <h3 id="설치가능-node-version-확인"><a href="#설치가능-node-version-확인" class="headerlink" title="설치가능 node version 확인"></a>설치가능 node version 확인</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ nvm ls-remote</div></pre></td></tr></table></figure>
 <p><br></p>
 <h3 id="node-설치"><a href="#node-설치" class="headerlink" title="node 설치"></a>node 설치</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ nvm install &lt;node버전&gt;</div></pre></td></tr></table></figure>
@@ -139,172 +203,197 @@ var _hmt = _hmt || [];
 <h2 id="async-awiat-with-rx"><a href="#async-awiat-with-rx" class="headerlink" title="async awiat with rx"></a>async awiat with rx</h2><p>async await 을 rx와 같이 사용해보자 .<br>async await 도 Promise 기반으로 동작되기도하고, 가독성도 훨씬 좋아졌으니 덧붙여 적절한 상황에서 rx 를 사용하면 금상첨화라고 생각했다 .<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">asyncTask</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</div><div class="line">    setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">      resolve([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>]);</div><div class="line">    &#125;, <span class="number">2000</span>);</div><div class="line">  &#125;);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">doWork</span>(<span class="params"></span>)</span>&#123;</div><div class="line">  Rx.Observable.from(<span class="keyword">await</span> asyncTask())</div><div class="line">      .filter(<span class="function"><span class="params">num</span> =&gt;</span> num % <span class="number">2</span> )</div><div class="line">      .map(<span class="function"><span class="params">num</span> =&gt;</span> num * num )</div><div class="line">      .subscribe(</div><div class="line">        <span class="function"><span class="params">result</span> =&gt;</span> <span class="built_in">console</span>.log(result),</div><div class="line">        err =&gt; <span class="built_in">console</span>.log(err),</div><div class="line">        () =&gt; &#123;&#125;</div><div class="line">      );</div><div class="line">&#125;</div><div class="line">doWork();      <span class="comment">//1</span></div><div class="line">               <span class="comment">//9</span></div><div class="line">               <span class="comment">//25</span></div><div class="line">               <span class="comment">//49</span></div></pre></td></tr></table></figure></p>
 <p>사실 async await 만을 사용하여도 로직을 처리하는데에 충분이 문제가되지않지만 필자는 rx 역시 로직 처리에있어서는 분명 이점이있는 모듈이라고 생각되어 같이 사용해보았다.<br><br><br></p>
 <h2 id="견해"><a href="#견해" class="headerlink" title="견해"></a>견해</h2><p>front-end 에서 async await 을 적용하려면, 역시 node version ( 7.6 ) 이상과 babel을 필수로 도입해야할것이다 .<br>모든 브라우저가 async await을 지원하지않기에 babel를 통해 es5 코드로 변경된 코드를 적용해야하기 때문이다 .<br>사용을해본후 드는 생각으로는 async await 을 적극적으로 사용해야겠다는 생각과 무엇보다 동기코드로 작성할수있기에 callback hell 에대한 걱정이 없어 좋다 .<br>필자는 node version 7 위한 docker images을 만들어놓았다. <a href="https://hub.docker.com/r/setyourmindpark/debian-node/" target="_blank" rel="noopener">setyourmindpark/debian-node:7</a><br>해당 이미지를 base로 하여 추가적인 node 관리 pm2나, 필요한 모듈을 설치하여 새로운 이미지를 만들어 사용하면될것이다 .</p>
-	  
-	</div>
 
-	<div>
-  	<center>
-	<div class="pagination">
-
-    
-    
-    <a href="/2017/05/14/nodejs-4/" type="button" class="btn btn-default"><i
-                class="fa fa-arrow-circle-o-left"></i> Prev</a>
-    
-
-    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
-    
-    <a href="/2017/05/11/jenkins-4/" type="button" class="btn btn-default ">Next<i
-                class="fa fa-arrow-circle-o-right"></i></a>
-    
-
-    
-</div>
-
-    </center>
-	</div>
-	
-	<!-- comment -->
-	
-<section id="comment">
-    <h2 class="title">Comments</h2>
-
-    
-    <div id="disqus_thread" class="ds-thread">
-        <script type="text/javascript">
-            /**
-             * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-             * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
-             */
-                /*
-                 var disqus_config = function () {
-                 this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
-                 this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-                 };
-                 */
-            (function() { // DON'T EDIT BELOW THIS LINE
-                var d = document, s = d.createElement('script');
-
-                s.src = '//https-setyourmindpark-github-io.disqus.com/embed.js';
-
-                s.setAttribute('data-timestamp', +new Date());
-                (d.head || d.body).appendChild(s);
-            })();
-        </script>
-        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by
-                Disqus.</a></noscript>
+      
     </div>
-    
-</section>
+    <footer class="entry-meta entry-footer">
+      
+	<span class="ico-folder"></span>
+    <a class="article-category-link" href="/categories/nodejs/">nodejs</a>
+
+      
+      
+            
+      
+        
+	<section id="comments" class="comment">
+	  <div id="disqus_thread">
+	  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+	  </div>
+	</section>
+
+	<script type="text/javascript">
+	var disqus_shortname = 'https-setyourmindpark-github-io';
+	(function(){
+	  var dsq = document.createElement('script');
+	  dsq.type = 'text/javascript';
+	  dsq.async = true;
+	  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	}());
+	(function(){
+	  var dsq = document.createElement('script');
+	  dsq.type = 'text/javascript';
+	  dsq.async = true;
+	  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+	  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	}());
+	</script>
 
 
-	</div> <!-- col-md-9/col-md-12 -->
-		
-	
-	<div id="side_meta">
-		<div class="col-md-3" id="post_meta"> 
-
-	<!-- date -->
-	
-	<div class="meta-widget">
-	<i class="fa fa-clock-o"></i>
-	2017-05-13 
-	</div>
-	
-
-	<!-- categories -->
-    
-	<div class="meta-widget">
-	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
-    <ul id="categorys" class="tag_box list-unstyled collapse in">
-          
-  <li>
-    <li><a href="/categories/nodejs/">nodejs<span>6</span></a></li>
-  </li>
-
-    </ul>
-	</div>
-	
-
-	<!-- tags -->
-		
-
-	<!-- toc -->
-	<div class="meta-widget">
-	
-	</div>
-	
-    <hr>
-	
-</div><!-- col-md-3 -->
-
-	</div>
-		
-
-</div><!-- row -->
-
-<script type="text/javascript">
-var disqus_shortname = 'https-setyourmindpark-github-io';
-(function(){
-  var dsq = document.createElement('script');
-  dsq.type = 'text/javascript';
-  dsq.async = true;
-  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-}());
-</script>
-
-
-
-	</div>
+      
+    </footer>
   </div>
-  <div class="container-narrow">
-  <footer> Copyright
-<p>
-  &copy; 2018 jaehunpark
   
-</p>
-<!-- <p>
-  &copy; 2018 jaehunpark
+    
+<nav id="article-nav">
   
-      with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
-     <br> Theme by <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind.386</a>.    
-</p> -->
- </footer>
-</div> <!-- container-narrow -->
+    <a href="/2017/05/14/nodejs-4/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          compare java and javascript
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/05/11/jenkins-4/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">ssh scp proxy</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">Contents</strong>
+    
+      <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#async-await"><span class="nav-number">1.</span> <span class="nav-text">async await</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#more-than-higher-node-7-6"><span class="nav-number">2.</span> <span class="nav-text">more than higher node 7.6</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#설치가능-node-version-확인"><span class="nav-number">2.1.</span> <span class="nav-text">설치가능 node version 확인</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#node-설치"><span class="nav-number">2.2.</span> <span class="nav-text">node 설치</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#node-version-변경"><span class="nav-number">2.3.</span> <span class="nav-text">node version 변경</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#확인"><span class="nav-number">2.4.</span> <span class="nav-text">확인</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#어떻게-사용하는가"><span class="nav-number">3.</span> <span class="nav-text">어떻게 사용하는가</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#async-tasks"><span class="nav-number">3.1.</span> <span class="nav-text">async tasks</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Promise"><span class="nav-number">3.2.</span> <span class="nav-text">Promise</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#async-await-1"><span class="nav-number">3.3.</span> <span class="nav-text">async await</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#async-awiat-with-rx"><span class="nav-number">4.</span> <span class="nav-text">async awiat with rx</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#견해"><span class="nav-number">5.</span> <span class="nav-text">견해</span></a></li></ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+      <footer id="footer" class="site-footer">
   
 
+  <div class="clearfix container">
+      <div class="site-info">
+	      &copy; 2018 jaehunpark All Rights Reserved.
+          
+            <span id="busuanzi_container_site_uv">
+              本站访客数<span id="busuanzi_value_site_uv"></span>人次  
+              本站总访问量<span id="busuanzi_value_site_pv"></span>次
+            </span>
+          
+      </div>
+      <div class="site-credit">
+        Theme by <a href="https://github.com/iTimeTraveler/hexo-theme-hiero" target="_blank">hiero</a>
+      </div>
+  </div>
+</footer>
 
+
+<!-- min height -->
+
+<script>
+    var contentdiv = document.getElementById("content");
+
+    contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+</script>
+
+<!-- Custome JS -->
+<script src="/js/my.js"></script>
+    </div>
+    <!-- <nav id="mobile-nav">
   
-<a id="gotop" href="#">   
-  <span>⬆︎TOP</span>
-</a>
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+</nav> -->
+    
 
-<script src="/js/jquery.imagesloaded.min.js"></script>
-<script src="/js/gallery.js"></script>
-<script src="/js/bootstrap.min.js"></script>
-<script src="/js/main.js"></script>
-<script src="/js/search.js"></script> 
+<!-- mathjax config similar to math.stackexchange -->
 
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
 
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
-<script src="/fancybox/jquery.fancybox.pack.js"></script>
-<script type="text/javascript">
-(function($){
-  $('.fancybox').fancybox();
-})(jQuery);
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 
 
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
 
-   <script type="text/javascript">      
-     var search_path = "search.xml";
-	 if (search_path.length == 0) {
-	 	search_path = "search.xml";
-	 }
-	 var path = "/" + search_path;
-     searchFunc(path, 'local-search-input', 'local-search-result');
-   </script>
 
+<script src="/js/scripts.js"></script>
+<script src="/js/bootstrap.js"></script>
+<script src="/js/main.js"></script>
+
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-97011652-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+
+
+
+
+	<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js" async=""></script>
 </body>
-   </html>
+</html>
