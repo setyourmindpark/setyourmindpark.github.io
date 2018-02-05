@@ -13,7 +13,7 @@
 <meta property="og:url" content="https://github.com/setyourmindpark/setyourmindpark.github.io.git/2018/02/05/vagrant/index.html">
 <meta property="og:site_name" content="jaehunpark">
 <meta property="og:description" content="vagrant업무상 고객사의 서버환경을 살펴보면, 대부분 단일 서버로 모든 트래픽을 처리하는 곳은 아직까지 보지못하였다. ( 어찌보면 당연하다. )Xen Server를 사용하여 가상화를 통해 서버자원을 극대화하던지, 실제 물리서버를 2대로 운영을하던지, 그러던도중 vagrant라는 놈을 만나게되었다 .Xen Server나 vmware와 가장 두드러지게 다른">
-<meta property="og:updated_time" content="2018-02-05T09:07:29.000Z">
+<meta property="og:updated_time" content="2018-02-05T09:18:47.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="vagrant">
 <meta name="twitter:description" content="vagrant업무상 고객사의 서버환경을 살펴보면, 대부분 단일 서버로 모든 트래픽을 처리하는 곳은 아직까지 보지못하였다. ( 어찌보면 당연하다. )Xen Server를 사용하여 가상화를 통해 서버자원을 극대화하던지, 실제 물리서버를 2대로 운영을하던지, 그러던도중 vagrant라는 놈을 만나게되었다 .Xen Server나 vmware와 가장 두드러지게 다른">
@@ -133,7 +133,7 @@
   
 
   <div class="content" itemprop="articleBody">
-    <h2 id="vagrant"><a href="#vagrant" class="headerlink" title="vagrant"></a>vagrant</h2><p>업무상 고객사의 서버환경을 살펴보면, 대부분 단일 서버로 모든 트래픽을 처리하는 곳은 아직까지 보지못하였다. ( 어찌보면 당연하다. )<br>Xen Server를 사용하여 가상화를 통해 서버자원을 극대화하던지, 실제 물리서버를 2대로 운영을하던지, 그러던도중 vagrant라는 놈을 만나게되었다 .<br>Xen Server나 vmware와 가장 두드러지게 다른점이라면, 환경구성하고자하는 os를 직접 준비할 필요가 없다는점이다. 필요한 os를 설정파일에 적어주기만하면 아주간단히 가상환경을 구축할수있다.<br>필자는 앞으로 소개할 docker swarm cluster 를위해 vagrant로 환경구성을 해보려한다 . </p>
+    <h2 id="vagrant"><a href="#vagrant" class="headerlink" title="vagrant"></a>vagrant</h2><p>업무상 고객사의 서버환경을 살펴보면, 대부분 단일 서버로 모든 트래픽을 처리하는 곳은 아직까지 보지못하였다. ( 어찌보면 당연하다. )<br>Xen Server를 사용하여 가상화를 통해 서버자원을 극대화하던지, 실제 물리서버를 2대로 운영을하던지, 그러던도중 vagrant라는 놈을 만나게되었다 .<br>Xen Server나 vmware와 가장 두드러지게 다른점이라면, 환경구성하고자하는 os를 직접 준비할 필요가 없다는점이다. 필요한 os를 설정파일에 설정하게되면 아주간단히 가상환경을 구축할수있다.<br>필자는 앞으로 소개할 docker swarm cluster 를위해 vagrant로 환경구성을 해보려한다 . </p>
 <h2 id="virtual-box-와-vagrnat-설치"><a href="#virtual-box-와-vagrnat-설치" class="headerlink" title="virtual box 와 vagrnat 설치"></a>virtual box 와 vagrnat 설치</h2><p>vagrnat 가상환경을 만들기위해 기본적으로 virtualbox와 vagrant 가 설치되어있어야한다 .<br><a href="https://www.virtualbox.org/wiki/Downloads" target="_blank" rel="noopener">virtualbox</a><br><a href="https://www.vagrantup.com/downloads.html" target="_blank" rel="noopener">vagrant</a><br>설치가 진행되었다면 vagrant 로 환경구성 을 진행해보자 .   </p>
 <h2 id="vagrant-설정"><a href="#vagrant-설정" class="headerlink" title="vagrant 설정"></a>vagrant 설정</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ vagrant init</div></pre></td></tr></table></figure>
 <p>VagrantFile 이 생성된다 ( DockerFile 이생각나지왜 .. )<br>VagrantFile을 열어보면 다음과같이 설정되어있고, 기타설정들은 모두 주석처리되어있는것을 확인할수있다 .<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">config.vm.box = <span class="string">"base"</span></div></pre></td></tr></table></figure></p>
