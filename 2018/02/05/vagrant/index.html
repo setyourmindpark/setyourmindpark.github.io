@@ -13,7 +13,7 @@
 <meta property="og:url" content="https://github.com/setyourmindpark/setyourmindpark.github.io.git/2018/02/05/vagrant/index.html">
 <meta property="og:site_name" content="jaehunpark">
 <meta property="og:description" content="vagrant업무상 고객사의 서버환경을 살펴보면, 대부분 단일 서버로 모든 트래픽을 처리하는 곳은 아직까지 보지못하였다. ( 어찌보면 당연하다. )Xen Server를 사용하여 가상화를 통해 서버자원을 극대화하던지, 실제 물리서버를 2대로 운영을하던지, 그러던도중 vagrant라는 놈을 만나게되었다 .Xen Server나 vmware와 가장 두드러지게 다른">
-<meta property="og:updated_time" content="2018-02-05T09:18:47.000Z">
+<meta property="og:updated_time" content="2018-02-05T09:21:05.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="vagrant">
 <meta name="twitter:description" content="vagrant업무상 고객사의 서버환경을 살펴보면, 대부분 단일 서버로 모든 트래픽을 처리하는 곳은 아직까지 보지못하였다. ( 어찌보면 당연하다. )Xen Server를 사용하여 가상화를 통해 서버자원을 극대화하던지, 실제 물리서버를 2대로 운영을하던지, 그러던도중 vagrant라는 놈을 만나게되었다 .Xen Server나 vmware와 가장 두드러지게 다른">
@@ -146,7 +146,7 @@
 <p>구성한 설정정보로 server1의 hostname으로 접속된것을 확인할수있다.  </p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ yum update</div></pre></td></tr></table></figure>
 <p>깔끔하게 centos package update 최신으로 업데이트 하고, 각자가 원하는 추가구성 또는 설치를 진행한다.  </p>
-<h2 id="vagrant-명령어"><a href="#vagrant-명령어" class="headerlink" title="vagrant 명령어"></a>vagrant 명령어</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">$ vagrant up        =&gt; 구축</div><div class="line">$ vagrant ssh       =&gt; 접속</div><div class="line">$ vagrant destroy   =&gt; 삭제</div><div class="line">$ vagrant halt      =&gt; 종료</div><div class="line">$ vagrant <span class="built_in">suspend</span>   =&gt; 일시중지 ( 현재상태저장 )</div><div class="line">$ vagrant resume    =&gt; 다시시작 ( <span class="built_in">suspend</span>된 후 )</div></pre></td></tr></table></figure>
+<h2 id="vagrant-명령어"><a href="#vagrant-명령어" class="headerlink" title="vagrant 명령어"></a>vagrant 명령어</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$ vagrant up        =&gt; 구축</div><div class="line">$ vagrant ssh       =&gt; 접속</div><div class="line">$ vagrant destroy   =&gt; 삭제</div><div class="line">$ vagrant halt      =&gt; 종료</div><div class="line">$ vagrant <span class="built_in">suspend</span>   =&gt; 일시중지 ( 현재상태저장 )</div><div class="line">$ vagrant resume    =&gt; 다시시작 ( <span class="built_in">suspend</span>된 후 ) </div><div class="line">$ vagrant reload    =&gt; 재시동 ( 설정파일변경 등 )</div></pre></td></tr></table></figure>
 <h2 id="견해"><a href="#견해" class="headerlink" title="견해"></a>견해</h2><p>vagrant로 정말 간단하게 원하는 환경을 쉽고 빠르게 구축할수있었다.<br>간간히 구글링을하면 vagrant 와 docker 비교관련 키워드를 심심치 않게 마주치게되는데,<br>그럼 docker 와 vagrant는 무엇이다를까 ?<br>docker와 vagrant 모두 독자적인 os 환경을 구성할수있다는 공통점이 있지만 docker는 가상환경이라닌 ‘격리’ 라는 표현을 사용한다.<br>host os의 linux 자원을 geust os 가 공유하여 사용함으로 vagrant와 같이 가상화를 수행하지않고도 빠르게 가상환경과 같은 효과를 낼수있다 .<br>window에서 docker 환경을 구성한다면 가상환경을 사전에 먼저 구성해야 할것이다. ( host linux os 로부터 자원을 공유받아야하므로 ..  )</p>
 <!-- 
 추가적으로 timezone 설정을 진행한다 . default는 UTC로 세팅되어있다 .      
