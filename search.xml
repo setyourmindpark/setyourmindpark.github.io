@@ -37,14 +37,6 @@ locale은 default UTF-8로 세팅이 되어있다. KR로 변경을 원하면 다
         </categories>
         
         
-        <tags>
-            
-            <tag> docker </tag>
-            
-            <tag> vagrant </tag>
-            
-        </tags>
-        
     </entry>
     
     <entry>
@@ -68,14 +60,6 @@ locale은 default UTF-8로 세팅이 되어있다. KR로 변경을 원하면 다
             
         </categories>
         
-        
-        <tags>
-            
-            <tag> nodejs </tag>
-            
-            <tag> javascript </tag>
-            
-        </tags>
         
     </entry>
     
@@ -109,16 +93,6 @@ locale은 default UTF-8로 세팅이 되어있다. KR로 변경을 원하면 다
             
         </categories>
         
-        
-        <tags>
-            
-            <tag> java </tag>
-            
-            <tag> nodejs </tag>
-            
-            <tag> javascript </tag>
-            
-        </tags>
         
     </entry>
     
@@ -155,14 +129,6 @@ locale은 default UTF-8로 세팅이 되어있다. KR로 변경을 원하면 다
             
         </categories>
         
-        
-        <tags>
-            
-            <tag> nodejs </tag>
-            
-            <tag> javascript </tag>
-            
-        </tags>
         
     </entry>
     
@@ -218,18 +184,6 @@ scp -r -o ProxyCommand="ssh jaehunpark@121.140.166.90 nc 10.10.200.3 22" id_rsa 
         </categories>
         
         
-        <tags>
-            
-            <tag> linux </tag>
-            
-            <tag> jenkins </tag>
-            
-            <tag> scp </tag>
-            
-            <tag> ssh </tag>
-            
-        </tags>
-        
     </entry>
     
     <entry>
@@ -260,14 +214,6 @@ scp -r -o ProxyCommand="ssh jaehunpark@121.140.166.90 nc 10.10.200.3 22" id_rsa 
             
         </categories>
         
-        
-        <tags>
-            
-            <tag> ssl </tag>
-            
-            <tag> nginx </tag>
-            
-        </tags>
         
     </entry>
     
@@ -316,12 +262,6 @@ load balancing을 하게되면 client들은 nginx host로 접근하므로 back-e
         </categories>
         
         
-        <tags>
-            
-            <tag> nginx </tag>
-            
-        </tags>
-        
     </entry>
     
     <entry>
@@ -353,14 +293,6 @@ load balancing을 하게되면 client들은 nginx host로 접근하므로 back-e
             
         </categories>
         
-        
-        <tags>
-            
-            <tag> nodejs </tag>
-            
-            <tag> javascript </tag>
-            
-        </tags>
         
     </entry>
     
@@ -400,20 +332,6 @@ load balancing을 하게되면 client들은 nginx host로 접근하므로 back-e
             
         </categories>
         
-        
-        <tags>
-            
-            <tag> linux </tag>
-            
-            <tag> jenkins </tag>
-            
-            <tag> nodejs </tag>
-            
-            <tag> scp </tag>
-            
-            <tag> ssh </tag>
-            
-        </tags>
         
     </entry>
     
@@ -455,20 +373,6 @@ load balancing을 하게되면 client들은 nginx host로 접근하므로 back-e
         </categories>
         
         
-        <tags>
-            
-            <tag> linux </tag>
-            
-            <tag> jenkins </tag>
-            
-            <tag> nodejs </tag>
-            
-            <tag> scp </tag>
-            
-            <tag> ssh </tag>
-            
-        </tags>
-        
     </entry>
     
     <entry>
@@ -504,14 +408,6 @@ load balancing을 하게되면 client들은 nginx host로 접근하므로 back-e
         </categories>
         
         
-        <tags>
-            
-            <tag> nodejs </tag>
-            
-            <tag> javascript </tag>
-            
-        </tags>
-        
     </entry>
     
     <entry>
@@ -532,14 +428,6 @@ load balancing을 하게되면 client들은 nginx host로 접근하므로 back-e
             
         </categories>
         
-        
-        <tags>
-            
-            <tag> docker </tag>
-            
-            <tag> linux </tag>
-            
-        </tags>
         
     </entry>
     
@@ -570,16 +458,6 @@ jenkins -> 새로운 item -> Freestyle project -->
             
         </categories>
         
-        
-        <tags>
-            
-            <tag> linux </tag>
-            
-            <tag> java </tag>
-            
-            <tag> jenkins </tag>
-            
-        </tags>
         
     </entry>
     
@@ -623,16 +501,6 @@ jenkins -> 새로운 item -> Freestyle project -->
         </categories>
         
         
-        <tags>
-            
-            <tag> maven </tag>
-            
-            <tag> java </tag>
-            
-            <tag> tomcat </tag>
-            
-        </tags>
-        
     </entry>
     
     <entry>
@@ -656,12 +524,6 @@ jenkins -> 새로운 item -> Freestyle project -->
             
         </categories>
         
-        
-        <tags>
-            
-            <tag> jenkins </tag>
-            
-        </tags>
         
     </entry>
     
@@ -692,14 +554,6 @@ jenkins -> 새로운 item -> Freestyle project -->
             
         </categories>
         
-        
-        <tags>
-            
-            <tag> docker </tag>
-            
-            <tag> linux </tag>
-            
-        </tags>
         
     </entry>
     
@@ -757,14 +611,6 @@ jenkins -> 새로운 item -> Freestyle project -->
         </categories>
         
         
-        <tags>
-            
-            <tag> docker </tag>
-            
-            <tag> linux </tag>
-            
-        </tags>
-        
     </entry>
     
     <entry>
@@ -798,14 +644,6 @@ jenkins -> 새로운 item -> Freestyle project -->
         </categories>
         
         
-        <tags>
-            
-            <tag> docker </tag>
-            
-            <tag> linux </tag>
-            
-        </tags>
-        
     </entry>
     
     <entry>
@@ -835,14 +673,6 @@ jenkins -> 새로운 item -> Freestyle project -->
             
         </categories>
         
-        
-        <tags>
-            
-            <tag> nodejs </tag>
-            
-            <tag> nvm </tag>
-            
-        </tags>
         
     </entry>
     
