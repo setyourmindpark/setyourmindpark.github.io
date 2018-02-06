@@ -1,0 +1,312 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>docker private registry | jaehunpark</title>
+  <meta name="author" content="jaehunpark">
+  
+  <meta name="description" content="docker private registrydocker를 주로 사용하는 개발자분이라면 한번쯤은 docker hub를 사용하여 public images를 주로 사용하거나, 직접 이미지를 만들어서 사용해보았을 것이다.docker hub와 같은 공개된 이미지 사용이아닌, 나만">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="docker private registry"/>
+  <meta property="og:site_name" content="jaehunpark"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-97011652-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?cb5448498d7169c668b07c2b255d62c1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">jaehunpark</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class=""></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class=""></i>Categories
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> docker private registry</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h2 id="docker-private-registry"><a href="#docker-private-registry" class="headerlink" title="docker private registry"></a>docker private registry</h2><p>docker를 주로 사용하는 개발자분이라면 한번쯤은 docker hub를 사용하여 public images를 주로 사용하거나, 직접 이미지를 만들어서 사용해보았을 것이다.<br>docker hub와 같은 공개된 이미지 사용이아닌, 나만의 docker hub를 구축하는 방법에 대해 소개하려한다.<br>회사내부 서비스를 개발하거나, 공개되어선 안될 이미지를 나만의 저장소에 보관하고있다가 필요할때 사용할수있는 아주 유용한 방법이다.<br>docker 에서는 이런 저장소를 registry라고 표현하며 어떻게 docker private registry를 구축하는지 알아보자.</p>
+<h2 id="ssl"><a href="#ssl" class="headerlink" title="ssl"></a>ssl</h2><p>docker private registry는 보안상 http를 지원하지않는다. local에서 단순히 테스트용도로 사용한다면 문제없지만, 인증관련하여 remote docker private registry에 접근하고자하면 http로는 불가능하다.<br>따라서 https 를 사용하기위한 ssl을 생성하자 .<br>필자는 이전포스트 <a href="https://setyourmindpark.github.io/2018/02/05/vagrant/">vagrant</a> 로 환경구성한 centos 2대의 가상환경으로 구성, 테스트를 진행하였다.<br>사설 ssl을 사용해도 무방하지만, 필자는 self signed ssl을 을 사용할것이기에 다음과 같이 생성하였다 .<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div></pre></td><td class="code"><pre><div class="line">$ mkdir -p ~/docker-registry/cert</div><div class="line">$ <span class="built_in">cd</span> ~/docker-registry/cert</div><div class="line">$ openssl genrsa -des3 -out server.key 2048</div><div class="line">$ openssl req -new -key server.key -out server.csr</div><div class="line">$ openssl x509 -req -days 365 -in server.csr -signkey server.key -out server.crt</div><div class="line">$ cp server.key server.key.origin</div><div class="line">$ openssl rsa -in server.key.origin -out server.key</div><div class="line">``` </div><div class="line">필자는 다음과 같이 진행하였다 .  </div><div class="line">``` bash</div><div class="line">[root@server1 cert]<span class="comment"># openssl genrsa -des3 -out server.key 2048</span></div><div class="line">Generating RSA private key, 2048 bit long modulus</div><div class="line">..+++</div><div class="line">............................................................+++</div><div class="line">e is 65537 (0x10001)</div><div class="line">Enter pass phrase <span class="keyword">for</span> server.key:</div><div class="line">Verifying - Enter pass phrase <span class="keyword">for</span> server.key:</div><div class="line">[root@server1 cert]<span class="comment"># openssl req -new -key server.key -out server.csr</span></div><div class="line">Enter pass phrase <span class="keyword">for</span> server.key:</div><div class="line">You are about to be asked to enter information that will be incorporated</div><div class="line">into your certificate request.</div><div class="line">What you are about to enter is what is called a Distinguished Name or a DN.</div><div class="line">There are quite a few fields but you can leave some blank</div><div class="line">For some fields there will be a default value,</div><div class="line">If you enter <span class="string">'.'</span>, the field will be left blank.</div><div class="line">-----</div><div class="line">Country Name (2 letter code) [XX]:</div><div class="line">State or Province Name (full name) []:</div><div class="line">Locality Name (eg, city) [Default City]:</div><div class="line">Organization Name (eg, company) [Default Company Ltd]:</div><div class="line">Organizational Unit Name (eg, section) []:</div><div class="line">Common Name (eg, your name or your server<span class="string">'s hostname) []:setyourmindpark</span></div><div class="line">Email Address []:</div><div class="line"></div><div class="line">Please enter the following 'extra<span class="string">' attributes</span></div><div class="line">to be sent with your certificate request</div><div class="line">A challenge password []:</div><div class="line">An optional company name []:</div><div class="line">[root@server1 cert]# openssl x509 -req -days 365 -in server.csr -signkey server.key -out server.crt</div><div class="line">Signature ok</div><div class="line">subject=/C=XX/L=Default City/O=Default Company Ltd/CN=setyourmindpark</div><div class="line">Getting Private key</div><div class="line">Enter pass phrase for server.key:</div><div class="line">[root@server1 cert]# ls</div><div class="line">server.crt  server.csr  server.key</div><div class="line">[root@server1 cert]# cp server.key server.key.origin</div><div class="line">[root@server1 cert]# openssl rsa -in server.key.origin -out server.key</div><div class="line">Enter pass phrase for server.key.origin:</div><div class="line">writing RSA key</div><div class="line">[root@server1 cert]#</div></pre></td></tr></table></figure></p>
+<p>여기서 반드시 짚고 넘어가야할 점은 전자서명 파일 생성시 기입하게 되는 정보중<br>Common Name (eg, your name or your server’s hostname) []:<br>해당정보를 반드시 registry에서 사용하게될 도메인 name명과 같아야한다는 점이다.<br>필자는 setyourmindpark로 기입하였다.  </p>
+<h2 id="전자서명-시스템-업데이트"><a href="#전자서명-시스템-업데이트" class="headerlink" title="전자서명 시스템 업데이트"></a>전자서명 시스템 업데이트</h2><p>docker private registry에 로그인하려면 <strong>로그인하는 시스템에서 docker private registry를 구성할때 사용한 ssl server.crt 전자서명 시스템을 업데이트해야한다</strong>.<br>docker private registry를 구축한 현재의 서버에서도 당연히 로그인을 할것이기에 update를 해준다. <strong>( remote client 해당 docker private registry를 사용하려면 당연히 현재의 작업을 똑같이 수행햐주어야한다 . )</strong><br>참고해야할 점은 시스템에따라 전자서명 update하는 방식이 조금씩은 다르다는 점이다 .  </p>
+<h3 id="ubuntu"><a href="#ubuntu" class="headerlink" title="ubuntu"></a>ubuntu</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ cp server.crt /usr/share/ca-certificates/</div><div class="line">$ <span class="built_in">echo</span> server.crt &gt;&gt; /etc/ca-certificates.conf</div><div class="line">$ update-ca-certificates</div></pre></td></tr></table></figure>
+<p>여기서 중요해야할점은 </p>
+<h3 id="centos"><a href="#centos" class="headerlink" title="centos"></a>centos</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ cp server.crt /etc/pki/ca-trust/<span class="built_in">source</span>/anchors/ </div><div class="line">$ update-ca-trust</div></pre></td></tr></table></figure>
+<p>마지막으로 docker를 재시작한다<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ service docker restart</div></pre></td></tr></table></figure></p>
+<h2 id="docker-private-registry-login-password"><a href="#docker-private-registry-login-password" class="headerlink" title="docker private registry login password"></a>docker private registry login password</h2><p>docker private registry에서 사용할 인증정보 ( username과 password ) 를 생성한다.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ mkdir -p ~/docker-registry/auth</div><div class="line">$ <span class="built_in">cd</span> ~/docker-registry/auth</div><div class="line">$ docker run \</div><div class="line">  --entrypoint htpasswd \</div><div class="line">  registry -Bbn setyourmindpark 0000 &gt; htpasswd</div></pre></td></tr></table></figure></p>
+<p>필자는 username setyourmindpark<br>password 0000로 생성하였다.<br>사용하고자하는 인증정보를 기입하면 되겠다.  </p>
+<h2 id="execute-docker-private-registry"><a href="#execute-docker-private-registry" class="headerlink" title="execute docker private registry"></a>execute docker private registry</h2><p>ssl과 , 인증정보를 생성하였으니 이제 docker registry를 container로 실행시켜보자.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">$ mkdir -p ~/docker-registry/volume</div><div class="line">$ docker run <span class="_">-d</span> \</div><div class="line">  -p 5000:5000 \</div><div class="line">  --restart=always \</div><div class="line">  --name registry \</div><div class="line">  -v ~/docker-registry/auth:/auth \</div><div class="line">  <span class="_">-e</span> <span class="string">"REGISTRY_AUTH=htpasswd"</span> \</div><div class="line">  <span class="_">-e</span> <span class="string">"REGISTRY_AUTH_HTPASSWD_REALM=Registry Realm"</span> \</div><div class="line">  <span class="_">-e</span> REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY=/data \</div><div class="line">  -v ~/docker-registry/volume:/data \</div><div class="line">  <span class="_">-e</span> REGISTRY_AUTH_HTPASSWD_PATH=/auth/htpasswd \</div><div class="line">  -v ~/docker-registry/cert:/certs \</div><div class="line">  <span class="_">-e</span> REGISTRY_HTTP_TLS_CERTIFICATE=/certs/server.crt \</div><div class="line">  <span class="_">-e</span> REGISTRY_HTTP_TLS_KEY=/certs/server.key \</div><div class="line">  registry</div></pre></td></tr></table></figure></p>
+<p>주의할점은 위에서 차례대로 생성한 ssl 전자서명 과 htpasswd 파일들의 경로를 volume 으로 guest container에 mount되기에 경로를 정확히 적어주어야한다.<br>-v ~/docker-registry/auth:/auth \<br>-e REGISTRY_AUTH_HTPASSWD_PATH=/auth/htpasswd \<br>-v ~/docker-registry/cert:/certs \<br>-e REGISTRY_HTTP_TLS_CERTIFICATE=/certs/server.crt \<br>-e REGISTRY_HTTP_TLS_KEY=/certs/server.key \<br>해당 설정을 정확히 기입하도록 한다.  </p>
+<h2 id="host-추가"><a href="#host-추가" class="headerlink" title="host 추가"></a>host 추가</h2><p>이제 docker private registry에 login할 dns를 등록하자.<br>docker private registry에 로그인시 일반 ip 정보로는 로그인할수없기에 이것또한 반드시 수행되어야할 작업이다 .<br><strong>( remote client 해당 docker private registry를 사용하려면 당연히 현재의 작업을 똑같이 수행햐주어야한다 . )</strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ vi /etc/hosts</div><div class="line">10.10.10.11 setyourmindpark</div></pre></td></tr></table></figure></p>
+<h2 id="docker-private-registry-login"><a href="#docker-private-registry-login" class="headerlink" title="docker private registry login"></a>docker private registry login</h2><p>이제 모든 실제로 docker private registry에 로그인해보자 .<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[root@server1 ~]<span class="comment"># docker login setyourmindpark:5000</span></div><div class="line">Username (setyourmindpark): </div><div class="line">Password: </div><div class="line">Login Succeeded</div></pre></td></tr></table></figure></p>
+<h2 id="docker-private-registry-custom-image-push"><a href="#docker-private-registry-custom-image-push" class="headerlink" title="docker private registry custom image push"></a>docker private registry custom image push</h2><p>docker private registry 구축을 완료하였으니 사용하고자하는 이미지를 만들어 push 해보자 .<br>테스트용도로 간단한 이미지를 만들어서 private registry에 push 한다.<br><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">From</span> setyourmindpark/debian-utf8</div><div class="line"><span class="keyword">CMD</span><span class="bash"> [<span class="string">"echo"</span>,<span class="string">"my private image"</span>]</span></div></pre></td></tr></table></figure></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ docker build --tag my-private-image .</div><div class="line">$ docker tag my-private-image setyourmindpark:5000/my-private-image</div><div class="line">$ docker push setyourmindpark:5000/my-private-image</div></pre></td></tr></table></figure>
+<p>이미지를 build 한후, 생성된 이미지를 tag로 alias준후 최종적으로 registry에 push 한다.  </p>
+<h2 id="docker-private-registry-image-확인"><a href="#docker-private-registry-image-확인" class="headerlink" title="docker private registry image 확인"></a>docker private registry image 확인</h2><p>위에서 my-private-image를 registry에 push하였다.<br>정상적으로 registry에 push가 되었는지 curl 로 확인해보자.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@server1 my-image]<span class="comment"># curl -k -u 'setyourmindpark:0000' -X GET https://setyourmindpark:5000/v2/_catalog</span></div><div class="line">&#123;<span class="string">"repositories"</span>:[<span class="string">"my-private-image"</span>]&#125;</div></pre></td></tr></table></figure></p>
+<p>정상적으로 push가 된것을 확인할수있다.  </p>
+<h2 id="remote-client에서-docker-private-registry-이용"><a href="#remote-client에서-docker-private-registry-이용" class="headerlink" title="remote client에서 docker private registry 이용"></a>remote client에서 docker private registry 이용</h2><p>이제 remote client에서 방금 구축한 docker private registry를 이용하여 이미지 pull 또는 push 하기위해 remote client 설정을 진행한다.<br>위에서 진행한 docker private registry server를 server1으로 지칭하고,<br>remote client 를 server2 라고 지칭하도록한다 .<br>일단 위에서 언급한바와같이 docker private registry가 사용중인 전자서명정보가 똑같이 remote client 에도 존재해야한다.<br>ftp를 사용하든지, scp를 통해 파일을 client에 파일을 넘겨주도록 한다.<br>필자는 scp 명령어를 사용하였다.<br>server1에서 다음 명령어를 사용하였다.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">[server1]</div><div class="line">$ scp ~/docker-registry/cert/server.crt root@10.10.10.12:[전송받을경로]</div><div class="line"></div><div class="line">[server2]</div><div class="line">$ cp server.crt /etc/pki/ca-trust/<span class="built_in">source</span>/anchors/</div><div class="line">$ update-ca-trust</div><div class="line"></div><div class="line">$ vi /etc/hosts</div><div class="line">10.10.10.11 setyourmindpark</div><div class="line"></div><div class="line">$ service docker restart</div><div class="line"></div><div class="line">[root@server2 ~]<span class="comment"># docker login setyourmindpark:5000</span></div><div class="line">Username (setyourmindpark): </div><div class="line">Password: </div><div class="line">Login Succeeded</div><div class="line">[root@server2 ~]<span class="comment">#</span></div></pre></td></tr></table></figure></p>
+<p>remote docker private registry 에 로그인되었다.  </p>
+<h2 id="docker-private-registry-image-pull-and-execute"><a href="#docker-private-registry-image-pull-and-execute" class="headerlink" title="docker private registry image pull and execute"></a>docker private registry image pull and execute</h2><p>정상적으로 remote docker private registry에 로그인되었다면 아까 만든 my-private-image를 pull 하여 실행해보자<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ docker pull setyourmindpark:5000/my-private-image</div><div class="line"></div><div class="line">[root@server2 ~]<span class="comment"># docker run --name my-private-image setyourmindpark:5000/my-private-image</span></div><div class="line">my private image</div><div class="line">[root@server2 ~]<span class="comment">#</span></div></pre></td></tr></table></figure></p>
+<p>my private image가 정상적으로 pull 되어 실행된것을 확인할수있다.  </p>
+<h2 id="견해"><a href="#견해" class="headerlink" title="견해"></a>견해</h2><p>docker private registry 를 구축하는 방법에대해서 알아보았다.<br>개인서버가 없다면 amazone s3에 올리는 방법도 있으니 참고하도록 하자 .<br>필자는 실 서버가 없기에 vagrant환경 centos 2대로 테스트를 진행하였으며, 서비스가 존재하는 회사나 이미지 버전관리가 필요하다면 docker private registry를 직접 구축하여 사용하는것이 좋을것 같다.  </p>
+<h2 id="참고사이트"><a href="#참고사이트" class="headerlink" title="참고사이트"></a>참고사이트</h2><p><a href="http://longbe00.blogspot.kr/2015/03/docker_55.html" target="_blank" rel="noopener">http://longbe00.blogspot.kr/2015/03/docker_55.html</a><br><a href="https://docs.docker.com/registry/deploying/#restricting-access" target="_blank" rel="noopener">https://docs.docker.com/registry/deploying/#restricting-access</a><br><a href="https://docs.docker.com/engine/security/certificates/#creating-the-client-certificates" target="_blank" rel="noopener">https://docs.docker.com/engine/security/certificates/#creating-the-client-certificates</a><br><a href="http://manuals.gfi.com/en/kerio/connect/content/server-configuration/ssl-certificates/adding-trusted-root-certificates-to-the-server-1605.html" target="_blank" rel="noopener">http://manuals.gfi.com/en/kerio/connect/content/server-configuration/ssl-certificates/adding-trusted-root-certificates-to-the-server-1605.html</a></p>
+	  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a type="button" class="btn btn-default disabled"><i class="fa fa-arrow-circle-o-left"></i>Prev</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2018/02/05/vagrant/" type="button" class="btn btn-default ">Next<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">Comments</h2>
+
+    
+    <div id="disqus_thread" class="ds-thread">
+        <script type="text/javascript">
+            /**
+             * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+             * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+             */
+                /*
+                 var disqus_config = function () {
+                 this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                 this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                 };
+                 */
+            (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+
+                s.src = '//https-setyourmindpark-github-io.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by
+                Disqus.</a></noscript>
+    </div>
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2018-02-06 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/docker/">docker<span>5</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+		
+
+</div><!-- row -->
+
+<script type="text/javascript">
+var disqus_shortname = 'https-setyourmindpark-github-io';
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> Copyright
+<p>
+  &copy; 2018 jaehunpark
+  
+</p>
+<!-- <p>
+  &copy; 2018 jaehunpark
+  
+      with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
+     <br> Theme by <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind.386</a>.    
+</p> -->
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+</body>
+   </html>
