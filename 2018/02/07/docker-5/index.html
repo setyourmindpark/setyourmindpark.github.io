@@ -1,0 +1,305 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>docker swarm | jaehunpark</title>
+  <meta name="author" content="jaehunpark">
+  
+  <meta name="description" content="docker swarmdocker에 대해 글을 쓰는게 많아지는 요즘 이번에는 docker swarm에 대해서 글을 써보려 한다.N 개의 물리서버를 clustering 할수있는 환경을 재공하며 나아가 rollback, scaling, 무중단 배포까지 가능 하다.결론부터 ">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="docker swarm"/>
+  <meta property="og:site_name" content="jaehunpark"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-97011652-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?cb5448498d7169c668b07c2b255d62c1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">jaehunpark</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class=""></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class=""></i>Categories
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> docker swarm</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h2 id="docker-swarm"><a href="#docker-swarm" class="headerlink" title="docker swarm"></a>docker swarm</h2><p>docker에 대해 글을 쓰는게 많아지는 요즘 이번에는 docker swarm에 대해서 글을 써보려 한다.<br>N 개의 물리서버를 clustering 할수있는 환경을 재공하며 나아가 rollback, scaling, 무중단 배포까지 가능 하다.<br>결론부터 말하면 환경구성하기는 무척이나 쉽다. 그리고 신기하다 .  </p>
+<h2 id="환경구성"><a href="#환경구성" class="headerlink" title="환경구성"></a>환경구성</h2><p>docker swarm을 구성하기전에 당연히 시스템에 docker가 설치되어있어야한다.<br><a href="https://docs.docker.com/install/#supported-platforms" target="_blank" rel="noopener">docker install</a>에서 설치를 진행해도되고, 필자는 github gist를 이용해 아주 쉽게(?) 설치를 진행하였다.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ curl <span class="_">-s</span> https://gist.githubusercontent.com/setyourmindpark/fdbac4f4eab71b6a03b13660<span class="built_in">cd</span>064710/raw/9d0f68f6150a57205b7a6df7ddbdab68131335a3/install-docker-ce-centos | bash</div></pre></td></tr></table></figure></p>
+<p>설치 완료를 하면 다음과 같은 버전정보를 확인할수있다 . ( 현 201802 )<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ docker --version</div><div class="line">Docker version 17.12.0-ce, build c97c6d6</div></pre></td></tr></table></figure></p>
+<p>docker swarm 환경구성을 위해서는 clustering이나 N개의 서버 환경이 필요하다.<br>따라서 필자는 이전포스트 <a href="https://setyourmindpark.github.io/2018/02/05/vagrant/">vagrant</a> 에서 진행한 가상환경 centos 2개의 환경에서 진행할것이기에 2개의 환경모두 같은 docker version으로 설치를 진행하였다.  </p>
+<h2 id="docker-swarm-1"><a href="#docker-swarm-1" class="headerlink" title="docker swarm"></a>docker swarm</h2><p>먼저 docker swarm 을 구성하기전에 leader node 로 사용할 서버에서 다음의 명령어를 입력한다.<br>leader node는 N개의 node를 관리하는 관리자 node 라고 생각하면된다.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">[server1 (leader) ]</div><div class="line">$ docker swarm init --advertise-addr 10.10.10.11</div><div class="line">Swarm initialized: current node (sfx2ywb1o3cgaehkk1recc78n) is now a manager.</div><div class="line"></div><div class="line">To add a worker to this swarm, run the following <span class="built_in">command</span>:</div><div class="line"></div><div class="line">    docker swarm join --token SWMTKN-1-2wo52bbwsw2v350eyjwx2xwof5rk8m3t9ki0ax02jwkgyo14kt-cefzjz5ky4mf3qvyxuxdwuahr 10.10.10.11:2377</div><div class="line"></div><div class="line">To add a manager to this swarm, run <span class="string">'docker swarm join-token manager'</span> and follow the instructions.</div></pre></td></tr></table></figure></p>
+<p>–advertise-addr 옵션뒤 leader node( 현재서버 ip )를 적어주게되면, leader node를 join할 명령어 token을 친절하게 알려준다.<br>이제 leader node에서 생성한 token 정보로, 다른 node에서 join을 해보자.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[server2 (worker) ]</div><div class="line">$ docker swarm join --token SWMTKN-1-2wo52bbwsw2v350eyjwx2xwof5rk8m3t9ki0ax02jwkgyo14kt-cefzjz5ky4mf3qvyxuxdwuahr 10.10.10.11:2377</div><div class="line">This node joined a swarm as a worker.</div></pre></td></tr></table></figure></p>
+<p>정상적으로 swarm join이 되었는지 leader node에서 확인해보자.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ docker node ls </div><div class="line">ID                            HOSTNAME            STATUS              AVAILABILITY        MANAGER STATUS</div><div class="line">sfx2ywb1o3cgaehkk1recc78n *   server1             Ready               Active              Leader</div><div class="line">n2awbegivqvw6dhc6npazwc5s     server2             Ready               Active</div></pre></td></tr></table></figure></p>
+<p>leader(server1)와 worker(server2) 모두 정상적으로 clustering 이되었다.  </p>
+<h2 id="ingress"><a href="#ingress" class="headerlink" title="ingress"></a>ingress</h2><p>docker swarm 을 활용하기위해서 ingress의 개념부터 잘 알아야할것 같다.<br>docker swarm으로 cluster를 구성하게되면 ingress network가 default로 생성된것을 확인할수있다.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">$ docker network ls </div><div class="line">NETWORK ID          NAME                     DRIVER              SCOPE</div><div class="line">08e25cf17147        bridge                   bridge              <span class="built_in">local</span></div><div class="line">c589e1859f70        docker_gwbridge          bridge              <span class="built_in">local</span></div><div class="line">bd3a091f88d0        dockerregistry_default   bridge              <span class="built_in">local</span></div><div class="line">eac1648255dc        host                     host                <span class="built_in">local</span></div><div class="line">05jt5qn72nvy        ingress                  overlay             swarm</div><div class="line">ed2fcc6343f2        none                     null                <span class="built_in">local</span></div></pre></td></tr></table></figure></p>
+<p>scope의 swarm으로 된 ingress 가 보인다.<br>ingress란 아주 쉽게 말해 nginx를 load balancer로 사용한 효과와 같다고 생각하면 된다.<br>다시말해서, 1번 node에 어떠한 service 컨테이너가 존재하고, 2번 node에는 존재하지않는다고 가정한다면, client 입장에서는 1번 node 또는 2번 node 둘중 아무 node를 호출(ex 10.10.10.11:service port 또는 10.10.10.12:service port ) 하여도 같은 결과를 return 한다.<br>ingress가 존재하는 container를 찾아 자동으로 load balancing 하여 마치 한몸처럼 동작하게 되는것이다 .<br>설명하는것보다 다음그림을 보는것이 이해하기 편할것이다.<br><img src="ingress-routing-mesh.png" alt="ingress"><br><a href="https://docs.docker.com/engine/swarm/ingress/" target="_blank" rel="noopener">https://docs.docker.com/engine/swarm/ingress/</a><br>이제 ingress를 테스트해보자 .<br>container의 unique id를 확인할수있는 image를 받는다.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ docker pull jwilder/whoami</div></pre></td></tr></table></figure></p>
+<p>image pull은 leader node에서 수행하여야 한다. 해당 image를 N개의 node에서 관리할것이므로.<br>document는 <a href="https://hub.docker.com/r/jwilder/whoami/" target="_blank" rel="noopener">https://hub.docker.com/r/jwilder/whoami/</a> 에서 확인가능하다.<br>이제 service를 생성하자.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[server1 (leader) ]</div><div class="line">$ docker service create --name whoami -p 8000:8000 jwilder/whoami</div></pre></td></tr></table></figure></p>
+<p>service를 확인한다.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$ docker service ls</div><div class="line">ID                  NAME                MODE                REPLICAS            IMAGE                   PORTS</div><div class="line">qnueloqeyi63        whoami              replicated          1/1                 jwilder/whoami:latest   *:8000-&gt;8000/tcp</div><div class="line"></div><div class="line">$ docker service ps whoami</div><div class="line">ID                  NAME                IMAGE                   NODE                DESIRED STATE       CURRENT STATE                ERROR               PORTS</div><div class="line">mmcok9zpdfso        whoami.1            jwilder/whoami:latest   server1             Running             Running about a minute ago</div></pre></td></tr></table></figure></p>
+<p><code>1개의 container 가 server1(leader node) 에 생성된것을 확인할수있다.</code><br>이제 document에 제시된바와같이 curl을 날려보자 .<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">server1( leader node )</div><div class="line">$ curl server1:8000</div><div class="line">I<span class="string">'m f8754dbd7fea</span></div></pre></td></tr></table></figure></p>
+<p>ingress가 제대로 동작된다면 server2(worker node) 에서도 동작되어야한다.<br>( worker node 에는 container가 없다 )<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">server1( worker node )</div><div class="line">$ curl server2:8000</div><div class="line">I<span class="string">'m f8754dbd7fea</span></div></pre></td></tr></table></figure></p>
+<p>server2 ( worker node )에는 container가 존재하지않지만 ingress 가 해당 서비스가 존재하는 node를 찾아가는것을 확인할수있다.<br><code>혹시 ingress가 동작하지않는다면 다음과 같이 docker service를 restart 해준다 .</code><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ docker service restart</div></pre></td></tr></table></figure></p>
+<p><code>약간의 버그가 있는듯하다. 해당 issue와 관련해 질문이 많은것을 알수있는데</code> <a href="https://github.com/moby/moby/issues/32195" target="_blank" rel="noopener">https://github.com/moby/moby/issues/32195</a> <code>를 참고하도록 하자 .</code><br>docker swarm 환경에서 ingress의 동작원리를 간단하게 살펴보았다.<br>docker swarm으로 서비스를 구성한다면 traffic에 관련된 처리라던지, 장애에대한 rollback, 그리고 scaling등의 옵션도 있으니 각자가 추구하는 방향으로 서비스를 구성하면 될것이다.  </p>
+<h2 id="견해"><a href="#견해" class="headerlink" title="견해"></a>견해</h2><p>필자는 docker swarm 을 알고나서 google의 kubernetes나 , apache의 mesos와 같은 ocastration 에 관심이 더욱더 많아졌다.<br>kubernetes가(docker 기반) 요즘 핫하긴한데. 약간의 진입장벽이 있는듯하다.<br>docker를 좀더 친숙하게 다룬후 kubernetes를 다시 도전해보려한다.  </p>
+<h2 id="참고사이트"><a href="#참고사이트" class="headerlink" title="참고사이트"></a>참고사이트</h2><p><a href="https://medium.com/@zh3w4ng/docker-swarm-with-private-registry-for-micro-services-behind-corporate-proxy-bafb349d0b9c" target="_blank" rel="noopener">https://medium.com/@zh3w4ng/docker-swarm-with-private-registry-for-micro-services-behind-corporate-proxy-bafb349d0b9c</a><br><a href="https://subicura.com/2017/02/25/container-orchestration-with-docker-swarm.html" target="_blank" rel="noopener">https://subicura.com/2017/02/25/container-orchestration-with-docker-swarm.html</a><br><a href="https://docs.docker.com/engine/swarm/" target="_blank" rel="noopener">https://docs.docker.com/engine/swarm/</a><br><a href="https://docs.docker.com/engine/swarm/ingress/" target="_blank" rel="noopener">https://docs.docker.com/engine/swarm/ingress/</a></p>
+	  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a type="button" class="btn btn-default disabled"><i class="fa fa-arrow-circle-o-left"></i>Prev</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2018/02/06/docker-4/" type="button" class="btn btn-default ">Next<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">Comments</h2>
+
+    
+    <div id="disqus_thread" class="ds-thread">
+        <script type="text/javascript">
+            /**
+             * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+             * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+             */
+                /*
+                 var disqus_config = function () {
+                 this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                 this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                 };
+                 */
+            (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+
+                s.src = '//https-setyourmindpark-github-io.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by
+                Disqus.</a></noscript>
+    </div>
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2018-02-07 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/docker/">docker<span>6</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+		
+
+</div><!-- row -->
+
+<script type="text/javascript">
+var disqus_shortname = 'https-setyourmindpark-github-io';
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> Copyright
+<p>
+  &copy; 2018 jaehunpark
+  
+</p>
+<!-- <p>
+  &copy; 2018 jaehunpark
+  
+      with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
+     <br> Theme by <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind.386</a>.    
+</p> -->
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+</body>
+   </html>
