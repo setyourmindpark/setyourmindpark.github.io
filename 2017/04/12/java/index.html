@@ -140,9 +140,9 @@ var _hmt = _hmt || [];
 
 </li>
 </ul>
-<p>필자는 프로젝트 배포를 / 를 최상위로 설정하였다.<br>다음으로 프로젝트 우클릭 -&gt; Run As -&gt; Maven build<br><img src="java_1.png" alt="java_1"><br>Goals에 tomcat7:redeploy -&gt; Run</p>
-<p><img src="java_2.png" alt="java_2"><br>maven이 빌드를 시작하게되고 unit test 까지 마친후 , 최종적으로 BUILD SUCCESS가 떨어졌다.<br>이제 원격서버에 제대로 반영이 되었는지 확인해보자</p>
-<p><img src="java_3.png" alt="java_3"></p>
+<p>필자는 프로젝트 배포를 / 를 최상위로 설정하였다.<br>다음으로 프로젝트 우클릭 -&gt; Run As -&gt; Maven build<br><img src="/2017/04/12/java/java_1.png" alt="java_1"><br>Goals에 tomcat7:redeploy -&gt; Run</p>
+<p><img src="/2017/04/12/java/java_2.png" alt="java_2"><br>maven이 빌드를 시작하게되고 unit test 까지 마친후 , 최종적으로 BUILD SUCCESS가 떨어졌다.<br>이제 원격서버에 제대로 반영이 되었는지 확인해보자</p>
+<p><img src="/2017/04/12/java/java_3.png" alt="java_3"></p>
 <p>필자는 page 대신 rest 기반을 프로젝트를 구성하였기에 api호출시 정상적으로 동작하는것을 확인할수있다.<br><br><br></p>
 <h2 id="견해"><a href="#견해" class="headerlink" title="견해"></a>견해</h2><p>필자는 원격서버 tomcat 버전이 7.XX을 사용하므로, tomcat7:redeploy 라는 명령을 사용하였으나,원격서버의 tomcat 버전이 8.XX 인경우에도 무방한것으로 확인된다.<br>보안이 중요하지않은 프로젝트는 없겠지만, 개인이 간단히 테스트용으로 개발결과물을 빠르게 올리기에는 최고의 방법인것 같다.</p>
 	  
