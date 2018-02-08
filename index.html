@@ -118,48 +118,6 @@ var _hmt = _hmt || [];
 <div class="row">
 	<div class="col-md-8">
 		<h3 class="title">
-			<a href="/2018/02/08/database/" >setup mariadb</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2018-02-08  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-	
-		<h2 id="mariadb"><a href="#mariadb" class="headerlink" title="mariadb"></a>mariadb</h2><p>db를 docker official image로만 사용하다보니 mysql 또는 mariadb를 manually하게 설치하는법을 잊고 살았다.<br>그냥 docker ofiicial mariadb를 사용하지 왜 ? 라고 반문한다면, 문득 database와 같은 서비스의 가장 하위 layer level에 있는 서비스들은 다른 의존환경없이 독립된 환경에 존재하는 것이 좋겠다는 생각이 들어서다.<br>막상 설치하려보니, 여기저기서 구글링하여 찾게되어 정리하려한다.  </p>
-<h2 id="install"><a href="#install" class="headerlink" title="install"></a>install</h2><p>centos7 환경에서 mariadb를 설치를진행한다.<br>다음과 같이 reposotory를 등록후 yum으로 install 한다.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">$ vi /etc/yum.repos.d/MariaDB.repo</div><div class="line"></div><div class="line"><span class="comment"># MariaDB 10.2 CentOS repository list - created 2018-02-08 13:29 UTC</span></div><div class="line"><span class="comment"># http://downloads.mariadb.org/mariadb/repositories/</span></div><div class="line">[mariadb]</div><div class="line">name = MariaDB</div><div class="line">baseurl = http://yum.mariadb.org/10.2/centos7-amd64</div><div class="line">gpgkey=https://yum.mariadb.org/RPM-GPG-KEY-MariaDB</div><div class="line">gpgcheck=1</div><div class="line"></div><div class="line">$ yum install MariaDB-server MariaDB-client</div></pre></td></tr></table></figure></p>
-<p><a href="https://downloads.mariadb.org/mariadb/repositories/#mirror=kaist&amp;distro=CentOS&amp;distro_release=centos7-amd64--centos7&amp;version=10.2" target="_blank" rel="noopener">mariadb official document</a> 에 아주 자세히나와 있다.<br>설치가 모두 진행된후 mariadb service를 start 한다.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ systemctl start mariadb</div><div class="line">or</div><div class="line">$ service mariadb start</div></pre></td></tr></table></figure></p>
-<p>마지막으로 anonymous user 접속 차단과, root password 설정, local 접속여부, test database 삭제등 추가 설정을 한다 .<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ mysql_secure_installation</div></pre></td></tr></table></figure></p>
-<h2 id="접속"><a href="#접속" class="headerlink" title="접속"></a>접속</h2><p>모든 설치와 설정이 끝이났다. 이제 접속을해보자.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ mysql -u root -p</div></pre></td></tr></table></figure></p>
-<h2 id="utf8-설정"><a href="#utf8-설정" class="headerlink" title="utf8 설정"></a>utf8 설정</h2><p>mariadb를 최초 설치하였다면 database character set이 latin1로 되어있을것이다.  그렇지 않은경우도있으니 다음명령어로 확인한다 .  </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">$ mysql &gt; show variables like <span class="string">'c%'</span>;</div><div class="line">+--------------------------+----------------------------+</div><div class="line">| Variable_name            | Value                      |</div><div class="line">+--------------------------+----------------------------+</div><div class="line">| character_set_client     | utf8                       |</div><div class="line">| character_set_connection | utf8                       |</div><div class="line">| character_set_database   | latin1                     |</div><div class="line">| character_set_filesystem | binary                     |</div><div class="line">| character_set_results    | utf8                       |</div><div class="line">| character_set_server     | latin1                     |</div><div class="line">| character_set_system     | utf8                       |</div><div class="line">| character_sets_dir       | /usr/share/mysql/charsets/ |</div><div class="line">| check_constraint_checks  | ON                         |</div><div class="line">| collation_connection     | utf8_general_ci            |</div><div class="line">| collation_database       | latin1_swedish_ci          |</div><div class="line">| collation_server         | latin1_swedish_ci          |</div><div class="line">| completion_type          | NO_CHAIN                   |</div><div class="line">| concurrent_insert        | AUTO                       |</div><div class="line">| connect_timeout          | 10                         |</div><div class="line">+--------------------------+----------------------------+</div></pre></td></tr></table></figure>
-<p>character_set_database 이 latin1으로 되어있다면, 다음과같이 utf8 세팅을 추가한다.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ vi /etc/my.cnf</div><div class="line">...</div><div class="line">[mysqld]</div><div class="line">character-set-server=utf8</div><div class="line">...</div></pre></td></tr></table></figure></p>
-<p>수정후 mariadb 재시작 한다.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ service mariadb restart</div></pre></td></tr></table></figure></p>
-<p>character set 변경사항 적용 확인한다 .<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">$ mysql &gt; show variables like <span class="string">'c%'</span>;</div><div class="line">+--------------------------+----------------------------+</div><div class="line">| Variable_name            | Value                      |</div><div class="line">+--------------------------+----------------------------+</div><div class="line">| character_set_client     | utf8                       |</div><div class="line">| character_set_connection | utf8                       |</div><div class="line">| character_set_database   | utf8                       |</div><div class="line">| character_set_filesystem | binary                     |</div><div class="line">| character_set_results    | utf8                       |</div><div class="line">| character_set_server     | utf8                       |</div><div class="line">| character_set_system     | utf8                       |</div><div class="line">| character_sets_dir       | /usr/share/mysql/charsets/ |</div><div class="line">| check_constraint_checks  | ON                         |</div><div class="line">| collation_connection     | utf8_general_ci            |</div><div class="line">| collation_database       | utf8_general_ci            |</div><div class="line">| collation_server         | utf8_general_ci            |</div><div class="line">| completion_type          | NO_CHAIN                   |</div><div class="line">| concurrent_insert        | AUTO                       |</div><div class="line">| connect_timeout          | 10                         |</div><div class="line">+--------------------------+----------------------------+</div></pre></td></tr></table></figure></p>
-<h2 id="유저생성"><a href="#유저생성" class="headerlink" title="유저생성"></a>유저생성</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 외부 접근가능 </span></div><div class="line">$ mysql &gt; create user <span class="string">'사용자'</span>@<span class="string">'%'</span> identified by <span class="string">'비밀번호'</span>;</div><div class="line"></div><div class="line"><span class="comment"># local만 접근가능</span></div><div class="line">$ mysql &gt; create user <span class="string">'사용자'</span>@<span class="string">'localhost'</span> identified by <span class="string">'비밀번호'</span>;</div></pre></td></tr></table></figure>
-<h2 id="권한부여"><a href="#권한부여" class="headerlink" title="권한부여"></a>권한부여</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 모든db 접근가능</span></div><div class="line">$ mysql &gt; grant all privileges on *.* to <span class="string">'사용자'</span>@<span class="string">'localhost'</span>;</div><div class="line"></div><div class="line"><span class="comment"># 특정 db 접근가능</span></div><div class="line">$ mysql &gt; grant all privileges on db이름.* to <span class="string">'사용자'</span>@<span class="string">'localhost'</span>;</div></pre></td></tr></table></figure>
-<h2 id="권한확인"><a href="#권한확인" class="headerlink" title="권한확인"></a>권한확인</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ mysql &gt; show grants <span class="keyword">for</span> <span class="string">'사용자'</span>@<span class="string">'localhost'</span>;</div></pre></td></tr></table></figure>
-<h2 id="변경사항-적용"><a href="#변경사항-적용" class="headerlink" title="변경사항 적용"></a>변경사항 적용</h2><p>grant, create user, drop user 등 query로 수행되는 작업이아닌 명령어로 수행되는 작업들은 reload 함으로서 즉시반영할수있다.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ mysql &gt; flush privileges;</div></pre></td></tr></table></figure></p>
-<p>DML(insert, delete, update) 로 수행된작업들은 할필요없다 .   </p>
-
-	
-	</div>
-  <a type="button" href="/2018/02/08/database/#more" class="btn btn-default more">Read More</a>
-</div>
-
-		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
 			<a href="/2018/02/07/docker-5/" >docker swarm</a>
 		</h3>
 		</div>
@@ -337,6 +295,48 @@ locale은 default UTF-8로 세팅이 되어있다. KR로 변경을 원하면 다
 	
 	</div>
   <a type="button" href="/2018/02/04/nodejs-5/#more" class="btn btn-default more">Read More</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
+			<a href="/2018/02/02/database/" >setup mariadb</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2018-02-02  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<h2 id="mariadb"><a href="#mariadb" class="headerlink" title="mariadb"></a>mariadb</h2><p>db를 docker official image로만 사용하다보니 mysql 또는 mariadb를 manually하게 설치하는법을 잊고 살았다.<br>그냥 docker ofiicial mariadb를 사용하지 왜 ? 라고 반문한다면, 문득 database와 같은 서비스의 가장 하위 layer level에 있는 서비스들은 다른 의존환경없이 독립된 환경에 존재하는 것이 좋겠다는 생각이 들어서다.<br>막상 설치하려보니, 여기저기서 구글링하여 찾게되어 정리하려한다.  </p>
+<h2 id="install"><a href="#install" class="headerlink" title="install"></a>install</h2><p>centos7 환경에서 mariadb를 설치를진행한다.<br>다음과 같이 reposotory를 등록후 yum으로 install 한다.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">$ vi /etc/yum.repos.d/MariaDB.repo</div><div class="line"></div><div class="line"><span class="comment"># MariaDB 10.2 CentOS repository list - created 2018-02-08 13:29 UTC</span></div><div class="line"><span class="comment"># http://downloads.mariadb.org/mariadb/repositories/</span></div><div class="line">[mariadb]</div><div class="line">name = MariaDB</div><div class="line">baseurl = http://yum.mariadb.org/10.2/centos7-amd64</div><div class="line">gpgkey=https://yum.mariadb.org/RPM-GPG-KEY-MariaDB</div><div class="line">gpgcheck=1</div><div class="line"></div><div class="line">$ yum install MariaDB-server MariaDB-client</div></pre></td></tr></table></figure></p>
+<p><a href="https://downloads.mariadb.org/mariadb/repositories/#mirror=kaist&amp;distro=CentOS&amp;distro_release=centos7-amd64--centos7&amp;version=10.2" target="_blank" rel="noopener">mariadb official document</a> 에 아주 자세히나와 있다.<br>설치가 모두 진행된후 mariadb service를 start 한다.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ systemctl start mariadb</div><div class="line">or</div><div class="line">$ service mariadb start</div></pre></td></tr></table></figure></p>
+<p>마지막으로 anonymous user 접속 차단과, root password 설정, local 접속여부, test database 삭제등 추가 설정을 한다 .<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ mysql_secure_installation</div></pre></td></tr></table></figure></p>
+<h2 id="접속"><a href="#접속" class="headerlink" title="접속"></a>접속</h2><p>모든 설치와 설정이 끝이났다. 이제 접속을해보자.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ mysql -u root -p</div></pre></td></tr></table></figure></p>
+<h2 id="utf8-설정"><a href="#utf8-설정" class="headerlink" title="utf8 설정"></a>utf8 설정</h2><p>mariadb를 최초 설치하였다면 database character set이 latin1로 되어있을것이다.  그렇지 않은경우도있으니 다음명령어로 확인한다 .  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">$ mysql &gt; show variables like <span class="string">'c%'</span>;</div><div class="line">+--------------------------+----------------------------+</div><div class="line">| Variable_name            | Value                      |</div><div class="line">+--------------------------+----------------------------+</div><div class="line">| character_set_client     | utf8                       |</div><div class="line">| character_set_connection | utf8                       |</div><div class="line">| character_set_database   | latin1                     |</div><div class="line">| character_set_filesystem | binary                     |</div><div class="line">| character_set_results    | utf8                       |</div><div class="line">| character_set_server     | latin1                     |</div><div class="line">| character_set_system     | utf8                       |</div><div class="line">| character_sets_dir       | /usr/share/mysql/charsets/ |</div><div class="line">| check_constraint_checks  | ON                         |</div><div class="line">| collation_connection     | utf8_general_ci            |</div><div class="line">| collation_database       | latin1_swedish_ci          |</div><div class="line">| collation_server         | latin1_swedish_ci          |</div><div class="line">| completion_type          | NO_CHAIN                   |</div><div class="line">| concurrent_insert        | AUTO                       |</div><div class="line">| connect_timeout          | 10                         |</div><div class="line">+--------------------------+----------------------------+</div></pre></td></tr></table></figure>
+<p>character_set_database 이 latin1으로 되어있다면, 다음과같이 utf8 세팅을 추가한다.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ vi /etc/my.cnf</div><div class="line">...</div><div class="line">[mysqld]</div><div class="line">character-set-server=utf8</div><div class="line">...</div></pre></td></tr></table></figure></p>
+<p>수정후 mariadb 재시작 한다.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ service mariadb restart</div></pre></td></tr></table></figure></p>
+<p>character set 변경사항 적용 확인한다 .<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">$ mysql &gt; show variables like <span class="string">'c%'</span>;</div><div class="line">+--------------------------+----------------------------+</div><div class="line">| Variable_name            | Value                      |</div><div class="line">+--------------------------+----------------------------+</div><div class="line">| character_set_client     | utf8                       |</div><div class="line">| character_set_connection | utf8                       |</div><div class="line">| character_set_database   | utf8                       |</div><div class="line">| character_set_filesystem | binary                     |</div><div class="line">| character_set_results    | utf8                       |</div><div class="line">| character_set_server     | utf8                       |</div><div class="line">| character_set_system     | utf8                       |</div><div class="line">| character_sets_dir       | /usr/share/mysql/charsets/ |</div><div class="line">| check_constraint_checks  | ON                         |</div><div class="line">| collation_connection     | utf8_general_ci            |</div><div class="line">| collation_database       | utf8_general_ci            |</div><div class="line">| collation_server         | utf8_general_ci            |</div><div class="line">| completion_type          | NO_CHAIN                   |</div><div class="line">| concurrent_insert        | AUTO                       |</div><div class="line">| connect_timeout          | 10                         |</div><div class="line">+--------------------------+----------------------------+</div></pre></td></tr></table></figure></p>
+<h2 id="유저생성"><a href="#유저생성" class="headerlink" title="유저생성"></a>유저생성</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 외부 접근가능 </span></div><div class="line">$ mysql &gt; create user <span class="string">'사용자'</span>@<span class="string">'%'</span> identified by <span class="string">'비밀번호'</span>;</div><div class="line"></div><div class="line"><span class="comment"># local만 접근가능</span></div><div class="line">$ mysql &gt; create user <span class="string">'사용자'</span>@<span class="string">'localhost'</span> identified by <span class="string">'비밀번호'</span>;</div></pre></td></tr></table></figure>
+<h2 id="권한부여"><a href="#권한부여" class="headerlink" title="권한부여"></a>권한부여</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 모든db 접근가능</span></div><div class="line">$ mysql &gt; grant all privileges on *.* to <span class="string">'사용자'</span>@<span class="string">'localhost'</span>;</div><div class="line"></div><div class="line"><span class="comment"># 특정 db 접근가능</span></div><div class="line">$ mysql &gt; grant all privileges on db이름.* to <span class="string">'사용자'</span>@<span class="string">'localhost'</span>;</div></pre></td></tr></table></figure>
+<h2 id="권한확인"><a href="#권한확인" class="headerlink" title="권한확인"></a>권한확인</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ mysql &gt; show grants <span class="keyword">for</span> <span class="string">'사용자'</span>@<span class="string">'localhost'</span>;</div></pre></td></tr></table></figure>
+<h2 id="변경사항-적용"><a href="#변경사항-적용" class="headerlink" title="변경사항 적용"></a>변경사항 적용</h2><p>grant, create user, drop user 등 query로 수행되는 작업이아닌 명령어로 수행되는 작업들은 reload 함으로서 즉시반영할수있다.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ mysql &gt; flush privileges;</div></pre></td></tr></table></figure></p>
+<p>DML(insert, delete, update) 로 수행된작업들은 할필요없다 .   </p>
+
+	
+	</div>
+  <a type="button" href="/2018/02/02/database/#more" class="btn btn-default more">Read More</a>
 </div>
 
 		
@@ -1235,10 +1235,6 @@ jenkins -> 새로운 item -> Freestyle project -->
   <ul class="entry list-unstyled">
     
       <li>
-        <a href="/2018/02/08/database/" ><i class="fa fa-file-o"></i>setup mariadb</a>
-      </li>
-    
-      <li>
         <a href="/2018/02/07/docker-5/" ><i class="fa fa-file-o"></i>docker swarm</a>
       </li>
     
@@ -1252,6 +1248,10 @@ jenkins -> 새로운 item -> Freestyle project -->
     
       <li>
         <a href="/2018/02/04/nodejs-5/" ><i class="fa fa-file-o"></i>javascript callback mechanism</a>
+      </li>
+    
+      <li>
+        <a href="/2018/02/02/database/" ><i class="fa fa-file-o"></i>setup mariadb</a>
       </li>
     
   </ul>
