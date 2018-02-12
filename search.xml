@@ -3,6 +3,25 @@
   
     
     <entry>
+      <title><![CDATA[nginx tcp load balancing]]></title>
+      <url>/2018/02/12/nginx-2/</url>
+      <content type="html"><![CDATA[<h2 id="tcp-load-balancing"><a href="#tcp-load-balancing" class="headerlink" title="tcp load balancing"></a>tcp load balancing</h2><p>db replication으로 구성한 n개의 db를 failover 를 사용하는법은 찾아보다가, 우연히 nginx에서 tcp load balancing을 사용할수있다는것을 알게되었다.<br>이전포스트 <a href="https://setyourmindpark.github.io/2017/05/03/nginx/">nginx load balancing</a> 에서 http protocol의 load balancing을 살펴보았다면 이번 포스트에서는 tcp protocol 을 사용한 load balancing 을 소개하려한다.  </p>
+<h2 id="nginx-config"><a href="#nginx-config" class="headerlink" title="nginx config"></a>nginx config</h2><p>nginx http protocol load balancing을 구성해보았다면 무척이나 쉽게 느껴질것이다.<br>/etc/nginx/nginc.conf 를 다음과 같이 수정한다.<br>nginx를 설치하면 가장기본적으로 다음과 같이 설정되어있을것이다.<br>http protocol은 사용하지않을 것이므로 다음과같이 주석이나 삭제하고 stream 설정을 추가한다.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">$ vi/etc/nginx/nginx.conf</div><div class="line">...</div><div class="line"></div><div class="line"><span class="comment"># 삭제 또는 주석</span></div><div class="line"><span class="comment"># http &#123;</span></div><div class="line"><span class="comment">#     ...</span></div><div class="line"><span class="comment"># &#125;</span></div><div class="line"></div><div class="line"><span class="comment"># 추가</span></div><div class="line">stream &#123;</div><div class="line">    upstream db &#123;</div><div class="line">        server db1_host:db_port;</div><div class="line">        server db2_host:db_port;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    server &#123;</div><div class="line">        listen 3306;</div><div class="line">        proxy_pass db;</div><div class="line">        proxy_connect_timeout 1s; <span class="comment"># detect failure quickly</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>다음과 같이 설정을 마친후 nginx를 reload한다.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ nginx <span class="_">-s</span> reload</div></pre></td></tr></table></figure></p>
+<p>해당 설정방법은 nginx document<br><a href="https://www.nginx.com/blog/mysql-high-availability-with-nginx-plus-and-galera-cluster/" target="_blank" rel="noopener">https://www.nginx.com/blog/mysql-high-availability-with-nginx-plus-and-galera-cluster/</a><br>를 보고 참고하였으며, 생각보다 tcp load balancing을 사용하여 db 이중화를 구성하는 개발자분들이 많은것 같다.<br>nginx 를 통해 mysql workbench나 기타 dbms tool로 접속하면 정상적으로 접속되는것을 확인할수있다.  </p>
+<h2 id="참고"><a href="#참고" class="headerlink" title="참고"></a>참고</h2><p>docker를 통한 nginx구성은<br><a href="https://hub.docker.com/r/setyourmindpark/debian-nginx/" target="_blank" rel="noopener">https://hub.docker.com/r/setyourmindpark/debian-nginx/</a><br>를 참고하자.  </p>
+]]></content>
+      
+        <categories>
+            
+            <category> nginx </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[mysql or mariadb replication]]></title>
       <url>/2018/02/09/database-1/</url>
       <content type="html"><![CDATA[<h2 id="replication"><a href="#replication" class="headerlink" title="replication"></a>replication</h2><p>mysql 또는 mariadb의 db replication 에 대해서 살펴보려한다.<br>서비스가 커지면서 db traffic에 대한 이슈, 또는 데이터 장애에 대한 대비책으로 replication 가 갖는 이점들이 분명 존재한다.<br>하지만 db replication 를 한다고 해서 무조건 좋은것은 아니며 그만큼 관리가 힘든 부분도 존재하는것 같다.<br>이전에 설치한 <a href="https://setyourmindpark.github.io/2018/02/02/database/">setup mariadb</a> 롤 통해 replication 를 진행해보려한다.  </p>
