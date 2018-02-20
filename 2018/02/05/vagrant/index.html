@@ -1,123 +1,134 @@
-<!DOCTYPE HTML>
-<html>
+<!DOCTYPE html>
+<html lang=en>
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="pragma" content="no-cache">
-  <meta http-equiv="cache-control" content="no-cache">
-  <meta http-equiv="expires" content="0">
-  
-  <title>vagrant | jaehunpark</title>
-  <meta name="author" content="jaehunpark">
-  
-  <meta name="description" content="vagrant업무상 고객사의 서버환경을 살펴보면, 대부분 단일 서버로 모든 트래픽을 처리하는 곳은 아직까지 보지못하였다. ( 어찌보면 당연하다. )Xen Server를 사용하여 가상화를 통해 서버자원을 극대화하던지, 실제 물리서버를 2대로 운영을하던지, 그러던도중 va">
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
-  <meta property="og:title" content="vagrant"/>
-  <meta property="og:site_name" content="jaehunpark"/>
-
-  
-    <meta property="og:image" content=""/>
-  
-
-  
-  
-    <link href="/favicon.png" rel="icon">
-  
-  
-  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
-  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
-  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
-  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
-  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
-  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
-  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
-
-  <script src="/js/jquery-2.0.3.min.js"></script>
-
-  <!-- analytics -->
-  
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-  ga('create', 'UA-97011652-1', 'auto');
-  ga('send', 'pageview');
-</script>
-
-
-
-<script>
-var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = "//hm.baidu.com/hm.js?cb5448498d7169c668b07c2b255d62c1";
-  var s = document.getElementsByTagName("script")[0]; 
-  s.parentNode.insertBefore(hm, s);
-})();
-</script>
-
-
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="vagrant업무상 고객사의 서버환경을 살펴보면, 대부분 단일 서버로 모든 트래픽을 처리하는 곳은 아직까지 보지못하였다. ( 어찌보면 당연하다. )Xen Server를 사용하여 가상화를 통해 서버자원을 극대화하던지, 실제 물리서버를 2대로 운영을하던지, 그러던도중 vagrant라는 놈을 만나게되었다 .Xen Server나 vmware와 가장 두드러지게 다른">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vagrant">
+<meta property="og:url" content="https://setyourmindpark.github.io/2018/02/05/vagrant/index.html">
+<meta property="og:site_name" content="jaehunpark">
+<meta property="og:description" content="vagrant업무상 고객사의 서버환경을 살펴보면, 대부분 단일 서버로 모든 트래픽을 처리하는 곳은 아직까지 보지못하였다. ( 어찌보면 당연하다. )Xen Server를 사용하여 가상화를 통해 서버자원을 극대화하던지, 실제 물리서버를 2대로 운영을하던지, 그러던도중 vagrant라는 놈을 만나게되었다 .Xen Server나 vmware와 가장 두드러지게 다른">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-02-07T13:48:52.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="vagrant">
+<meta name="twitter:description" content="vagrant업무상 고객사의 서버환경을 살펴보면, 대부분 단일 서버로 모든 트래픽을 처리하는 곳은 아직까지 보지못하였다. ( 어찌보면 당연하다. )Xen Server를 사용하여 가상화를 통해 서버자원을 극대화하던지, 실제 물리서버를 2대로 운영을하던지, 그러던도중 vagrant라는 놈을 만나게되었다 .Xen Server나 vmware와 가장 두드러지게 다른">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>vagrant</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- rss -->
+    
+    
 </head>
 
- <body>  
-  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-    <div class="container">
-      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-		<span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-	  <a class="navbar-brand" href="/">jaehunpark</a>
-      <div class="collapse navbar-collapse nav-menu">
-		<ul class="nav navbar-nav">
-		  
-		  <li>
-			<a href="/archives" title="All the articles.">
-			  <i class=""></i>Archives
-			</a>
-		  </li>
-		  
-		  <li>
-			<a href="/categories" title="All the categories.">
-			  <i class=""></i>Categories
-			</a>
-		  </li>
-		  
-		</ul>
-      </div>
-    </div> <!-- container -->
-</nav>
-<div class="clearfix"></div>
+<body>
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">home</a></li>
+         
+          <li><a href="/archives/">archives</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2018/02/06/docker-4/"><i class="fa fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2018/02/04/nodejs-5/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fa fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://setyourmindpark.github.io/2018/02/05/vagrant/"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://setyourmindpark.github.io/2018/02/05/vagrant/&text=vagrant"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://setyourmindpark.github.io/2018/02/05/vagrant/&title=vagrant"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://setyourmindpark.github.io/2018/02/05/vagrant/&is_video=false&description=vagrant"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=vagrant&body=Check out this article: https://setyourmindpark.github.io/2018/02/05/vagrant/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://setyourmindpark.github.io/2018/02/05/vagrant/&title=vagrant"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://setyourmindpark.github.io/2018/02/05/vagrant/&title=vagrant"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://setyourmindpark.github.io/2018/02/05/vagrant/&title=vagrant"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://setyourmindpark.github.io/2018/02/05/vagrant/&title=vagrant"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://setyourmindpark.github.io/2018/02/05/vagrant/&name=vagrant&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
 
-  <div class="container">
-  	<div class="content">
-    	 
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#vagrant"><span class="toc-number">1.</span> <span class="toc-text">vagrant</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#virtual-box-와-vagrnat-설치"><span class="toc-number">2.</span> <span class="toc-text">virtual box 와 vagrnat 설치</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#vagrant-설정"><span class="toc-number">3.</span> <span class="toc-text">vagrant 설정</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#server1"><span class="toc-number">3.1.</span> <span class="toc-text">server1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#server2"><span class="toc-number">3.2.</span> <span class="toc-text">server2</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#vagrant-가상환경-구축"><span class="toc-number">4.</span> <span class="toc-text">vagrant 가상환경 구축</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#vagrant-명령어"><span class="toc-number">5.</span> <span class="toc-text">vagrant 명령어</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#견해"><span class="toc-number">6.</span> <span class="toc-text">견해</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index width mx-auto px2 my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        vagrant
+    </h1>
 
 
-	
-		<div class="page-header">
-			<h1> vagrant</h1>
-		</div>
-	
+
+    <div class="meta">
+      <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <b><span itemprop="name">jaehunpark</span></b>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2018-02-05T07:31:30.000Z" itemprop="datePublished">2018-02-05</time>
+    </div>
 
 
+      
 
-<div class="row post">
-	<!-- cols -->
-	
-	<div id="top_meta"></div>
-	<div class="col-md-9">
-	
+    </div>
+  </header>
+  
 
-	<!-- content -->
-	<div class="mypage">		
-	  		
-
-	  <h2 id="vagrant"><a href="#vagrant" class="headerlink" title="vagrant"></a>vagrant</h2><p>업무상 고객사의 서버환경을 살펴보면, 대부분 단일 서버로 모든 트래픽을 처리하는 곳은 아직까지 보지못하였다. ( 어찌보면 당연하다. )<br>Xen Server를 사용하여 가상화를 통해 서버자원을 극대화하던지, 실제 물리서버를 2대로 운영을하던지, 그러던도중 vagrant라는 놈을 만나게되었다 .<br>Xen Server나 vmware와 가장 두드러지게 다른점이라면, 환경구성하고자하는 os를 직접 준비할 필요가 없다는점이다. 필요한 os를 설정파일에 설정하게되면 아주간단히 가상환경을 구축할수있다.<br>필자는 앞으로 소개할 docker swarm cluster 를위해 vagrant로 환경구성을 해보려한다 . </p>
+  <div class="content" itemprop="articleBody">
+    <h2 id="vagrant"><a href="#vagrant" class="headerlink" title="vagrant"></a>vagrant</h2><p>업무상 고객사의 서버환경을 살펴보면, 대부분 단일 서버로 모든 트래픽을 처리하는 곳은 아직까지 보지못하였다. ( 어찌보면 당연하다. )<br>Xen Server를 사용하여 가상화를 통해 서버자원을 극대화하던지, 실제 물리서버를 2대로 운영을하던지, 그러던도중 vagrant라는 놈을 만나게되었다 .<br>Xen Server나 vmware와 가장 두드러지게 다른점이라면, 환경구성하고자하는 os를 직접 준비할 필요가 없다는점이다. 필요한 os를 설정파일에 설정하게되면 아주간단히 가상환경을 구축할수있다.<br>필자는 앞으로 소개할 docker swarm cluster 를위해 vagrant로 환경구성을 해보려한다 . </p>
 <h2 id="virtual-box-와-vagrnat-설치"><a href="#virtual-box-와-vagrnat-설치" class="headerlink" title="virtual box 와 vagrnat 설치"></a>virtual box 와 vagrnat 설치</h2><p>vagrnat 가상환경을 만들기위해 기본적으로 virtualbox와 vagrant 가 설치되어있어야한다 .<br><a href="https://www.virtualbox.org/wiki/Downloads" target="_blank" rel="noopener">virtualbox</a><br><a href="https://www.vagrantup.com/downloads.html" target="_blank" rel="noopener">vagrant</a><br>설치가 진행되었다면 vagrant 로 환경구성 을 진행해보자 .   </p>
 <h2 id="vagrant-설정"><a href="#vagrant-설정" class="headerlink" title="vagrant 설정"></a>vagrant 설정</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ vagrant init</div></pre></td></tr></table></figure>
 <p>VagrantFile 이 생성된다 ( DockerFile 이생각나지왜 .. )<br>VagrantFile을 열어보면 다음과같이 설정되어있고, 기타설정들은 모두 주석처리되어있는것을 확인할수있다 .<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">config.vm.box = <span class="string">"base"</span></div></pre></td></tr></table></figure></p>
@@ -140,172 +151,119 @@ $ timedatectl set-timezone Asia/Seoul
 locale은 default UTF-8로 세팅이 되어있다. KR로 변경을 원하면 다음과 같이 설정할수있다 . 
 ``` bash
 ``` -->
-	  
-	</div>
 
-	<div>
-  	<center>
-	<div class="pagination">
+  </div>
+</article>
 
-    
-    
-    <a href="/2018/02/06/docker-4/" type="button" class="btn btn-default"><i
-                class="fa fa-arrow-circle-o-left"></i> Prev</a>
-    
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        </div>
+    </div>
 
-    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
-    
-    <a href="/2018/02/04/nodejs-5/" type="button" class="btn btn-default ">Next<i
-                class="fa fa-arrow-circle-o-right"></i></a>
-    
 
-    
-</div>
 
-    </center>
-	</div>
-	
-	<!-- comment -->
-	
-<section id="comment">
-    <h2 class="title">Comments</h2>
-
-    
-    <div id="disqus_thread" class="ds-thread">
-        <script type="text/javascript">
-            /**
-             * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-             * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
-             */
-                /*
-                 var disqus_config = function () {
-                 this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
-                 this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-                 };
-                 */
-            (function() { // DON'T EDIT BELOW THIS LINE
-                var d = document, s = d.createElement('script');
-
-                s.src = '//https-setyourmindpark-github-io.disqus.com/embed.js';
-
-                s.setAttribute('data-timestamp', +new Date());
-                (d.head || d.body).appendChild(s);
-            })();
-        </script>
-        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by
-                Disqus.</a></noscript>
     </div>
     
-</section>
+      <div id="footer-post-container">
+  <div id="footer-post">
 
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">home</a></li>
+         
+          <li><a href="/archives/">archives</a></li>
+        
+      </ul>
+    </div>
 
-	</div> <!-- col-md-9/col-md-12 -->
-		
-	
-	<div id="side_meta">
-		<div class="col-md-3" id="post_meta"> 
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#vagrant"><span class="toc-number">1.</span> <span class="toc-text">vagrant</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#virtual-box-와-vagrnat-설치"><span class="toc-number">2.</span> <span class="toc-text">virtual box 와 vagrnat 설치</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#vagrant-설정"><span class="toc-number">3.</span> <span class="toc-text">vagrant 설정</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#server1"><span class="toc-number">3.1.</span> <span class="toc-text">server1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#server2"><span class="toc-number">3.2.</span> <span class="toc-text">server2</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#vagrant-가상환경-구축"><span class="toc-number">4.</span> <span class="toc-text">vagrant 가상환경 구축</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#vagrant-명령어"><span class="toc-number">5.</span> <span class="toc-text">vagrant 명령어</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#견해"><span class="toc-number">6.</span> <span class="toc-text">견해</span></a></li></ol>
+    </div>
 
-	<!-- date -->
-	
-	<div class="meta-widget">
-	<i class="fa fa-clock-o"></i>
-	2018-02-05 
-	</div>
-	
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://setyourmindpark.github.io/2018/02/05/vagrant/"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://setyourmindpark.github.io/2018/02/05/vagrant/&text=vagrant"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://setyourmindpark.github.io/2018/02/05/vagrant/&title=vagrant"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://setyourmindpark.github.io/2018/02/05/vagrant/&is_video=false&description=vagrant"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=vagrant&body=Check out this article: https://setyourmindpark.github.io/2018/02/05/vagrant/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://setyourmindpark.github.io/2018/02/05/vagrant/&title=vagrant"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://setyourmindpark.github.io/2018/02/05/vagrant/&title=vagrant"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://setyourmindpark.github.io/2018/02/05/vagrant/&title=vagrant"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://setyourmindpark.github.io/2018/02/05/vagrant/&title=vagrant"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://setyourmindpark.github.io/2018/02/05/vagrant/&name=vagrant&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
 
-	<!-- categories -->
-    
-	<div class="meta-widget">
-	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
-    <ul id="categorys" class="tag_box list-unstyled collapse in">
-          
-  <li>
-    <li><a href="/categories/vagrant/">vagrant<span>1</span></a></li>
-  </li>
+    </div>
 
-    </ul>
-	</div>
-	
+    <div id="actions-footer">
+      <ul>
+        <li id="toc"><a class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
+        <li id="share"><a class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
+        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
+        <li id="menu"><a class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
+      </ul>
+    </div>
 
-	<!-- tags -->
-		
-
-	<!-- toc -->
-	<div class="meta-widget">
-	
-	</div>
-	
-    <hr>
-	
-</div><!-- col-md-3 -->
-
-	</div>
-		
-
-</div><!-- row -->
-
-<script type="text/javascript">
-var disqus_shortname = 'https-setyourmindpark-github-io';
-(function(){
-  var dsq = document.createElement('script');
-  dsq.type = 'text/javascript';
-  dsq.async = true;
-  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-}());
-</script>
-
-
-
-	</div>
   </div>
-  <div class="container-narrow">
-  <footer> Copyright
-<p>
-  &copy; 2018 jaehunpark
-  
-</p>
-<!-- <p>
-  &copy; 2018 jaehunpark
-  
-      with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
-     <br> Theme by <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind.386</a>.    
-</p> -->
- </footer>
-</div> <!-- container-narrow -->
-  
+</div>
 
-
-  
-<a id="gotop" href="#">   
-  <span>⬆︎TOP</span>
-</a>
-
-<script src="/js/jquery.imagesloaded.min.js"></script>
-<script src="/js/gallery.js"></script>
-<script src="/js/bootstrap.min.js"></script>
-<script src="/js/main.js"></script>
-<script src="/js/search.js"></script> 
-
-
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
-<script src="/fancybox/jquery.fancybox.pack.js"></script>
-<script type="text/javascript">
-(function($){
-  $('.fancybox').fancybox();
-})(jQuery);
-</script>
-
-
-
-   <script type="text/javascript">      
-     var search_path = "search.xml";
-	 if (search_path.length == 0) {
-	 	search_path = "search.xml";
-	 }
-	 var path = "/" + search_path;
-     searchFunc(path, 'local-search-input', 'local-search-result');
-   </script>
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2018 jaehunpark
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">home</a></li>
+         
+          <li><a href="/archives/">archives</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
 
 </body>
-   </html>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="/lib/meslo-LG/styles.css">
+<link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
+
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-97011652-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'https-setyourmindpark-github-io';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+
