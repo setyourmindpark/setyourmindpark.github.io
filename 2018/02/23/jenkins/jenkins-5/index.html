@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="jaehunpark">
 <meta property="og:description" content="build docker service with jenkins이전 포스트 에서 docker registry, service 그리고 stack 에 대해서 알아보았다.docker private registrydocker swram servicedocker stack이제 jenkins를 사용하여 효과적으로 빌드하는지 알아보려한다. 물론 주관적인 필자의 생각이다.">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-02-23T09:34:50.000Z">
+<meta property="og:updated_time" content="2018-02-23T10:36:21.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="build docker service with jenkins">
 <meta name="twitter:description" content="build docker service with jenkins이전 포스트 에서 docker registry, service 그리고 stack 에 대해서 알아보았다.docker private registrydocker swram servicedocker stack이제 jenkins를 사용하여 효과적으로 빌드하는지 알아보려한다. 물론 주관적인 필자의 생각이다.">
@@ -126,8 +126,8 @@
   
 
   <div class="content" itemprop="articleBody">
-    <h2 id="build-docker-service-with-jenkins"><a href="#build-docker-service-with-jenkins" class="headerlink" title="build docker service with jenkins"></a>build docker service with jenkins</h2><p>이전 포스트 에서 docker registry, service 그리고 stack 에 대해서 알아보았다.<br><a href="https://setyourmindpark.github.io/2018/02/06/docker-4/">docker private registry</a><br><a href="https://setyourmindpark.github.io/2018/02/19/docker-6/">docker swram service</a><br><a href="https://setyourmindpark.github.io/2018/02/21/docker-7/">docker stack</a><br>이제 jenkins를 사용하여 효과적으로 빌드하는지 알아보려한다. 물론 주관적인 필자의 생각이다.  </p>
-<h2 id="Managed-Scripts"><a href="#Managed-Scripts" class="headerlink" title="Managed Scripts"></a>Managed Scripts</h2><p>docker swarm 의 service들을 효과적으로 배포하기위해서 shell script를 적극적으로 사용하여 로직구성을 해야되겠다는 판단이 들었다.<br>jenkins의 plugin 중 Managed Scripts 에 관한 정보는  이전포스트 <a href="https://setyourmindpark.github.io/2017/04/23/jenkins-3/">jenkins로 배포하기 - nodejs-2</a> 를 참고하자.<br>일단 전체적인 프로세스는 다음과 같다.  </p>
+    <h2 id="build-docker-service-with-jenkins"><a href="#build-docker-service-with-jenkins" class="headerlink" title="build docker service with jenkins"></a>build docker service with jenkins</h2><p>이전 포스트 에서 docker registry, service 그리고 stack 에 대해서 알아보았다.<br><a href="https://setyourmindpark.github.io/2018/02/06/docker/docker-4/">docker private registry</a><br><a href="https://setyourmindpark.github.io/2018/02/19/docker/docker-6/">docker swram service</a><br><a href="https://setyourmindpark.github.io/2018/02/21/docker/docker-7/">docker stack</a><br>이제 jenkins를 사용하여 효과적으로 빌드하는지 알아보려한다. 물론 주관적인 필자의 생각이다.  </p>
+<h2 id="Managed-Scripts"><a href="#Managed-Scripts" class="headerlink" title="Managed Scripts"></a>Managed Scripts</h2><p>docker swarm 의 service들을 효과적으로 배포하기위해서 shell script를 적극적으로 사용하여 로직구성을 해야되겠다는 판단이 들었다.<br>jenkins의 plugin 중 Managed Scripts 에 관한 정보는  이전포스트 <a href="https://setyourmindpark.github.io/2017/04/23/jenkins/jenkins-3/">jenkins로 배포하기 - nodejs-2</a> 를 참고하자.<br>일단 전체적인 프로세스는 다음과 같다.  </p>
 <ol>
 <li>배포하고자하는 프로젝트에 Dockerfile 을 생성한다 ( dockerize )</li>
 <li>형상관리( git ) 에 변경사항 반영한다.  </li>

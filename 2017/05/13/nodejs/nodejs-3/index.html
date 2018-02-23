@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="jaehunpark">
 <meta property="og:description" content="async awaites7 공식발표가 되진않았지만 es7에 async와 await 가 잠정적으로 탑재되는 분위기인것 같다 . es6 의 promise가 탑재된듯이 .필자는 nodejs 개발시 Promise ( bluebird module )를 아주 적극적으로 사용하고있다 . 변화를 느끼고자 이전포스트 Promise ReactiveX에서 ReactiveX를">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-02-06T05:28:55.000Z">
+<meta property="og:updated_time" content="2018-02-23T10:37:20.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="async await">
 <meta name="twitter:description" content="async awaites7 공식발표가 되진않았지만 es7에 async와 await 가 잠정적으로 탑재되는 분위기인것 같다 . es6 의 promise가 탑재된듯이 .필자는 nodejs 개발시 Promise ( bluebird module )를 아주 적극적으로 사용하고있다 . 변화를 느끼고자 이전포스트 Promise ReactiveX에서 ReactiveX를">
@@ -128,8 +128,8 @@
   
 
   <div class="content" itemprop="articleBody">
-    <h2 id="async-await"><a href="#async-await" class="headerlink" title="async await"></a>async await</h2><p>es7 공식발표가 되진않았지만 es7에 async와 await 가 잠정적으로 탑재되는 분위기인것 같다 . es6 의 promise가 탑재된듯이 .<br>필자는 nodejs 개발시 Promise ( bluebird module )를 아주 적극적으로 사용하고있다 . 변화를 느끼고자 이전포스트 <a href="https://setyourmindpark.github.io/2017/04/29/nodejs-2/">Promise ReactiveX</a><br>에서 ReactiveX를 사용해보았지만 코드 가독성이 Promise 보다는 떨어지기에 적극적으로 도입하긴보다는 Promise와 적절히 섞어 쓰는것이 좋겠다 라는 결론을 지었다.<br>이번에는 async await 에대한 글을 적어보려한다. 결론부터 말하자면 굉장히 아주 매우 마음에드는 녀석이다 .<br><br><br></p>
-<h2 id="more-than-higher-node-7-6"><a href="#more-than-higher-node-7-6" class="headerlink" title="more than higher node 7.6"></a>more than higher node 7.6</h2><p>async await keyword 는 기본적으로 node 7 이상에서 동작한다 ( v7.6 )<br>필자는 ‘ async await 을 사용해봐야지 ‘ 라고 생각하기전까지는 v6.10.3 를 줄곧사용하였다 .<br>nvm이 정말 유용한 녀석이라고 생각한순간이 바로 이순간이었다. nvm에대해서는 <a href="https://setyourmindpark.github.io/2017/04/06/nodejs/">nvm</a> 참고하자 .<br>추가적으로 필자는 지금 이 글을 쓰기위한 node 기반 hexo 를 사용할때는 v6.10.3 로 switch 한다. ( node v.7.10.0 에서 hexo 설치시 버그가 있는듯하다 . )</p>
+    <h2 id="async-await"><a href="#async-await" class="headerlink" title="async await"></a>async await</h2><p>es7 공식발표가 되진않았지만 es7에 async와 await 가 잠정적으로 탑재되는 분위기인것 같다 . es6 의 promise가 탑재된듯이 .<br>필자는 nodejs 개발시 Promise ( bluebird module )를 아주 적극적으로 사용하고있다 . 변화를 느끼고자 이전포스트 <a href="https://setyourmindpark.github.io/2017/04/29/nodejs/nodejs-2/">Promise ReactiveX</a><br>에서 ReactiveX를 사용해보았지만 코드 가독성이 Promise 보다는 떨어지기에 적극적으로 도입하긴보다는 Promise와 적절히 섞어 쓰는것이 좋겠다 라는 결론을 지었다.<br>이번에는 async await 에대한 글을 적어보려한다. 결론부터 말하자면 굉장히 아주 매우 마음에드는 녀석이다 .<br><br><br></p>
+<h2 id="more-than-higher-node-7-6"><a href="#more-than-higher-node-7-6" class="headerlink" title="more than higher node 7.6"></a>more than higher node 7.6</h2><p>async await keyword 는 기본적으로 node 7 이상에서 동작한다 ( v7.6 )<br>필자는 ‘ async await 을 사용해봐야지 ‘ 라고 생각하기전까지는 v6.10.3 를 줄곧사용하였다 .<br>nvm이 정말 유용한 녀석이라고 생각한순간이 바로 이순간이었다. nvm에대해서는 <a href="https://setyourmindpark.github.io/2017/04/06/nodejs/nodejs/">nvm</a> 참고하자 .<br>추가적으로 필자는 지금 이 글을 쓰기위한 node 기반 hexo 를 사용할때는 v6.10.3 로 switch 한다. ( node v.7.10.0 에서 hexo 설치시 버그가 있는듯하다 . )</p>
 <h3 id="설치가능-node-version-확인"><a href="#설치가능-node-version-확인" class="headerlink" title="설치가능 node version 확인"></a>설치가능 node version 확인</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ nvm ls-remote</div></pre></td></tr></table></figure>
 <p><br></p>
 <h3 id="node-설치"><a href="#node-설치" class="headerlink" title="node 설치"></a>node 설치</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ nvm install &lt;node버전&gt;</div></pre></td></tr></table></figure>

@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="jaehunpark">
 <meta property="og:description" content="docker-composedocker 시작하기 이전포스트에서 docker의 설치와 이미지파일 생성등을 알아보았다.다음의 명령어는 생성된 이미지파일을 컨테이너로 실행하는 명령이다1$ sudo docker run -d -p 89:8080 --name jenkins -v /home/docker/jenkins/jenkins_data:/root  jenkins 그렇">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-02-07T13:35:58.000Z">
+<meta property="og:updated_time" content="2018-02-23T10:32:35.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="docker-compose">
 <meta name="twitter:description" content="docker-composedocker 시작하기 이전포스트에서 docker의 설치와 이미지파일 생성등을 알아보았다.다음의 명령어는 생성된 이미지파일을 컨테이너로 실행하는 명령이다1$ sudo docker run -d -p 89:8080 --name jenkins -v /home/docker/jenkins/jenkins_data:/root  jenkins 그렇">
@@ -128,7 +128,7 @@
   
 
   <div class="content" itemprop="articleBody">
-    <h2 id="docker-compose"><a href="#docker-compose" class="headerlink" title="docker-compose"></a>docker-compose</h2><p><a href="https://setyourmindpark.github.io/2017/04/06/docker-1/">docker 시작하기</a> 이전포스트에서 docker의 설치와 이미지파일 생성등을 알아보았다.<br>다음의 명령어는 생성된 이미지파일을 컨테이너로 실행하는 명령이다<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo docker run -d -p 89:8080 --name jenkins -v /home/docker/jenkins/jenkins_data:/root  jenkins</div></pre></td></tr></table></figure></p>
+    <h2 id="docker-compose"><a href="#docker-compose" class="headerlink" title="docker-compose"></a>docker-compose</h2><p><a href="https://setyourmindpark.github.io/2017/04/06/docker/docker-1/">docker 시작하기</a> 이전포스트에서 docker의 설치와 이미지파일 생성등을 알아보았다.<br>다음의 명령어는 생성된 이미지파일을 컨테이너로 실행하는 명령이다<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo docker run -d -p 89:8080 --name jenkins -v /home/docker/jenkins/jenkins_data:/root  jenkins</div></pre></td></tr></table></figure></p>
 <p>그렇다면, 생성된 이미지파일이 다수일경우, 위와같은 명령어를 이미지명과, volume 경로등 개별 옵션들을 변경하여 명령어를 입력해야한다<br>다수의 이미지들을 정해진 설정으로 한번에 컨테이너로 모두 만들수는없을까 ?<br>docker-compose 활용하면, 작성해둔 이미지별 설정정보로 한번에 여러이미지를 컨테이너로 만들수있다.<br>설치부터 한번 알아보자<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ sudo curl -L &quot;https://github.com/docker/compose/releases/download/1.9.0/docker-compose-$(uname -s)-$(uname -m)&quot; -o /usr/local/bin/docker-compose</div><div class="line"></div><div class="line">$ sudo chmod +x /usr/local/bin/docker-compose</div></pre></td></tr></table></figure></p>
 <p>docker-compose를 정상적으로 설치되었다면 버전을 확인해보자<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo docker-compose --version</div></pre></td></tr></table></figure></p>
 <p>버전이 표시된다면, 정상적으로 설치가된것이다 .<br><br><br></p>
