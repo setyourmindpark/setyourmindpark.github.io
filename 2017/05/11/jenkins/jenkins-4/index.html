@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="ssh scp필자는 jenkins를 주로 사용하며 빌드는 nodejs 기반의 서버를 배포시에는 ssh 와 scp 를 주로사용한다 .ssh와 scp를 사용하는데에 있어 최종 서버에 접근하기까지 중간에 bridge( jump host )와 같은 host가 존재할때가 있다 .물론 접근하고자하는 서버의 ip를 모두 public 으로 개방하면 쉽게 접근이가능하나 관">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ssh scp proxy">
+<meta property="og:url" content="https://setyourmindpark.github.io/2017/05/11/jenkins/jenkins-4/index.html">
+<meta property="og:site_name" content="jaehunpark">
+<meta property="og:description" content="ssh scp필자는 jenkins를 주로 사용하며 빌드는 nodejs 기반의 서버를 배포시에는 ssh 와 scp 를 주로사용한다 .ssh와 scp를 사용하는데에 있어 최종 서버에 접근하기까지 중간에 bridge( jump host )와 같은 host가 존재할때가 있다 .물론 접근하고자하는 서버의 ip를 모두 public 으로 개방하면 쉽게 접근이가능하나 관">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-02-23T09:34:43.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ssh scp proxy">
+<meta name="twitter:description" content="ssh scp필자는 jenkins를 주로 사용하며 빌드는 nodejs 기반의 서버를 배포시에는 ssh 와 scp 를 주로사용한다 .ssh와 scp를 사용하는데에 있어 최종 서버에 접근하기까지 중간에 bridge( jump host )와 같은 host가 존재할때가 있다 .물론 접근하고자하는 서버의 ip를 모두 public 으로 개방하면 쉽게 접근이가능하나 관">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>ssh scp proxy</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- rss -->
+    
+    
+</head>
+
+<body>
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">home</a></li>
+         
+          <li><a href="/archives/">archives</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2017/05/13/nodejs/nodejs-3/"><i class="fa fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2017/05/04/nginx/nginx-1/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fa fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://setyourmindpark.github.io/2017/05/11/jenkins/jenkins-4/"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://setyourmindpark.github.io/2017/05/11/jenkins/jenkins-4/&text=ssh scp proxy"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://setyourmindpark.github.io/2017/05/11/jenkins/jenkins-4/&title=ssh scp proxy"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://setyourmindpark.github.io/2017/05/11/jenkins/jenkins-4/&is_video=false&description=ssh scp proxy"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=ssh scp proxy&body=Check out this article: https://setyourmindpark.github.io/2017/05/11/jenkins/jenkins-4/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://setyourmindpark.github.io/2017/05/11/jenkins/jenkins-4/&title=ssh scp proxy"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://setyourmindpark.github.io/2017/05/11/jenkins/jenkins-4/&title=ssh scp proxy"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://setyourmindpark.github.io/2017/05/11/jenkins/jenkins-4/&title=ssh scp proxy"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://setyourmindpark.github.io/2017/05/11/jenkins/jenkins-4/&title=ssh scp proxy"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://setyourmindpark.github.io/2017/05/11/jenkins/jenkins-4/&name=ssh scp proxy&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#ssh-scp"><span class="toc-number">1.</span> <span class="toc-text">ssh scp</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#사전준비"><span class="toc-number">2.</span> <span class="toc-text">사전준비</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#jenkins"><span class="toc-number">2.1.</span> <span class="toc-text">jenkins</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#proxy-host"><span class="toc-number">2.2.</span> <span class="toc-text">proxy host</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#destination-host"><span class="toc-number">2.3.</span> <span class="toc-text">destination host</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ssh-scp-일반적인-사용"><span class="toc-number">3.</span> <span class="toc-text">ssh scp 일반적인 사용</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ssh"><span class="toc-number">4.</span> <span class="toc-text">ssh</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#manual-proxy"><span class="toc-number">4.1.</span> <span class="toc-text">manual proxy</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#기본적인방법"><span class="toc-number">4.1.1.</span> <span class="toc-text">기본적인방법</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#proxycommand-사용"><span class="toc-number">4.1.2.</span> <span class="toc-text">proxycommand 사용</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#proxy-after-configuration"><span class="toc-number">4.2.</span> <span class="toc-text">proxy after configuration</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#scp"><span class="toc-number">5.</span> <span class="toc-text">scp</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#manual-proxy-1"><span class="toc-number">5.1.</span> <span class="toc-text">manual proxy</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#첫번째방법"><span class="toc-number">5.1.1.</span> <span class="toc-text">첫번째방법</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#두번째방법"><span class="toc-number">5.1.2.</span> <span class="toc-text">두번째방법</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#proxy-after-configuration-1"><span class="toc-number">5.2.</span> <span class="toc-text">proxy after configuration</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#configuration"><span class="toc-number">6.</span> <span class="toc-text">configuration</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#참고"><span class="toc-number">7.</span> <span class="toc-text">참고</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#jenkins-1"><span class="toc-number">7.1.</span> <span class="toc-text">jenkins</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index width mx-auto px2 my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        ssh scp proxy
+    </h1>
+
+
+
+    <div class="meta">
+      <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <b><span itemprop="name">jaehunpark</span></b>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2017-05-11T04:04:37.000Z" itemprop="datePublished">2017-05-11</time>
+    </div>
+
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="ssh-scp"><a href="#ssh-scp" class="headerlink" title="ssh scp"></a>ssh scp</h2><p>필자는 jenkins를 주로 사용하며 빌드는 nodejs 기반의 서버를 배포시에는 ssh 와 scp 를 주로사용한다 .<br>ssh와 scp를 사용하는데에 있어 최종 서버에 접근하기까지 중간에 bridge( jump host )와 같은 host가 존재할때가 있다 .<br>물론 접근하고자하는 서버의 ip를 모두 public 으로 개방하면 쉽게 접근이가능하나 관리가 어려워질뿐만아니라 보안적으로도 좋지않기때문에 public host가 proxy host가 되어 내부 서버로 접근해야한다.<br>필자는 jenkins로 빌드할때 이런 상황이 있었으며 정리를하며 기록으로 남기기위해 글을써보려 한다 .<br><br><br></p>
+<h2 id="사전준비"><a href="#사전준비" class="headerlink" title="사전준비"></a>사전준비</h2><p>필자는 기본적으로 jenkins 를 사용하여 원격지에 배포하므로 원격서버 접속시 jenkins 에게 비밀번호를 요구하지 않도록 rsa 암호화통신을 위한 사전 설정한다 .</p>
+<h3 id="jenkins"><a href="#jenkins" class="headerlink" title="jenkins"></a>jenkins</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ cat ~/.ssh/id_rsa.pub</div></pre></td></tr></table></figure>
+<p><br></p>
+<h3 id="proxy-host"><a href="#proxy-host" class="headerlink" title="proxy host"></a>proxy host</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ vi ~/.ssh/authorized_keys</div></pre></td></tr></table></figure>
+<p><br></p>
+<h3 id="destination-host"><a href="#destination-host" class="headerlink" title="destination host"></a>destination host</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ vi ~/.ssh/authorized_keys</div></pre></td></tr></table></figure>
+<p><br></p>
+<p>jenkins 에서 cat 명령어로 출력된 id_rsa.pub ( public key ) 를 proxy host 와 최종 접속할 destination host 의 ~/.ssh/authorized_keys 에 붙여넣기한다.<br>작업을 마치게되면 jenkins는 proxy host를 거쳐 destination host 에 비밀번호없이 직접적으로 접근이 가능해졌다.<br><br><br></p>
+<h2 id="ssh-scp-일반적인-사용"><a href="#ssh-scp-일반적인-사용" class="headerlink" title="ssh scp 일반적인 사용"></a>ssh scp 일반적인 사용</h2><p>기본적으로 proxy host를 사용하지않고 단일 remote host ssh 와 scp 는 다음과같다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ssh &lt;계정&gt;@&lt;remote host ip&gt;</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ scp -r &lt;전송할 파일/폴더&gt; &lt;계정&gt;@&lt;remote host ip&gt;:&lt;remote host에 전송받을 경로&gt;</div></pre></td></tr></table></figure>
+<p>이제 proxy host를 경유하여 destination host에 ssh scp 사용법을 알아보자 .</p>
+<p><br><br></p>
+<h2 id="ssh"><a href="#ssh" class="headerlink" title="ssh"></a>ssh</h2><p>필자의 접속 정보는 다음과 같다 . (예시)<br>proxy host : 121.140.166.90<br>destination host : 10.10.200.3</p>
+<h3 id="manual-proxy"><a href="#manual-proxy" class="headerlink" title="manual proxy"></a>manual proxy</h3><h4 id="기본적인방법"><a href="#기본적인방법" class="headerlink" title="기본적인방법"></a>기본적인방법</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ssh -tt jaehunpark@121.140.166.90 ssh root@10.10.200.3</div></pre></td></tr></table></figure>
+<p>아주 간단하게 쓸수있는방법이다 .<br>단순히 -tt 옵션과 ssh 명령어를 두번적어주면된다.<br>하지만 추가적인 설정이 필요하다. 위의 명령어는 proxy host( 121.140.166.90 )로 접속후 proxy host가 destincation host( 10.10.200.3 ) 로 접속을 시도하므로  proxy host의 id_rsa.pub (public key)가 destination host 의 ~/.ssh/authorized_keys 에 존재해야 호출하는 머신에서 direct로 접근가능하다.<br>결론적으로 destination host의 authorized_keys 에는 jenkins host의 id_rsa.pub 와 proxy host id_rsa.pub 두개가 존재해야한다 .<br>( jenkins를 사용하지않고 일반적으로 접속하시는것이라면 그냥 비밀번호 치셔도 됩니다 )</p>
+<p><br></p>
+<h4 id="proxycommand-사용"><a href="#proxycommand-사용" class="headerlink" title="proxycommand 사용"></a>proxycommand 사용</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ssh -o ProxyCommand=&quot;ssh -W %h:%p jaehunpark@121.140.166.90&quot; root@10.10.200.3</div></pre></td></tr></table></figure>
+<p>proxy host를 통하여 직접적으로 접근하는 proxycommand를 사용한 방법이다<br><br></p>
+<h3 id="proxy-after-configuration"><a href="#proxy-after-configuration" class="headerlink" title="proxy after configuration"></a>proxy after configuration</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ssh server-node-1</div></pre></td></tr></table></figure>
+<p>하단의 <code>configuration</code> 탭의 설정을 마친후 proxy host를 거쳐 destination host에 접근하는 명령어이다.<br>설정만 잘 해놓는다면 정말 간단하게 접근할수있다.<br><br><br></p>
+<h2 id="scp"><a href="#scp" class="headerlink" title="scp"></a>scp</h2><h3 id="manual-proxy-1"><a href="#manual-proxy-1" class="headerlink" title="manual proxy"></a>manual proxy</h3><h4 id="첫번째방법"><a href="#첫번째방법" class="headerlink" title="첫번째방법"></a>첫번째방법</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ scp -r -o ProxyCommand=&quot;ssh jaehunpark@121.140.166.90 nc 10.10.200.3 22&quot; /root/.jenkins/workspace/nodejs-skeletone-v2 root@10.10.200.3:/root</div></pre></td></tr></table></figure>
+<p><br></p>
+<h4 id="두번째방법"><a href="#두번째방법" class="headerlink" title="두번째방법"></a>두번째방법</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ scp -r -o ProxyCommand=&quot;ssh -W %h:%p jaehunpark@121.140.166.90&quot; /root/.jenkins/workspace/nodejs-skeletone-v2 root@10.10.200.3:/root</div></pre></td></tr></table></figure>
+<p>첫번째방법과 두번째방법 scp 역시 ssh와 비슷하게 proxycommand 를 사용하여 파일을 전송한다. 명령어가 길다보니 조금은 지저분한 느낌이다 . 아래와같이 간단하게 사용할수있다<br><br></p>
+<h3 id="proxy-after-configuration-1"><a href="#proxy-after-configuration-1" class="headerlink" title="proxy after configuration"></a>proxy after configuration</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ scp -r nodejs-skeletone-v2 server-node-1:/root</div></pre></td></tr></table></figure>
+<p>ssh와 마찬가지로 <code>configuration</code> 탭의 설정을 마친후 proxy host 를 거쳐 destination host 로 파일을 전송한다<br><br><br></p>
+<h2 id="configuration"><a href="#configuration" class="headerlink" title="configuration"></a>configuration</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ vi ~/.ssh/config</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Host server-node-1</div><div class="line">HostName 10.10.200.3</div><div class="line">User root</div><div class="line">IdentityFile ~/.ssh/id_rsa</div><div class="line">ProxyCommand ssh -W 10.10.200.3:22 jaehunpark@121.140.166.90</div></pre></td></tr></table></figure>
+<p><br><br></p>
+<h2 id="참고"><a href="#참고" class="headerlink" title="참고"></a>참고</h2><p>proxy host 를 거쳐 destination host 로 ssh 나 scp 를 최초사용시에는 아래와같은 문구를 만나게될것이다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">root@467c66252dcd:~/.ssh# ssh server-node-1</div><div class="line">Warning: Permanently added &apos;121.140.166.90&apos; (ECDSA) to the list of known hosts.</div><div class="line">The authenticity of host &apos;10.10.200.3 (&lt;no hostip for proxy command&gt;)&apos; can&apos;t be established.</div><div class="line">ECDSA key fingerprint is 88:65:92:d8:f8:75:b4:99:1a:f1:52:e8:b2:03:0e:a6.</div><div class="line">Are you sure you want to continue connecting (yes/no)?</div></pre></td></tr></table></figure></p>
+<p>최초 접속시에는 ~/.ssh/known_hosts 접속 정보가 존재하지 않기 때문에 연결여부를 물어본후 ‘yes’ 를 입력하게되면 ~/.ssh/known_hosts 에 등록하게된다 .<br>개발자가 배포설정을 마치고 jenkins에게 빌드를 시작할때 jenkins는 최초접속이므로 접속정보가 존재하지않아 위의 문구를 만나게되면 가차없이 build fail이 떨어질것이다 .<br>또한 현재 세팅상태로는 proxy host와 destination host 두개의 host 정보가 등록되지않아 두번 요구하게될것이다 .<br>사전에 다음과같이 해결할수있다 .</p>
+<h3 id="jenkins-1"><a href="#jenkins-1" class="headerlink" title="jenkins"></a>jenkins</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ssh-keyscan -H 121.140.166.90 &gt;&gt; ~/.ssh/known_hosts</div></pre></td></tr></table></figure>
+<p>proxy host ip를 known_hosts를 등록한후<br><br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ vi ~/.ssh/config</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">Host server-node-1</div><div class="line">StrictHostKeyChecking no</div><div class="line">HostName 10.10.200.3</div><div class="line">User root</div><div class="line">IdentityFile ~/.ssh/id_rsa</div><div class="line">ProxyCommand ssh -W 10.10.200.3:22 jaehunpark@121.140.166.90</div></pre></td></tr></table></figure>
+<p><code>StrictHostKeyChecking no</code> 를 추가하여 destination host ( 10.10.200.3 ) 의 접속여부를 무시한다 . ( auto yes )<br><br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ssh server-node-1</div></pre></td></tr></table></figure></p>
+<p>최초접속이라도 어떠한 요구도 묻지않고 proxy host를 거쳐 destination host로 접속할수있다 . ( 위의 설정을 마치고나게되면 known_hosts 에 등록되게된다 )</p>
+<!-- ssh -o ProxyCommand="ssh -W %h:%p jaehunpark@121.140.166.90" root@10.10.200.3
+scp -r -o ProxyCommand="ssh -W %h:%p jaehunpark@121.140.166.90" id_rsa root@10.10.200.3:/
+scp -r -o ProxyCommand="ssh jaehunpark@121.140.166.90 nc 10.10.200.3 22" id_rsa root@10.10.200.3:/ -->
+
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        </div>
+    </div>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">home</a></li>
+         
+          <li><a href="/archives/">archives</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#ssh-scp"><span class="toc-number">1.</span> <span class="toc-text">ssh scp</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#사전준비"><span class="toc-number">2.</span> <span class="toc-text">사전준비</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#jenkins"><span class="toc-number">2.1.</span> <span class="toc-text">jenkins</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#proxy-host"><span class="toc-number">2.2.</span> <span class="toc-text">proxy host</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#destination-host"><span class="toc-number">2.3.</span> <span class="toc-text">destination host</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ssh-scp-일반적인-사용"><span class="toc-number">3.</span> <span class="toc-text">ssh scp 일반적인 사용</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ssh"><span class="toc-number">4.</span> <span class="toc-text">ssh</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#manual-proxy"><span class="toc-number">4.1.</span> <span class="toc-text">manual proxy</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#기본적인방법"><span class="toc-number">4.1.1.</span> <span class="toc-text">기본적인방법</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#proxycommand-사용"><span class="toc-number">4.1.2.</span> <span class="toc-text">proxycommand 사용</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#proxy-after-configuration"><span class="toc-number">4.2.</span> <span class="toc-text">proxy after configuration</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#scp"><span class="toc-number">5.</span> <span class="toc-text">scp</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#manual-proxy-1"><span class="toc-number">5.1.</span> <span class="toc-text">manual proxy</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#첫번째방법"><span class="toc-number">5.1.1.</span> <span class="toc-text">첫번째방법</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#두번째방법"><span class="toc-number">5.1.2.</span> <span class="toc-text">두번째방법</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#proxy-after-configuration-1"><span class="toc-number">5.2.</span> <span class="toc-text">proxy after configuration</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#configuration"><span class="toc-number">6.</span> <span class="toc-text">configuration</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#참고"><span class="toc-number">7.</span> <span class="toc-text">참고</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#jenkins-1"><span class="toc-number">7.1.</span> <span class="toc-text">jenkins</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://setyourmindpark.github.io/2017/05/11/jenkins/jenkins-4/"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://setyourmindpark.github.io/2017/05/11/jenkins/jenkins-4/&text=ssh scp proxy"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://setyourmindpark.github.io/2017/05/11/jenkins/jenkins-4/&title=ssh scp proxy"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://setyourmindpark.github.io/2017/05/11/jenkins/jenkins-4/&is_video=false&description=ssh scp proxy"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=ssh scp proxy&body=Check out this article: https://setyourmindpark.github.io/2017/05/11/jenkins/jenkins-4/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://setyourmindpark.github.io/2017/05/11/jenkins/jenkins-4/&title=ssh scp proxy"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://setyourmindpark.github.io/2017/05/11/jenkins/jenkins-4/&title=ssh scp proxy"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://setyourmindpark.github.io/2017/05/11/jenkins/jenkins-4/&title=ssh scp proxy"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://setyourmindpark.github.io/2017/05/11/jenkins/jenkins-4/&title=ssh scp proxy"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://setyourmindpark.github.io/2017/05/11/jenkins/jenkins-4/&name=ssh scp proxy&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+      <ul>
+        <li id="toc"><a class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
+        <li id="share"><a class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
+        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
+        <li id="menu"><a class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2018 jaehunpark
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">home</a></li>
+         
+          <li><a href="/archives/">archives</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="/lib/meslo-LG/styles.css">
+<link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
+
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-97011652-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'https-setyourmindpark-github-io';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+
