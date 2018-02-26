@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="fluentd이전 포스트 build docker service with jenkins 에서 jenkins를 활용하여 docker swarm build를 하는 방법에 대해서 알아보았다.n 개의 node에서 분산되어있는 service container에 쌓이는 log를 한곳으로 취합할수있는 방법이 없을까 찾아보다가 fluentd를 만나게되었다.참고로, dock">
+<meta property="og:type" content="article">
+<meta property="og:title" content="fluentd">
+<meta property="og:url" content="https://setyourmindpark.github.io/2018/02/26/fluentd/fluentd/index.html">
+<meta property="og:site_name" content="jaehunpark">
+<meta property="og:description" content="fluentd이전 포스트 build docker service with jenkins 에서 jenkins를 활용하여 docker swarm build를 하는 방법에 대해서 알아보았다.n 개의 node에서 분산되어있는 service container에 쌓이는 log를 한곳으로 취합할수있는 방법이 없을까 찾아보다가 fluentd를 만나게되었다.참고로, dock">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-02-26T09:31:30.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="fluentd">
+<meta name="twitter:description" content="fluentd이전 포스트 build docker service with jenkins 에서 jenkins를 활용하여 docker swarm build를 하는 방법에 대해서 알아보았다.n 개의 node에서 분산되어있는 service container에 쌓이는 log를 한곳으로 취합할수있는 방법이 없을까 찾아보다가 fluentd를 만나게되었다.참고로, dock">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>fluentd</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- rss -->
+    
+    
+</head>
+
+<body>
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">home</a></li>
+         
+          <li><a href="/archives/">archives</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="/2018/02/23/jenkins/jenkins-5/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fa fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://setyourmindpark.github.io/2018/02/26/fluentd/fluentd/"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://setyourmindpark.github.io/2018/02/26/fluentd/fluentd/&text=fluentd"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://setyourmindpark.github.io/2018/02/26/fluentd/fluentd/&title=fluentd"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://setyourmindpark.github.io/2018/02/26/fluentd/fluentd/&is_video=false&description=fluentd"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=fluentd&body=Check out this article: https://setyourmindpark.github.io/2018/02/26/fluentd/fluentd/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://setyourmindpark.github.io/2018/02/26/fluentd/fluentd/&title=fluentd"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://setyourmindpark.github.io/2018/02/26/fluentd/fluentd/&title=fluentd"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://setyourmindpark.github.io/2018/02/26/fluentd/fluentd/&title=fluentd"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://setyourmindpark.github.io/2018/02/26/fluentd/fluentd/&title=fluentd"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://setyourmindpark.github.io/2018/02/26/fluentd/fluentd/&name=fluentd&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#fluentd"><span class="toc-number">1.</span> <span class="toc-text">fluentd</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#setup-fluentd"><span class="toc-number">2.</span> <span class="toc-text">setup fluentd</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#dependencies-nodejs"><span class="toc-number">3.</span> <span class="toc-text">dependencies ( nodejs )</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#참고"><span class="toc-number">4.</span> <span class="toc-text">참고</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index width mx-auto px2 my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        fluentd
+    </h1>
+
+
+
+    <div class="meta">
+      <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <b><span itemprop="name">jaehunpark</span></b>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2018-02-26T06:16:55.000Z" itemprop="datePublished">2018-02-26</time>
+    </div>
+
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="fluentd"><a href="#fluentd" class="headerlink" title="fluentd"></a>fluentd</h2><p>이전 포스트 <a href="https://setyourmindpark.github.io/2018/02/23/jenkins/jenkins-5/">build docker service with jenkins</a> 에서 jenkins를 활용하여 docker swarm build를 하는 방법에 대해서 알아보았다.<br>n 개의 node에서 분산되어있는 service container에 쌓이는 log를 한곳으로 취합할수있는 방법이 없을까 찾아보다가 fluentd를 만나게되었다.<br>참고로, docker swarm service 에서 shell 상에서 실시간 log를 확인하려면 다음의 명령어를 사용하면된다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ docker service logs -f --raw setyourmindpark_service_backend</div></pre></td></tr></table></figure></p>
+<p>이번 포스트에서는 fluentd를 사용하여 log를 어떻게 취합하는지 알아보자.  </p>
+<h2 id="setup-fluentd"><a href="#setup-fluentd" class="headerlink" title="setup fluentd"></a>setup fluentd</h2><p>fluentd 공식 사이트에서 <a href="https://docs.fluentd.org/v0.12/categories/installation" target="_blank" rel="noopener">https://docs.fluentd.org/v0.12/categories/installation</a> os환경에따라 설치를 진행할수있다.<br>필자는 역시 docker 기반으로 사용할것이기에 <a href="https://docs.fluentd.org/v0.12/articles/install-by-docker" target="_blank" rel="noopener">https://docs.fluentd.org/v0.12/articles/install-by-docker</a> fluentd docker official image로 진행하였다.  설정은 다음과 같다.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">$ vi ~/fluentd/volume/config/fluentd.conf</div><div class="line"></div><div class="line">&lt;<span class="built_in">source</span>&gt;</div><div class="line">  <span class="built_in">type</span> forward</div><div class="line">  port 24224</div><div class="line">&lt;/<span class="built_in">source</span>&gt;</div><div class="line"></div><div class="line">&lt;match app&gt;</div><div class="line">  <span class="built_in">type</span> copy</div><div class="line"></div><div class="line">  &lt;store&gt;</div><div class="line">    <span class="built_in">type</span> file</div><div class="line">    append <span class="literal">true</span></div><div class="line">    path /fluentd/<span class="built_in">log</span>/app               <span class="comment"># to store log path</span></div><div class="line">    time_slice_format %Y%m%d            <span class="comment"># log file format</span></div><div class="line">    time_slice_wait 10m</div><div class="line">    time_format %Y-%m-%dT%H:%M:%S %z    <span class="comment"># log time format</span></div><div class="line">    compress gzip                       <span class="comment"># compress format</span></div><div class="line">    <span class="comment">#utc                                # if do not use utc log time format, defailt local timezone</span></div><div class="line">  &lt;/store&gt;</div><div class="line"></div><div class="line">&lt;/match&gt;</div></pre></td></tr></table></figure></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">docker run <span class="_">-d</span> --name fluentd \</div><div class="line">  -p 24224:24224 \</div><div class="line">  -v ~/fluentd/volume/config:/fluentd/etc \</div><div class="line">  -v ~/fluentd/volume/plugins:/fluentd/plugins \</div><div class="line">  -v ~/fluentd/volume/<span class="built_in">log</span>:/fluentd/<span class="built_in">log</span> \</div><div class="line">  <span class="_">-e</span> FLUENTD_CONF=fluentd.conf \</div><div class="line">  <span class="_">-e</span> TZ=Asia/Seoul \</div><div class="line">  fluent/fluentd:v0.12-debian</div></pre></td></tr></table></figure>
+<p>이제 fluentd에 log를 날려보자.  </p>
+<h2 id="dependencies-nodejs"><a href="#dependencies-nodejs" class="headerlink" title="dependencies ( nodejs )"></a>dependencies ( nodejs )</h2><p>nodejs module중 고맙게도 fluentd에 관련된 dependency를 제공한다.  </p>
+<ul>
+<li><a href="https://www.npmjs.com/package/fluent-logger" target="_blank" rel="noopener">fluent-logger</a></li>
+<li><a href="https://www.npmjs.com/package/winston" target="_blank" rel="noopener">winston</a>  </li>
+</ul>
+<p>필자는 winston module과 fluent-logger modeul을 같이 사용하였다. 설정은 다음과같다.<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> winston = <span class="built_in">require</span>(<span class="string">'winston'</span>);</div><div class="line"><span class="keyword">const</span> fluentTransport = <span class="built_in">require</span>(<span class="string">'fluent-logger'</span>).support.winstonTransport();</div><div class="line"></div><div class="line"><span class="keyword">const</span> logger = <span class="keyword">new</span> (winston.Logger)(&#123;</div><div class="line">    <span class="attr">level</span> : <span class="string">'debug'</span>,            <span class="comment">// error: 0, warn: 1, info: 2, verbose: 3, debug: 4, silly: 5</span></div><div class="line">    transports: [<span class="keyword">new</span> fluentTransport(<span class="string">'app'</span>, &#123;</div><div class="line">        <span class="attr">host</span>: <span class="string">'10.10.10.11'</span>,</div><div class="line">        <span class="attr">port</span>: <span class="number">24224</span>,</div><div class="line">        <span class="attr">timeout</span>: <span class="number">3.0</span></div><div class="line">    &#125;), <span class="keyword">new</span> (winston.transports.Console)(&#123;</div><div class="line">        <span class="attr">level</span> : <span class="string">'debug'</span>,</div><div class="line">        <span class="attr">colorize</span> : <span class="literal">true</span></div><div class="line">    &#125;)]</div><div class="line">&#125;);</div><div class="line"></div><div class="line">logger.debug(<span class="string">'debug log'</span>);</div><div class="line">logger.info(<span class="string">'info log'</span>);</div><div class="line">logger.error(<span class="string">'error log'</span>);</div></pre></td></tr></table></figure></p>
+<p>fluentd에 log 가 제대로 들어왔는지 확인해보자.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$ <span class="built_in">cd</span> ~/fluentd/volume/<span class="built_in">log</span></div><div class="line">$ ls</div><div class="line">app.20180226.b566194875a717ee6</div><div class="line">$ cat app.20180226.b566194875a717ee6</div><div class="line">2018-02-26T18:17:09 +0900	app	&#123;<span class="string">"level"</span>:<span class="string">"debug"</span>,<span class="string">"message"</span>:<span class="string">"debug log"</span>,<span class="string">"meta"</span>:&#123;&#125;&#125;</div><div class="line">2018-02-26T18:17:09 +0900	app	&#123;<span class="string">"level"</span>:<span class="string">"info"</span>,<span class="string">"message"</span>:<span class="string">"info log"</span>,<span class="string">"meta"</span>:&#123;&#125;&#125;</div><div class="line">2018-02-26T18:17:09 +0900	app	&#123;<span class="string">"level"</span>:<span class="string">"error"</span>,<span class="string">"message"</span>:<span class="string">"error log"</span>,<span class="string">"meta"</span>:&#123;&#125;&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="참고"><a href="#참고" class="headerlink" title="참고"></a>참고</h2><p>fluentd를 사용하여 file system에 log를 취합하는 방법을 알아보았다.<br>fluentd는 이와 관련하여 file system뿐만아니라 db에도 trigging 할수도있다.<br><a href="https://docs.fluentd.org/v0.12/articles/out_copy" target="_blank" rel="noopener">https://docs.fluentd.org/v0.12/articles/out_copy</a><br>그밖에도 지원되는 plugin이 굉장히 많으므로 구성하고자 하는 환경에따라 plugin을 사용하면될듯하다. ( 공부해야겠다….. )<br>또한 elastic search 와 관련하여 ELK( elastic search + logstash + kibana )를 대신하여 EFK ( elastic search + fluentd + kibana ) stack을 요즘은 더 선호하는듯하다.  </p>
+
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        </div>
+    </div>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">home</a></li>
+         
+          <li><a href="/archives/">archives</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#fluentd"><span class="toc-number">1.</span> <span class="toc-text">fluentd</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#setup-fluentd"><span class="toc-number">2.</span> <span class="toc-text">setup fluentd</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#dependencies-nodejs"><span class="toc-number">3.</span> <span class="toc-text">dependencies ( nodejs )</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#참고"><span class="toc-number">4.</span> <span class="toc-text">참고</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://setyourmindpark.github.io/2018/02/26/fluentd/fluentd/"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://setyourmindpark.github.io/2018/02/26/fluentd/fluentd/&text=fluentd"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://setyourmindpark.github.io/2018/02/26/fluentd/fluentd/&title=fluentd"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://setyourmindpark.github.io/2018/02/26/fluentd/fluentd/&is_video=false&description=fluentd"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=fluentd&body=Check out this article: https://setyourmindpark.github.io/2018/02/26/fluentd/fluentd/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://setyourmindpark.github.io/2018/02/26/fluentd/fluentd/&title=fluentd"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://setyourmindpark.github.io/2018/02/26/fluentd/fluentd/&title=fluentd"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://setyourmindpark.github.io/2018/02/26/fluentd/fluentd/&title=fluentd"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://setyourmindpark.github.io/2018/02/26/fluentd/fluentd/&title=fluentd"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://setyourmindpark.github.io/2018/02/26/fluentd/fluentd/&name=fluentd&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+      <ul>
+        <li id="toc"><a class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
+        <li id="share"><a class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
+        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
+        <li id="menu"><a class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2018 jaehunpark
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">home</a></li>
+         
+          <li><a href="/archives/">archives</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="/lib/meslo-LG/styles.css">
+<link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
+
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-97011652-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'https-setyourmindpark-github-io';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+
