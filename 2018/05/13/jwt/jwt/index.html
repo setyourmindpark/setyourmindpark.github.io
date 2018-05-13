@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="jaehunpark">
 <meta property="og:description" content="replace session on front side전통적으로 웹사이트 로그인부분 처리와 관련해서 server side에서 session에 담는게 일반적이다.모든사이트가 그렇진않지만 요즘은 RESTFUL 기반 client와 분리하여 독립적으로 개발하는곳도 심심지않게 볼수있다.이렇게 server side와 client side를 분리하게되면 분명 다양한 이점">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-05-13T08:28:41.000Z">
+<meta property="og:updated_time" content="2018-05-13T08:35:47.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="replace session on front side( json web token )">
 <meta name="twitter:description" content="replace session on front side전통적으로 웹사이트 로그인부분 처리와 관련해서 server side에서 session에 담는게 일반적이다.모든사이트가 그렇진않지만 요즘은 RESTFUL 기반 client와 분리하여 독립적으로 개발하는곳도 심심지않게 볼수있다.이렇게 server side와 client side를 분리하게되면 분명 다양한 이점">
@@ -92,7 +92,7 @@
 
     </div>
     <div id="toc">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#replace-session-on-front-side"><span class="toc-number">1.</span> <span class="toc-text">replace session on front side</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#jwt-json-web-token"><span class="toc-number">2.</span> <span class="toc-text">jwt( json web token )</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#delegate-login-process-on-front-side"><span class="toc-number">3.</span> <span class="toc-text">delegate login process on front side</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#replace-session-on-front-side"><span class="toc-number">1.</span> <span class="toc-text">replace session on front side</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#jwt-json-web-token"><span class="toc-number">2.</span> <span class="toc-text">jwt( json web token )</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#delegate-login-process-on-front-side"><span class="toc-number">3.</span> <span class="toc-text">delegate login process on front side</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#참고"><span class="toc-number">4.</span> <span class="toc-text">참고</span></a></li></ol>
     </div>
   </span>
 </div>
@@ -151,6 +151,12 @@
 <li>무한반복 ( 그렇다면 token 발급일로부터 8일이상 client가 어떠한 api call을 요청하지않으면 ?  -&gt; 재로그인 ) </li>
 </ul>
 <p>token expire time에 따라 재 로그인 term이 달라지겠지만 refreshtoken의 expire time이 길면 무한정 로그인된 상태도 가능하다<br>하지만 refreshtoken이 너무긴 expire time 보다는 일정기간동안 접속하지않으면 재로그인하는 방식으로 유도하는것이 좋을듯하다    </p>
+<h2 id="참고"><a href="#참고" class="headerlink" title="참고"></a>참고</h2><p>jwt의 expire date 는 utc timezone 기반으로 동작하여 local timezone에 관한 이슈는 생각하지않아도 될듯하다.<br>jwt는 npmjs <a href="https://www.npmjs.com/package/jsonwebtoken" target="_blank" rel="noopener">https://www.npmjs.com/package/jsonwebtoken</a> 에서 가능하다.  </p>
+<ul>
+<li><a href="https://velopert.com/2389" target="_blank" rel="noopener">https://velopert.com/2389</a></li>
+<li><a href="https://blog.outsider.ne.kr/1160" target="_blank" rel="noopener">https://blog.outsider.ne.kr/1160</a></li>
+<li><a href="https://github.com/setyourmindpark/nodejs-api-server-boilerplate" target="_blank" rel="noopener">https://github.com/setyourmindpark/nodejs-api-server-boilerplate</a></li>
+</ul>
 
   </div>
 </article>
@@ -179,7 +185,7 @@
     </div>
 
     <div id="toc-footer" style="display: none">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#replace-session-on-front-side"><span class="toc-number">1.</span> <span class="toc-text">replace session on front side</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#jwt-json-web-token"><span class="toc-number">2.</span> <span class="toc-text">jwt( json web token )</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#delegate-login-process-on-front-side"><span class="toc-number">3.</span> <span class="toc-text">delegate login process on front side</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#replace-session-on-front-side"><span class="toc-number">1.</span> <span class="toc-text">replace session on front side</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#jwt-json-web-token"><span class="toc-number">2.</span> <span class="toc-text">jwt( json web token )</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#delegate-login-process-on-front-side"><span class="toc-number">3.</span> <span class="toc-text">delegate login process on front side</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#참고"><span class="toc-number">4.</span> <span class="toc-text">참고</span></a></li></ol>
     </div>
 
     <div id="share-footer" style="display: none">
