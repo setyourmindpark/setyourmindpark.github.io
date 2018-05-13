@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="replace session on front side전통적으로 웹사이트 로그인부분 처리와 관련해서 server side에서 session에 담는게 일반적이다.모든사이트가 그렇진않지만 요즘은 RESTFUL 기반 client와 분리하여 독립적으로 개발하는곳도 심심지않게 볼수있다.이렇게 server side와 client side를 분리하게되면 분명 다양한 이점">
+<meta property="og:type" content="article">
+<meta property="og:title" content="replace session on front side( json web token )">
+<meta property="og:url" content="https://setyourmindpark.github.io/2018/05/13/jwt/jwt/index.html">
+<meta property="og:site_name" content="jaehunpark">
+<meta property="og:description" content="replace session on front side전통적으로 웹사이트 로그인부분 처리와 관련해서 server side에서 session에 담는게 일반적이다.모든사이트가 그렇진않지만 요즘은 RESTFUL 기반 client와 분리하여 독립적으로 개발하는곳도 심심지않게 볼수있다.이렇게 server side와 client side를 분리하게되면 분명 다양한 이점">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-05-13T08:22:10.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="replace session on front side( json web token )">
+<meta name="twitter:description" content="replace session on front side전통적으로 웹사이트 로그인부분 처리와 관련해서 server side에서 session에 담는게 일반적이다.모든사이트가 그렇진않지만 요즘은 RESTFUL 기반 client와 분리하여 독립적으로 개발하는곳도 심심지않게 볼수있다.이렇게 server side와 client side를 분리하게되면 분명 다양한 이점">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>replace session on front side( json web token )</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- rss -->
+    
+    
+</head>
+
+<body>
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">home</a></li>
+         
+          <li><a href="/archives/">archives</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="/2018/03/25/kubernetes/kubernetes-1/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fa fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://setyourmindpark.github.io/2018/05/13/jwt/jwt/"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://setyourmindpark.github.io/2018/05/13/jwt/jwt/&text=replace session on front side( json web token )"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://setyourmindpark.github.io/2018/05/13/jwt/jwt/&title=replace session on front side( json web token )"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://setyourmindpark.github.io/2018/05/13/jwt/jwt/&is_video=false&description=replace session on front side( json web token )"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=replace session on front side( json web token )&body=Check out this article: https://setyourmindpark.github.io/2018/05/13/jwt/jwt/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://setyourmindpark.github.io/2018/05/13/jwt/jwt/&title=replace session on front side( json web token )"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://setyourmindpark.github.io/2018/05/13/jwt/jwt/&title=replace session on front side( json web token )"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://setyourmindpark.github.io/2018/05/13/jwt/jwt/&title=replace session on front side( json web token )"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://setyourmindpark.github.io/2018/05/13/jwt/jwt/&title=replace session on front side( json web token )"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://setyourmindpark.github.io/2018/05/13/jwt/jwt/&name=replace session on front side( json web token )&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#replace-session-on-front-side"><span class="toc-number">1.</span> <span class="toc-text">replace session on front side</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#jwt-json-web-token"><span class="toc-number">2.</span> <span class="toc-text">jwt( json web token )</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#delegate-login-process-on-front-side"><span class="toc-number">3.</span> <span class="toc-text">delegate login process on front side</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index width mx-auto px2 my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        replace session on front side( json web token )
+    </h1>
+
+
+
+    <div class="meta">
+      <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <b><span itemprop="name">jaehunpark</span></b>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2018-05-13T06:35:15.000Z" itemprop="datePublished">2018-05-13</time>
+    </div>
+
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="replace-session-on-front-side"><a href="#replace-session-on-front-side" class="headerlink" title="replace session on front side"></a>replace session on front side</h2><p>전통적으로 웹사이트 로그인부분 처리와 관련해서 server side에서 session에 담는게 일반적이다.<br>모든사이트가 그렇진않지만 요즘은 RESTFUL 기반 client와 분리하여 독립적으로 개발하는곳도 심심지않게 볼수있다.<br>이렇게 server side와 client side를 분리하게되면 분명 다양한 이점이 존재한다.<br>첫번쨰로는 불필요한 빌드를 방지할수있으며( 수정사항 side만 재배포 )<br>두번째로는 독립적으로 서비스로직이 존재하므로 확장과 시스템자원을 효율적으로 관리할수있다.( backend frontend 담당 역활이 분명히 나뉘어져있어 아키텍처 관점으로 이해하기쉽다. )<br>이렇게 분리된 backend 와 fronted가 존재할시 로그인관련처리 역시 session을 사용하게되는데 backend가 n 의 클러스터기반에서는 session을 관리하는 server를 따로두어야할것이다.( redis session을 사용한다던지..  )<br>session을 쓰지않고 로그인 handling을 할수없을까… 하다가 생각한게 jwt( json web token ) 이다.  </p>
+<h2 id="jwt-json-web-token"><a href="#jwt-json-web-token" class="headerlink" title="jwt( json web token )"></a>jwt( json web token )</h2><p>일단 jwt가 무었인지부터 알아보자.<br>jwt는 oath2 의 인증 방식을 대체하기위해 나온 메커니즘으로 oatuh2는 인증 token을 인증서버에 요청하여 누가 요청하였는지 identify하는 방식이다.<br>jwt는 이러한 방식을 해결하기위해 token에 사용자정보가 존재하며 인증 server를 거치지않아 service backend에서 바로 비지니스로직처리를 가능하게한다.<br>하지만 oauth2의 장점은 보안에 용이하지만 인증서버를 구축해야한다는점. 시스템적인 자원의 소모가 큰 반면 jwt는 시스템적인 자원은 효율적으로 사용하되 보안 관련 이슈가 존재한다.<br>다음의 jwt token을 <a href="https://jwt.io/" target="_blank" rel="noopener">https://jwt.io/</a> 에서 확인하면 token의 내포된 header와 payload가 확인된다.  </p>
+<pre><code class="bash">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzb21lSWQiOjEsImlhdCI6MTUyNjE5NTMyNCwiZXhwIjoxNTI2MTk1Mzg0fQ.0B_HNaVdJ2AgUJOQctYMKt56_2fLEXnldBpSBzcNMiU
+</code></pre>
+<p>그러면 제3자가 악용하여 token 내용을 변조하여 api server에 요청할수있지않을까?<br>결론적으론 요청은할순있지만 변조된 token으로 server side에서 checking이 가능하다.<br><strong>jwt의 token 구조는 header.payload.signature로 구성되어있으며 header와 payload를 base64로 인코딩된 값을 server side에서 소유하고있는 secret key를 통해 hashing 한다. 그리고 hashing 된 hash 값을 base64로 인코딩하게되면 signature 가 된다.</strong><br>만약 누군가 token을 변조하였다면 signature부분의 값이 달라지기에 변조된 token임을 알수있다. ( secret key로 hashing된 값이 달라지기에 )  </p>
+<h2 id="delegate-login-process-on-front-side"><a href="#delegate-login-process-on-front-side" class="headerlink" title="delegate login process on front side"></a>delegate login process on front side</h2><p>jwt를 사용하게되면 사용자 인증( authe ntication )이 server side에서 담당하게될 역활중 하나이며 이런 인증은 보통 client에서 header에 token 정보를 함께 요청( request ) 한다.<br>다시말해 인증되지않은 사용자는 server side로 api call을 할수없다.<br>그럼 인증과 login 처리 session은 무슨 관련이있는것인가.<br>session은 일반적으로 만료시간( expire time )이 정해져있다. ( 접속할때마다 로그인이 되어있다면 server side에서 엄청난 자원낭비가될것이다 )<br>하지만 jwt나 oauth2 방식을 이용하면 무한적으로 로그인되어있는 웹사이트도 개발가능하다.<br>인스타그램이나 페이스북, 또는 국내 특정 코인 거래소에서 이런 현상을 볼수있는데 ( 사이트를 들어갈때마다 로그인이 자동으로 되어있다. )<br>아마도 그런 대기업들은 jwt 보다는 보안적으로좋은 oauth2 방식을 이용하는듯하다 ( 추측 ).<br>필자는 jwt를 기반으로 client side에서 일정시간 또는 무한정 로그인 처리를 할수있도록 다음과같이 프로세스를 정의하였다.  </p>
+<ol>
+<li>client가 로그인한다.</li>
+<li>server에서 expire time이 작은 accesstoken과 accesstoken보다 expire time이 긴 refreshtoken을 발급한다.</li>
+<li>client는 server로부터 발급받은 accesstoken과 refreshtoken을 localstorage에 저장한다.  </li>
+<li>client는 모든 api call시 accesstoken 을 header에 실어서 요청한다.  </li>
+<li>accesstoken이 만료되면 refreshtoken을 통해 accesstoken과 refreshtoken을 재발급 받는다.</li>
+</ol>
+<p>예를들어  </p>
+<ul>
+<li>accesstoken expire time이 발급일로부터 3일 이라고 가정  </li>
+<li>refreshtoken expire time이 발급일로부터 7일 이라고 가정  </li>
+<li>client 사용자 로그인 -&gt; accesstoken refreshtoken localstorage 저장</li>
+<li>3일동안은 client가 api call을 통해 비지니스로직을 수행  </li>
+<li>3일이후 어느순간부터 server로 부터 error code와 함께 expire token message를 response  </li>
+<li>errorcode에 따른 분기로 refreshtoken을 header에 넣고 body에 accesstoken을 request  </li>
+<li>server는 accesstoken과 refreshtoken 재발급 -&gt; accesstoken refreshtoken localstorage 저장</li>
+<li>무한반복 ( 그렇다면 token 발급일로부터 8일이상 client가 어떠한 api call을 요청하지않으면 ?  -&gt; 재로그인 ) </li>
+</ul>
+<p>token expire time에 따라 재 로그인 term이 달라지겠지만 refreshtoken의 expire time이 길면 무한정 로그인된 상태도 가능하다<br>하지만 refreshtoken이 너무긴 expire time 보다는 일정기간동안 접속하지않으면 재로그인하는 방식으로 유도하는것이 좋을듯하다    </p>
+
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        </div>
+    </div>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">home</a></li>
+         
+          <li><a href="/archives/">archives</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#replace-session-on-front-side"><span class="toc-number">1.</span> <span class="toc-text">replace session on front side</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#jwt-json-web-token"><span class="toc-number">2.</span> <span class="toc-text">jwt( json web token )</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#delegate-login-process-on-front-side"><span class="toc-number">3.</span> <span class="toc-text">delegate login process on front side</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://setyourmindpark.github.io/2018/05/13/jwt/jwt/"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://setyourmindpark.github.io/2018/05/13/jwt/jwt/&text=replace session on front side( json web token )"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://setyourmindpark.github.io/2018/05/13/jwt/jwt/&title=replace session on front side( json web token )"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://setyourmindpark.github.io/2018/05/13/jwt/jwt/&is_video=false&description=replace session on front side( json web token )"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=replace session on front side( json web token )&body=Check out this article: https://setyourmindpark.github.io/2018/05/13/jwt/jwt/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://setyourmindpark.github.io/2018/05/13/jwt/jwt/&title=replace session on front side( json web token )"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://setyourmindpark.github.io/2018/05/13/jwt/jwt/&title=replace session on front side( json web token )"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://setyourmindpark.github.io/2018/05/13/jwt/jwt/&title=replace session on front side( json web token )"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://setyourmindpark.github.io/2018/05/13/jwt/jwt/&title=replace session on front side( json web token )"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://setyourmindpark.github.io/2018/05/13/jwt/jwt/&name=replace session on front side( json web token )&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+      <ul>
+        <li id="toc"><a class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
+        <li id="share"><a class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
+        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
+        <li id="menu"><a class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2018 jaehunpark
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">home</a></li>
+         
+          <li><a href="/archives/">archives</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="/lib/meslo-LG/styles.css">
+<link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
+
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-97011652-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'https-setyourmindpark-github-io';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+
