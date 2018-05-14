@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="jaehunpark">
 <meta property="og:description" content="replace session on front side전통적으로 웹사이트 로그인부분 처리와 관련해서 server side에서 session에 담는게 일반적이다.모든사이트가 그렇진않지만 요즘은 RESTFUL 기반 client와 분리하여 독립적으로 개발하는곳도 심심지않게 볼수있다.이렇게 server side와 client side를 분리하게되면 분명 다양한 이점">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-05-13T08:36:43.976Z">
+<meta property="og:updated_time" content="2018-05-14T11:42:35.415Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="replace session on front side( json web token )">
 <meta name="twitter:description" content="replace session on front side전통적으로 웹사이트 로그인부분 처리와 관련해서 server side에서 session에 담는게 일반적이다.모든사이트가 그렇진않지만 요즘은 RESTFUL 기반 client와 분리하여 독립적으로 개발하는곳도 심심지않게 볼수있다.이렇게 server side와 client side를 분리하게되면 분명 다양한 이점">
@@ -133,7 +133,7 @@
 <pre><code class="bash">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzb21lSWQiOjEsImlhdCI6MTUyNjE5NTMyNCwiZXhwIjoxNTI2MTk1Mzg0fQ.0B_HNaVdJ2AgUJOQctYMKt56_2fLEXnldBpSBzcNMiU
 </code></pre>
 <p>그러면 제3자가 악용하여 token 내용을 변조하여 api server에 요청할수있지않을까?<br>결론적으론 요청은할순있지만 변조된 token으로 server side에서 checking이 가능하다.<br><strong>jwt의 token 구조는 header.payload.signature로 구성되어있으며 header와 payload를 base64로 인코딩된 값을 server side에서 소유하고있는 secret key를 통해 hashing 한다. 그리고 hashing 된 hash 값을 base64로 인코딩하게되면 signature 가 된다.</strong><br>만약 누군가 token을 변조하였다면 signature부분의 값이 달라지기에 변조된 token임을 알수있다. ( secret key로 hashing된 값이 달라지기에 )  </p>
-<h2 id="delegate-login-process-on-front-side"><a href="#delegate-login-process-on-front-side" class="headerlink" title="delegate login process on front side"></a>delegate login process on front side</h2><p>jwt를 사용하게되면 사용자 인증( authe ntication )이 server side에서 담당하게될 역활중 하나이며 이런 인증은 보통 client에서 header에 token 정보를 함께 요청( request ) 한다.<br>다시말해 인증되지않은 사용자는 server side로 api call을 할수없다.<br>그럼 인증과 login 처리 session은 무슨 관련이있는것인가.<br>session은 일반적으로 만료시간( expire time )이 정해져있다. ( 접속할때마다 로그인이 되어있다면 server side에서 엄청난 자원낭비가될것이다 )<br>하지만 jwt나 oauth2 방식을 이용하면 무한적으로 로그인되어있는 웹사이트도 개발가능하다.<br>인스타그램이나 페이스북, 또는 국내 특정 코인 거래소에서 이런 현상을 볼수있는데 ( 사이트를 들어갈때마다 로그인이 자동으로 되어있다. )<br>아마도 그런 대기업들은 jwt 보다는 보안적으로좋은 oauth2 방식을 이용하는듯하다 ( 추측 ).<br>필자는 jwt를 기반으로 client side에서 일정시간 또는 무한정 로그인 처리를 할수있도록 다음과같이 프로세스를 정의하였다.  </p>
+<h2 id="delegate-login-process-on-front-side"><a href="#delegate-login-process-on-front-side" class="headerlink" title="delegate login process on front side"></a>delegate login process on front side</h2><p>jwt를 사용하게되면 사용자 인증( authe ntication )이 server side에서 담당하게될 역활중 하나이며 이런 인증은 보통 client에서 header에 token 정보를 함께 요청( request ) 한다.<br>다시말해 인증되지않은 사용자는 server side로 api call을 할수없다.<br>그럼 인증과 login 처리 session은 무슨 관련이있는것인가.<br>session은 일반적으로 만료시간( expire time )이 정해져있다. ( 언제든지 접속할때마다 로그인이 되어있다면 server side에서 엄청난 자원낭비가될것이다 )<br>하지만 jwt나 oauth2 방식을 이용하면 무한적으로 로그인되어있는 웹사이트도 개발가능하다.<br>인스타그램이나 페이스북, 또는 국내 특정 코인 거래소에서 이런 현상을 볼수있는데 ( 사이트를 들어갈때마다 로그인이 자동으로 되어있다. )<br>아마도 그런 대기업들은 jwt 보다는 보안적으로좋은 oauth2 방식을 이용하는듯하다 ( 추측 ).<br>필자는 jwt를 기반으로 client side에서 일정시간 또는 무한정 로그인 처리를 할수있도록 다음과같이 프로세스를 정의하였다.  </p>
 <ol>
 <li>client가 로그인한다.</li>
 <li>server에서 expire time이 작은 accesstoken과 accesstoken보다 expire time이 긴 refreshtoken을 발급한다.</li>
