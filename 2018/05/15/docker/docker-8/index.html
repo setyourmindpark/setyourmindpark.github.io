@@ -6,18 +6,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="portainerdocker swarm 또는 single machine 환경에서 monitoring과 gui 환경을 제공하여 설정할수있는 images를 알게되었다.더군다나 swarm 환경에서는 stack, service, container, network, node, secret등 모든 설정을 gui 환경으로 설정할수있으며 더이상 명령어로 해결하지않음에 너">
+    <meta name="description" content="portainerdocker swarm 또는 single machine 환경에서 monitoring과 gui 환경을 제공하여 설정할수있는 image를 알게되었다.더군다나 swarm 환경에서는 stack, service, container, network, node, secret등 모든 설정을 gui 환경으로 설정할수있으며 더이상 명령어로 해결하지않음에 너무">
 <meta property="og:type" content="article">
 <meta property="og:title" content="portainer">
 <meta property="og:url" content="https://setyourmindpark.github.io/2018/05/15/docker/docker-8/index.html">
 <meta property="og:site_name" content="jaehunpark">
-<meta property="og:description" content="portainerdocker swarm 또는 single machine 환경에서 monitoring과 gui 환경을 제공하여 설정할수있는 images를 알게되었다.더군다나 swarm 환경에서는 stack, service, container, network, node, secret등 모든 설정을 gui 환경으로 설정할수있으며 더이상 명령어로 해결하지않음에 너">
+<meta property="og:description" content="portainerdocker swarm 또는 single machine 환경에서 monitoring과 gui 환경을 제공하여 설정할수있는 image를 알게되었다.더군다나 swarm 환경에서는 stack, service, container, network, node, secret등 모든 설정을 gui 환경으로 설정할수있으며 더이상 명령어로 해결하지않음에 너무">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://setyourmindpark.github.io/2018/05/15/docker/docker-8/docker-8-1.png">
-<meta property="og:updated_time" content="2018-05-15T07:43:16.000Z">
+<meta property="og:updated_time" content="2018-05-15T07:44:55.050Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="portainer">
-<meta name="twitter:description" content="portainerdocker swarm 또는 single machine 환경에서 monitoring과 gui 환경을 제공하여 설정할수있는 images를 알게되었다.더군다나 swarm 환경에서는 stack, service, container, network, node, secret등 모든 설정을 gui 환경으로 설정할수있으며 더이상 명령어로 해결하지않음에 너">
+<meta name="twitter:description" content="portainerdocker swarm 또는 single machine 환경에서 monitoring과 gui 환경을 제공하여 설정할수있는 image를 알게되었다.더군다나 swarm 환경에서는 stack, service, container, network, node, secret등 모든 설정을 gui 환경으로 설정할수있으며 더이상 명령어로 해결하지않음에 너무">
 <meta name="twitter:image" content="https://setyourmindpark.github.io/2018/05/15/docker/docker-8/docker-8-1.png">
     
     
@@ -128,7 +128,7 @@
   
 
   <div class="content" itemprop="articleBody">
-    <h2 id="portainer"><a href="#portainer" class="headerlink" title="portainer"></a>portainer</h2><p>docker swarm 또는 single machine 환경에서 monitoring과 gui 환경을 제공하여 설정할수있는 images를 알게되었다.<br>더군다나 swarm 환경에서는 stack, service, container, network, node, secret등 모든 설정을 gui 환경으로 설정할수있으며 더이상 명령어로 해결하지않음에 너무 만족스럽다.<br>불과 1년전만해도 tool이 없어 굉장히 불편했던 기억이있다. 아니나다를까 docker hub portainer 최초 build 일자를 확인해보니 <a href="https://hub.docker.com/r/portainer/portainer/tags/" target="_blank" rel="noopener">https://hub.docker.com/r/portainer/portainer/tags/</a> 지금으로부터 6개월전, 2017년 11월쯤 최초 publish 된듯하다.<br>사실 portainer를 접하기전 docker swarm 관련 환경 설정은 둘째치고 monitoring 할수있는 tool을 열심히 찾다 종종 granfa를 사용하였는데 생각보다 마음에 들지않았다.( 너무 개발자같은 ui와 가끔 node의 container resources 가 watching 되지않는 문제등 )<br>얼마전까지도 kubernetes의 dashboard 가 마냥 부럽기도 했던기억이.. </p>
+    <h2 id="portainer"><a href="#portainer" class="headerlink" title="portainer"></a>portainer</h2><p>docker swarm 또는 single machine 환경에서 monitoring과 gui 환경을 제공하여 설정할수있는 image를 알게되었다.<br>더군다나 swarm 환경에서는 stack, service, container, network, node, secret등 모든 설정을 gui 환경으로 설정할수있으며 더이상 명령어로 해결하지않음에 너무 만족스럽다.<br>불과 1년전만해도 tool이 없어 굉장히 불편했던 기억이있다. 아니나다를까 docker hub portainer 최초 build 일자를 확인해보니 <a href="https://hub.docker.com/r/portainer/portainer/tags/" target="_blank" rel="noopener">https://hub.docker.com/r/portainer/portainer/tags/</a> 지금으로부터 6개월전, 2017년 11월쯤 최초 publish 된듯하다.<br>사실 portainer를 접하기전 docker swarm 관련 환경 설정은 둘째치고 monitoring 할수있는 tool을 열심히 찾다 종종 granfa를 사용하였는데 생각보다 마음에 들지않았다.( 너무 개발자같은 ui와 가끔 node의 container resources 가 watching 되지않는 문제등 )<br>얼마전까지도 kubernetes의 dashboard 가 마냥 부럽기도 했던기억이.. </p>
 <h2 id="setup-portainer"><a href="#setup-portainer" class="headerlink" title="setup portainer"></a>setup portainer</h2><p>official portainer document를 보면 setup은 정말 너무도 쉽다.<br><a href="https://portainer.readthedocs.io/en/latest/deployment.html" target="_blank" rel="noopener">https://portainer.readthedocs.io/en/latest/deployment.html</a><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ curl -L https://portainer.io/download/portainer-agent-stack.yml -o portainer-agent-stack.yml</div><div class="line">$ docker stack deploy --compose-file=portainer-agent-stack.yml portainer</div></pre></td></tr></table></figure></p>
 <p>docker swarm 환경에서 단 2줄로 portainer가 구동된다.<br>그리고 swarm 환경의 아무 node-ip:9000 접속시 ( overlay network의 ingress로 동작 ) admin password 설정후 다음과 같은 화면이 나타난다.<br><img src="/2018/05/15/docker/docker-8/docker-8-1.png" alt="ingress"><br>설치후 이것저것 설정해보니 정말 모든 명령어를 더이상 입력하여 설정하지않을만큼 편리했다.  </p>
 <h2 id="견해"><a href="#견해" class="headerlink" title="견해"></a>견해</h2><p>monitoring 관련해서는 살짝 아쉬운 부분이 있긴하다. container 단위로 cpu, memory, network 단위로 watching 하여 graph로 표현이된다. node 단위나 stack, 또는 service 단위로 resources들을 확인할수있으면 더욱 편리할것같다.<br>그래도 gui 환경으로 모든 설정이 가능한게 어디인가.. portainer 개발자분들께 감사의 말씀을 드리고싶다.<br>필자는 사실 docker 기반으로 service를 배포하거나 production 환경에서 운영해본적이없다.<br>언젠가 docker 환경에서 service를 운영해볼날이 있지않을까 생각해본다.  </p>
