@@ -8,14 +8,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="description" content="the way to parallel processingcallback hell을 회피하기위해 Promise, async await 과 같은 라이브러리들을 사용함으로 어느정도 callback hell에대한 이슈들을 커버한다.특히 async await은  동기코드로 작성할수있는 효과와 무엇보다 가독성이 좋아서 매우 만족스럽다.하지만 ‘async await이 무">
 <meta property="og:type" content="article">
-<meta property="og:title" content="the way to parallel processing">
+<meta property="og:title" content="the way to parallel processing( nodejs )">
 <meta property="og:url" content="https://setyourmindpark.github.io/2018/05/14/nodejs/nodejs-6/index.html">
 <meta property="og:site_name" content="jaehunpark">
 <meta property="og:description" content="the way to parallel processingcallback hell을 회피하기위해 Promise, async await 과 같은 라이브러리들을 사용함으로 어느정도 callback hell에대한 이슈들을 커버한다.특히 async await은  동기코드로 작성할수있는 효과와 무엇보다 가독성이 좋아서 매우 만족스럽다.하지만 ‘async await이 무">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-05-17T11:26:19.790Z">
+<meta property="og:updated_time" content="2018-05-17T11:30:47.327Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="the way to parallel processing">
+<meta name="twitter:title" content="the way to parallel processing( nodejs )">
 <meta name="twitter:description" content="the way to parallel processingcallback hell을 회피하기위해 Promise, async await 과 같은 라이브러리들을 사용함으로 어느정도 callback hell에대한 이슈들을 커버한다.특히 async await은  동기코드로 작성할수있는 효과와 무엇보다 가독성이 좋아서 매우 만족스럽다.하지만 ‘async await이 무">
     
     
@@ -36,7 +36,7 @@
         
     
     <!-- title -->
-    <title>the way to parallel processing</title>
+    <title>the way to parallel processing( nodejs )</title>
     <!-- styles -->
     <link rel="stylesheet" href="/css/style.css">
     <!-- rss -->
@@ -81,15 +81,15 @@
     <div id="share" style="display: none">
       <ul>
   <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://setyourmindpark.github.io/2018/05/14/nodejs/nodejs-6/"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=https://setyourmindpark.github.io/2018/05/14/nodejs/nodejs-6/&text=the way to parallel processing"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://setyourmindpark.github.io/2018/05/14/nodejs/nodejs-6/&title=the way to parallel processing"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://setyourmindpark.github.io/2018/05/14/nodejs/nodejs-6/&is_video=false&description=the way to parallel processing"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=the way to parallel processing&body=Check out this article: https://setyourmindpark.github.io/2018/05/14/nodejs/nodejs-6/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=https://setyourmindpark.github.io/2018/05/14/nodejs/nodejs-6/&title=the way to parallel processing"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=https://setyourmindpark.github.io/2018/05/14/nodejs/nodejs-6/&title=the way to parallel processing"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://setyourmindpark.github.io/2018/05/14/nodejs/nodejs-6/&title=the way to parallel processing"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=https://setyourmindpark.github.io/2018/05/14/nodejs/nodejs-6/&title=the way to parallel processing"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://setyourmindpark.github.io/2018/05/14/nodejs/nodejs-6/&name=the way to parallel processing&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://setyourmindpark.github.io/2018/05/14/nodejs/nodejs-6/&text=the way to parallel processing( nodejs )"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://setyourmindpark.github.io/2018/05/14/nodejs/nodejs-6/&title=the way to parallel processing( nodejs )"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://setyourmindpark.github.io/2018/05/14/nodejs/nodejs-6/&is_video=false&description=the way to parallel processing( nodejs )"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=the way to parallel processing( nodejs )&body=Check out this article: https://setyourmindpark.github.io/2018/05/14/nodejs/nodejs-6/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://setyourmindpark.github.io/2018/05/14/nodejs/nodejs-6/&title=the way to parallel processing( nodejs )"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://setyourmindpark.github.io/2018/05/14/nodejs/nodejs-6/&title=the way to parallel processing( nodejs )"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://setyourmindpark.github.io/2018/05/14/nodejs/nodejs-6/&title=the way to parallel processing( nodejs )"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://setyourmindpark.github.io/2018/05/14/nodejs/nodejs-6/&title=the way to parallel processing( nodejs )"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://setyourmindpark.github.io/2018/05/14/nodejs/nodejs-6/&name=the way to parallel processing( nodejs )&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -106,7 +106,7 @@
   <header>
     
     <h1 class="posttitle" itemprop="name headline">
-        the way to parallel processing
+        the way to parallel processing( nodejs )
     </h1>
 
 
@@ -167,15 +167,15 @@
     <div id="share-footer" style="display: none">
       <ul>
   <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://setyourmindpark.github.io/2018/05/14/nodejs/nodejs-6/"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=https://setyourmindpark.github.io/2018/05/14/nodejs/nodejs-6/&text=the way to parallel processing"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://setyourmindpark.github.io/2018/05/14/nodejs/nodejs-6/&title=the way to parallel processing"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://setyourmindpark.github.io/2018/05/14/nodejs/nodejs-6/&is_video=false&description=the way to parallel processing"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=the way to parallel processing&body=Check out this article: https://setyourmindpark.github.io/2018/05/14/nodejs/nodejs-6/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=https://setyourmindpark.github.io/2018/05/14/nodejs/nodejs-6/&title=the way to parallel processing"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=https://setyourmindpark.github.io/2018/05/14/nodejs/nodejs-6/&title=the way to parallel processing"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://setyourmindpark.github.io/2018/05/14/nodejs/nodejs-6/&title=the way to parallel processing"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=https://setyourmindpark.github.io/2018/05/14/nodejs/nodejs-6/&title=the way to parallel processing"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://setyourmindpark.github.io/2018/05/14/nodejs/nodejs-6/&name=the way to parallel processing&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://setyourmindpark.github.io/2018/05/14/nodejs/nodejs-6/&text=the way to parallel processing( nodejs )"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://setyourmindpark.github.io/2018/05/14/nodejs/nodejs-6/&title=the way to parallel processing( nodejs )"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://setyourmindpark.github.io/2018/05/14/nodejs/nodejs-6/&is_video=false&description=the way to parallel processing( nodejs )"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=the way to parallel processing( nodejs )&body=Check out this article: https://setyourmindpark.github.io/2018/05/14/nodejs/nodejs-6/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://setyourmindpark.github.io/2018/05/14/nodejs/nodejs-6/&title=the way to parallel processing( nodejs )"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://setyourmindpark.github.io/2018/05/14/nodejs/nodejs-6/&title=the way to parallel processing( nodejs )"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://setyourmindpark.github.io/2018/05/14/nodejs/nodejs-6/&title=the way to parallel processing( nodejs )"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://setyourmindpark.github.io/2018/05/14/nodejs/nodejs-6/&title=the way to parallel processing( nodejs )"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://setyourmindpark.github.io/2018/05/14/nodejs/nodejs-6/&name=the way to parallel processing( nodejs )&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
