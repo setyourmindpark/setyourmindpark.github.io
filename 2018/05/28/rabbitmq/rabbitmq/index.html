@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="jaehunpark">
 <meta property="og:description" content="rabbitmqrabbitmq와 같은 messaging queue를 사용하는이유는 다음과 같을것이다.    실시간으로 메시지를 빠르게 처리해야한다.  메시지 유실이 없어야한다.   대용량 실시간 traffic에 대한 확장(cluster)에 유연 해야한다.    메신저 서비스와 같은 카카오톡, 라인 그밖의 채팅시스템에서는 무조건적으로 채택해야할 기술중 하나라">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-05-27T16:08:15.927Z">
+<meta property="og:updated_time" content="2018-05-27T16:09:12.745Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="rabbitmq">
 <meta name="twitter:description" content="rabbitmqrabbitmq와 같은 messaging queue를 사용하는이유는 다음과 같을것이다.    실시간으로 메시지를 빠르게 처리해야한다.  메시지 유실이 없어야한다.   대용량 실시간 traffic에 대한 확장(cluster)에 유연 해야한다.    메신저 서비스와 같은 카카오톡, 라인 그밖의 채팅시스템에서는 무조건적으로 채택해야할 기술중 하나라">
@@ -132,7 +132,7 @@
 <li>메시지 유실이 없어야한다.  </li>
 <li>대용량 실시간 traffic에 대한 확장(cluster)에 유연 해야한다.  </li>
 </ol>
-<p>메신저 서비스와 같은 카카오톡, 라인 그밖의 채팅시스템에서는 무조건적으로 채택해야할 기술중 하나라고 생각된다.<br>AMQP 프로토콜을 사용하여 진행한 테스트를 정리하는 차원에서 글을써보려한다.  </p>
+<p>메신저 서비스와 같은 카카오톡, 라인 그밖의 채팅시스템에서는 무조건적으로 채택해야할 기술중 하나라고 생각된다.<br>AMQP 프로토콜을 사용하여 진행한 테스트를 정리한다.  </p>
 <h2 id="setup-broker"><a href="#setup-broker" class="headerlink" title="setup broker"></a>setup broker</h2><p>테스트 환경이므로 빠르게 rabbitmq를 docker를 활용하여 띄어본다.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ docker run <span class="_">-d</span> <span class="_">-e</span> RABBITMQ_DEFAULT_USER=admin <span class="_">-e</span> RABBITMQ_DEFAULT_PASS=0000 --hostname my-rabbit --name rabbit -p 5672:5672 -p 8080:15672 rabbitmq:3-management</div></pre></td></tr></table></figure></p>
 <p>docker hub rabbitmq official는 <a href="https://hub.docker.com/_/rabbitmq/에서" target="_blank" rel="noopener">https://hub.docker.com/_/rabbitmq/에서</a> 확인할수있다.<br>필자는 config를 commandline 대신 management dashboard를 활용할것이기에 management version으로 실행하였다.<br>localhost:8080 접속하여 container 환경변수로 정의된 user 와 password 를 입력한후 다음의 설정을 진행한다.  </p>
 <ul>
