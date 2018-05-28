@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="jaehunpark">
 <meta property="og:description" content="rabbitmqrabbitmq와 같은 messaging queue를 사용하는이유는 다음과 같을것이다.    실시간으로 데이터를 빠르게 처리해야한다.  메시지 유실이 없어야한다.   대용량 실시간 traffic에 대한 확장(cluster)에 유연 해야한다.    메신저 서비스와 같은 카카오톡, 라인 그밖의 채팅시스템에서는 무조건적으로 채택해야할 기술중 하나라">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-05-28T06:19:08.045Z">
+<meta property="og:updated_time" content="2018-05-28T06:19:53.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="rabbitmq">
 <meta name="twitter:description" content="rabbitmqrabbitmq와 같은 messaging queue를 사용하는이유는 다음과 같을것이다.    실시간으로 데이터를 빠르게 처리해야한다.  메시지 유실이 없어야한다.   대용량 실시간 traffic에 대한 확장(cluster)에 유연 해야한다.    메신저 서비스와 같은 카카오톡, 라인 그밖의 채팅시스템에서는 무조건적으로 채택해야할 기술중 하나라">
@@ -150,7 +150,7 @@
 <li>topic: 지정된 패턴 바인딩 형태에 일치하는 Queue에만 메시지 전달. #(여러단어), *(한단어)를 통한 문자열 패턴 매칭</li>
 <li>header: 헤더에 포함된 key=value의 일치조건에 따라서 메시지 전달</li>
 </ul>
-<p>또한 consumer는 unique한 queue를 가진다.<br>client들이 중복된 queue를 가질경우 broker는 자동으로 메시지를 분배하여 메시지를 publish 한다.( Round-robin 으로 처리 )  </p>
+<p>또한 consumer는 unique한 queue를 가진다<br>client들이 중복된 queue를 가질경우 broker는 자동으로 메시지를 분배하여 메시지를 publish 한다.( Round-robin 으로 처리 )  </p>
 <h2 id="참고"><a href="#참고" class="headerlink" title="참고"></a>참고</h2><p>이미 생성된 exchange나 queue에 대해서 생성된 설정정보를 반드시 따라야하며 생성된 설정정보를 벗어난 설정으로 연결시 ( 특히 durable, persistent, autoDelete 등 ) 에러를 뱉으니 주의해야한다  </p>
 <h2 id="참고-1"><a href="#참고-1" class="headerlink" title="참고"></a>참고</h2><ul>
 <li><a href="https://www.rabbitmq.com/tutorials/tutorial-one-javascript.html" target="_blank" rel="noopener">https://www.rabbitmq.com/tutorials/tutorial-one-javascript.html</a>  </li>
